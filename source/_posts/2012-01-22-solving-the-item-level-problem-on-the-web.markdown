@@ -3,7 +3,7 @@ layout: post
 title: "Solving the Item-Level Problem on the Web"
 date: 2012-01-22 13:00
 comments: true
-categories: 
+categories: [crawlers, aggregations, microdata]
 published: false
 ---
 
@@ -18,6 +18,8 @@ An alternative approach to creating aggregations is to perform targeted crawls
 and reuse the content on the pages. The problem with the crawler approach 
 dentifying items in the collection as opposed to other pages. This document 
 presents a few possibilities for how to identify items.
+
+<!-- more -->
 
 
 If you know of prior work with similar critiques and suggested solutions, please 
