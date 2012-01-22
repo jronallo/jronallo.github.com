@@ -17,6 +17,8 @@ With the recent release of [schema.org](http://schema.org) and its use of
 microdata to my pages. In development it would be nice to confirm what metadata 
 can be extracted, but the tools I found were lacking.
 
+<!-- more -->
+
 There are few tools right now that I have found that will allow you to see the 
 microdata. There's the 
 [Rich Snippets Testing Tool](http://www.google.com/webmasters/tools/richsnippets) 

@@ -7,8 +7,11 @@ categories: [microdata, schema.org]
 published: false
 ---
 
-These are tools which I have regularly used. If you know of other tools that 
+These are tools which I have regularly used for working with Schema.org in 
+Microdata. If you know of other tools that 
 I should check out, please let me know.
+
+<!-- more -->
 
 [Rich Snippets Testing Tool](http://www.google.com/webmasters/tools/richsnippets) 
 ----------------------------
