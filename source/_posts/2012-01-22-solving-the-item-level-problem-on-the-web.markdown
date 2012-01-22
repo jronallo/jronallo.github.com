@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Solving the Item-Level Problem on the Web2"
+title: "Solving the Item-Level Problem on the Web"
 date: 2012-01-22 13:00
 comments: true
 categories: 
@@ -344,5 +344,5 @@ implementation of an aggregation is likely to use niche protocols like OAI-PMH
 to include some collections, these approaches should be deprecated. 
 
 
-This work is copyright Jason Ronallo and is licensed under a 
+This page is copyright Jason Ronallo and is licensed under a 
 [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/).
