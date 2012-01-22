@@ -1,0 +1,15 @@
+---
+date: '2007-07-24 20:27:02'
+layout: post
+slug: zcc-010
+status: publish
+title: zcc 0.1.0
+wordpress_id: '3'
+published: false
+---
+
+I just released version 0.1.0 of zcc, my Ruby copy cataloging script. Lot's of improvements and new features. Find out more here:
+
+[http://zcc.rubyforge.org/zcc.html](http://zcc.rubyforge.org/zcc.html)
+
+I'm really happy with the progress I've made with this release. Finally I think I'm starting to get Object Oriented programming. I rewrote much of the code to create reusable classes in the hopes that I could play with some of the same code with a simple Rails based application.
