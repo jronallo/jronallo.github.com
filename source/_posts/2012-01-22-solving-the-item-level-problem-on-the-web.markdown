@@ -10,8 +10,9 @@ published: false
 Digital Collections Services Using Web Crawls
 ---------------------------------------------
 
-Digital libraries have attempted various aggregations of the content that they 
-already make accessible on the open web. The approaches to aggregating content 
+Digital libraries have attempted to provide various aggregations of their 
+content. Usually the participants in the aggregation already make that content
+accessible on the open web. The approaches to aggregating content 
 that have been taken in the past have relied on hosting institutions to provide 
 their metadata in new ways and support additional infrastructure and workflows. 
 An alternative approach to creating aggregations is to perform targeted crawls 
@@ -23,49 +24,55 @@ presents a few possibilities for how to identify items.
 
 
 If you know of prior work with similar critiques and suggested solutions, please 
-let me know.
+let me know. I am eager to improve on the techniques of this approach.
 
 This document was initially written in support of a 
-[DPLA Technical Strawman Proposal](YKK). 
+[DPLA Technical Strawman Proposal](https://docs.google.com/document/d/1YsDENbEQVQupe8nC5DVtem5rIN7i8K1U_hI2kaD27LM/edit). 
 
 Problems with technical approaches taken so far to achieve aggregations
 -----------------------------------------------------------------------
 
-The approaches taken to achieve aggregations of digital collections have had 
+Leaving aside the usefulness of aggregations, the approaches taken to achieve 
+aggregations of digital collections have had 
 problems for those who want to be a part of such aggregations. These problems 
 fall into the categories of separate standards, separate infrastructure, and 
 metadata dumb-down. 
 
-
-A common approach can be found in aggregations which rely on a OAI-PMH gateway 
-for harvesting item-level metadata about collections. The primary way in which 
-institutions make their resources available is on the web. Great effort is 
+The primary way in which 
+institutions make their resources available is on the Web. Great effort is 
 expended to make web pages that are optimized for search engines and usable
-and attractive for users. This is done through use of common, ubiquitous web 
-standards shared by many developers throughout the world. 
+and attractive for users. The standards used are common, ubiquitous standards
+like HTML and HTTP
+shared by developers throughout the world. The metadata presented provides as
+rich context as is available for the objects made accessible.
 
-
+Counter this to the common approach found in aggregations created by libraries.
+They often rely on an OAI-PMH gateway 
+for harvesting item-level metadata about collections. 
 In order for collections to take part in an OAI-PMH enabled aggregation, 
 institutions which host digital collections must expose their information 
-through special XML rather than HTML. The different standards and tools are a 
-barrier to entry. An OAI-PMH gateway is another separate service which needs to 
+through special XML rather than the HTML they already have. The different 
+standards and tools are foreign and a barrier to entry for the many developers 
+more familiar with web standards. 
+An OAI-PMH gateway is another separate service which needs to 
 be maintained in addition to the web site. The effort for providing services 
-and harmonizing data can be pushed down to the source collections. It takes 
+and harmonizing data can be pushed down from the aggregator to the source 
+collections. It takes 
 extra effort on the part of institutions which are already squeezed. There are 
 maintenance costs to keeping these services up and in sync with the data which 
 is exposed through the website. New aggregators would do well to investigate 
 the problems encountered by previous aggregations using this kind of approach 
 like the DLF Aquifer.
 
-
 Metadata dumb-down is where metadata goes through a transformation which 
 decreases the level of precision of metadata. It has been a valuable strategy 
 to harmonizing metadata across institutions. The problem is that many 
-institutions have rich, specialized metadata that when dumbed-down loses much 
+institutions have rich, specialized metadata that, when dumbed-down, loses much 
 of its value. This rich content is often exposed on collection websites but 
 cannot make it through the transformation to the shared metadata schema. In 
 order to create the powerful aggregations that we want, we need to look for 
 new ways to leverage more of the rich metadata our institutions have invested in.
+
 
 Crawling for Data
 -----------------
