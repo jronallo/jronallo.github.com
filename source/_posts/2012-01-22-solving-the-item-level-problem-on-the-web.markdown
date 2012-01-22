@@ -1,5 +1,14 @@
-Solving the Item-level Problem on the Web: Digital Collections Services Using Web Crawls
-========================================================================================
+---
+layout: post
+title: "Solving the Item-Level Problem on the Web2"
+date: 2012-01-22 13:00
+comments: true
+categories: 
+published: false
+---
+
+Digital Collections Services Using Web Crawls
+---------------------------------------------
 
 Digital libraries have attempted various aggregations of the content that they 
 already make accessible on the open web. The approaches to aggregating content 
