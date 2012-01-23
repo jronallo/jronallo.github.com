@@ -9,8 +9,8 @@ categories: ruby, rails, ubuntu
 Here are the steps I took to install Ruby and Rails on a fresh and updated 
 Ubuntu 11.10 install. The two places where there were hiccups involved having
 to install openssl through rvm and updating to a more recent version of 
-rubygems. Some steps are thrown in there just to show how rvm provides 
-some information.
+rubygems. Some steps are thrown in there just to show how rvm and gem provide 
+some information. I used a virtualbox image to allow me to have a clean install.
 
 <!-- more -->
 
