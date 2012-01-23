@@ -377,7 +377,7 @@ task :list do
 end
 
 desc "List all blog posts and an asterisk if they are published"
-task :list_pub do |t|    
+task :listpub do |t|    
   Dir.glob("#{source_dir}/#{posts_dir}/*.markdown").sort.each do |post|    
     file = File.read(post)
     file =~ /^(---\s*\n.*?\n?)^(---\s*$\n?)/m
