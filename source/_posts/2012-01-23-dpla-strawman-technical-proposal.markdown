@@ -26,9 +26,14 @@ here as well.
 
 While the first iteration of the DPLA platform may be set and on 
 its way, I still wanted to share one vision of what a generative platform for
-aggregations might involve. Leaving aside whether one ought to create an
-aggregation, I think what is set out below is one simple architecture for 
-accomplishing aggregations in a very Web-centered way.
+aggregations might involve. The main point is to get the DPLA to the 
+aggregations they likely need to present at some point. This document leaves
+aside the question of whether creating aggregations is a good idea. The desire
+to create aggregations is a big, often unquestioned, assumption of big
+digital library projects. 
+I think what is set out below is one simple architecture for 
+accomplishing aggregations in a very Web-centered way while potentially having
+more reuse outside of just aggregations.
 
 <!-- more -->
 
