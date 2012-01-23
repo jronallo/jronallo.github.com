@@ -7,8 +7,8 @@ categories: [crawlers, aggregations, microdata]
 published: false
 ---
 
-Digital Collections Services Using Web Crawls
----------------------------------------------
+Digital Collections Services Through Using Web Crawls
+-----------------------------------------------------
 
 Digital libraries have attempted to provide various aggregations of their 
 content. Usually the participants in the aggregation already make that content
