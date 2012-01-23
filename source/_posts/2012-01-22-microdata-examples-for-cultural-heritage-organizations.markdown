@@ -7,9 +7,11 @@ categories: [microdata, schema.org]
 published: false
 ---
 
-These are examples of implementing Microdata or Schema.org that may help
+While implementing Microdata is relatively simple, it always helps to have more
+examples to learn from.
+Below are examples of Microdata and/or Schema.org that may help
 cultural heritage organizations with their own implementations. The hope is that
-by seeing more examples, we can dicuss more about best practices and 
+by seeing more examples, we can discuss best practices and 
 opportunities for more engagement.
 
 <!-- more -->
@@ -25,7 +27,7 @@ is based on this site.
 [Indianapolis Museum of Art](http://www.imamuseum.org/art/collections/artwork/untitled-calder-alexander)
 ----------------------------
 
-Uses CreativeWork and extends the type by adding the following properties:
+Uses CreativeWork and extends that type by adding the following properties:
 accessionNumber, collection, copyright, creditLine, dimensions, materials.
   
   
@@ -48,7 +50,7 @@ Seems to only show the Microdata representation to crawlers?
 ----------------
 
 This is a search of the Sindice index. The search can be adjusted to find a 
-specific schema.org type (class here).
+specific schema.org type (called class by Sindice).
 Faceting by the Microdata does not always seem to find sites that predominantly
 use Microdata rather than RDFa. You can also search for particular domains, like
 in this search for [d.lib.nsu.edu](http://sindice.com/search?q=domain%3Ad.lib.ncsu.edu).
@@ -60,7 +62,8 @@ another way to discover examples.
 [Berkeley Law Library Staff Directory](http://www.law.berkeley.edu/library/dynamic/staff.php)
 --------------------------------------
 
-Marks up persons. This is a clear case where libraries could mark up some of 
+This page marks up persons. This is a clear case where libraries could 
+mark up some of 
 their structured data for contact points for better discoverability.
 It does currently (2012-01-22) contain some errors, but none that keep the
 page from parsing.
@@ -88,7 +91,7 @@ this. Listed is the Person and items for their CreativeWorks.
 
 Uses the Schema.org [JobPosting](http://schema.org/JobPosting) type. See the my 
 [Code4Lib Article in the section "Another way forward for the cultural heritage sector?"](/blog/html5-microdata-and-schema-dot-org-code4lib-article/)
-for how the history of the JobPosting type may be relevant to how cultural 
+for how the history of the JobPosting type is relevant to how cultural 
 heritage organizations might pursue extending the Schema.org vocabularies.
 (Thanks to Ed Summers for putting this site together and making some 
 [requested changes](https://github.com/code4lib/shortimer/commit/902e944414ad3fda14ea2574c250e2808e16dd80).)

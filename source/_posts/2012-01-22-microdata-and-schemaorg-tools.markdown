@@ -9,7 +9,8 @@ published: false
 
 These are tools which I have regularly used for working with Schema.org in 
 Microdata. If you know of other tools that 
-I should check out, please let me know.
+I should check out, please let me know. I'm especially interested in finding
+good browser plugins for developers.
 
 <!-- more -->
 
@@ -56,4 +57,5 @@ Regularly the most up to date validator for HTML5.
 [schema.rdfs.org list of tools and libraries](http://schema.rdfs.org/tools.html)
 ---------------------------------------------
 
+Lists programming libraries, platforms with Schema.org support, and other tools.
 
