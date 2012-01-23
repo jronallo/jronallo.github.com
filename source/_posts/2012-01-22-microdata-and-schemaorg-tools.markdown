@@ -59,3 +59,14 @@ Regularly the most up to date validator for HTML5.
 
 Lists programming libraries, platforms with Schema.org support, and other tools.
 
+[What properties do schema.org vocabularies require?](http://oli.jp/2011/schema-org-properties/)
+-----------------------------------------------------
+
+This is a blog post, but it includes one very interesting 
+[link to the Google Rich Snippets Testing Tool](http://www.google.com/webmasters/tools/richsnippets?url=http%3A%2F%2Foli.jp%2Ftest%2Fmicrodata%2Frequired.html&view=) 
+that gives the tool 
+[an HTML page which includes all the schema.org types](http://oli.jp/test/microdata/required.html), 
+but with no properties. This allows one to see which properties Google flags
+as required in order to trigger a rich snippet. At the time of this writing only
+certain types give warnings of missing fields. I expect that as Google supports
+more types, that there will be more warnings for that page.
