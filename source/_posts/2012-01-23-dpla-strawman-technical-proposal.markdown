@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "DPLA Strawman Technical Proposal"
-date: 2012-01-23 11:26
+date: 2012-01-23 13:26
 comments: true
 categories: DPLA
 published: false

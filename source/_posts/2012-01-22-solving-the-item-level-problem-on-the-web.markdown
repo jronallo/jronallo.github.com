@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Solving the Item-Level Problem on the Web"
-date: 2012-01-23 11:27
+date: 2012-01-23 13:27
 comments: true
 categories: [crawlers, aggregations, microdata]
 published: false
