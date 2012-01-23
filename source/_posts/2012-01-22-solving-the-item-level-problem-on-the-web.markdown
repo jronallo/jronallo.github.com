@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Solving the Item-Level Problem on the Web"
-date: 2012-01-23 11:26
+date: 2012-01-23 11:27
 comments: true
 categories: [crawlers, aggregations, microdata]
 published: false
@@ -359,7 +359,8 @@ implementation of an aggregation is likely to use niche protocols like OAI-PMH
 to include some collections, these approaches should be deprecated. 
 
 Please let me know if you know of other and better ways aggregators could 
-identify item-level pages and extract meaning from those pages.
+identify item-level pages and extract meaning from those pages. I would also
+be interested in known aggregators that use these approaches.
 
 
 This text is copyright Jason Ronallo and is licensed under a 
