@@ -120,7 +120,8 @@ creation of novel new services and new creative works.
 # Collection Achievements and Profiles System (CAPS)
 
 The first component that the DPLA could build is a Web application which
-allows for collecting basic information about collections. DPLA
+allows for collecting basic information about collections. We call this
+the Collection Achievements and Profiles System (CAPS). DPLA
 Collection Profiles provide a mechanism for the DPLA to host a
 centralized Web-based, editable directory of collections on the
 Internet. DPLA Collection Achievements provide a mechanism for
