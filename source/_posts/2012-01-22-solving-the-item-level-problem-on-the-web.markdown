@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "Solving the Item-Level Problem on the Web"
-date: 2012-01-23 13:27
+date: 2012-01-23 13:57
 comments: true
 categories: [crawlers, aggregations, microdata]
-published: false
+published: true
 ---
 
 Digital Collections Services Through Using Web Crawls

@@ -1,24 +1,24 @@
 ---
 layout: post
 title: "DPLA Strawman Technical Proposal"
-date: 2012-01-23 13:26
+date: 2012-01-23 13:56
 comments: true
 categories: DPLA
-published: false
+published: true
 ---
 
 Collection Achievements and Profiles System and DPLA Crawler Services
 ---------------------------------------------------------------------
 
 This is a quick strawman proposal for what the Digital Public Library of
-America should build as the first parts of a generative platform. It is
-a work in progress, but just as the DPLA has been good at opening up its
-process with the [Beta Sprint process](http://blogs.law.harvard.edu/dpla/), 
+America should build as the first parts of a generative platform. This document
+is not in a finished state, but just as the DPLA has been good at opening up its
+process with the [Beta Sprint](http://blogs.law.harvard.edu/dpla/), 
 I wanted to release this
 document early even in this unfinished state.
 
 I attended the December DPLA Technical Workshop in Cambridge and was
-inspired by the discussion there to write this document. I hope that it
+inspired by the discussion there. I hope that this document
 makes it clearer some of the approaches I and others at that meeting
 were advocating. I shared this with the DPLA Interim Development Team a couple
 of weeks ago, and now that development has started I thought I would share it 
@@ -28,7 +28,7 @@ While the first iteration of the DPLA platform may be set and on
 its way, I still wanted to share one vision of what a generative platform for
 aggregations might involve. Leaving aside whether one ought to create an
 aggregation, I think what is set out below is one simple architecture for 
-accomplishing that in a very Web-centered way.
+accomplishing aggregations in a very Web-centered way.
 
 <!-- more -->
 
