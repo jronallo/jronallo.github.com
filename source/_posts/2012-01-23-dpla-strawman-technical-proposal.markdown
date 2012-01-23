@@ -38,7 +38,7 @@ This proposal gives a high-level overview of one possible DPLA technical
 architecture. This gives the idea of what a beginning of a scalable,
 extensible DPLA platform could look like. The architecture starts with a
 foundation in the distributed digital collections which already exist on
-the web. The platform set out here works with the way the web works
+the Web. The platform set out here works with the way the Web works
 while allowing the DPLA to meet its goals. As a result it will also help
 cultural heritage organizations to meet their goals for greater
 discoverability of their collections.
@@ -67,45 +67,45 @@ major pieces of this platform:
 # Architecture Overview
 
 The foundation for the DPLA platform would be the distributed
-collections on the web. The DPLA can help make these distributed
-collections more discoverable on the open web and enable new services. A
+collections on the Web. The DPLA can help make these distributed
+collections more discoverable on the open Web and enable new services. A
 user with a browser can already enter the address for these digital
 collections and get something useful back. In this scenario any digital
-collection on the web can be a part of the DPLA. The collection (and
+collection on the Web can be a part of the DPLA. The collection (and
 hosting institution) is not required to implement any new metadata
 format, gateway, or API. The existing published HTML pages are enough to
 gain the initial benefits of a DPLA. Collections can choose to adopt
-other web standards or provide more information on their collections to
-gain more of the benefits of the DPLA and the web at large.
+other Web standards or provide more information on their collections to
+gain more of the benefits of the DPLA and the Web at large.
 
 The technical barriers to entry into the DPLA are purposefully low to
 maximize participation. The DPLA has an opportunity to be a truly big
 tent approach to solving the problems of making America's cultural
 heritage accessible and discoverable. When suggesting digital
 collections adopt standards or make changes, this proposal gives
-preference to asking digital collections to optimize for the web for
+preference to asking digital collections to optimize for the Web for
 broad applicability. The technical decisions made here always choose
 what would make the system simpler and easier for producers of digital
 collections over what would be easier for the DPLA or other aggregators.
 
 The Collection Achievements and Profiles System (CAPS) is an editable
-directory of web-accessible digital collections. In its most basic form
+directory of Web-accessible digital collections. In its most basic form
 Collection Profiles hold the name and URL of digital collections.
 Achievements are a way to expand Collection Profiles through gathering
 discrete pieces of data about collections and their institutions. In
 order to validate various Achievements, CAPS can request pages and
-resources from a collection website. Full Collection Profiles with all
+resources from a collection Website. Full Collection Profiles with all
 completed Achievements are available through a simple API.
 
 The Raw Crawler Service finds new collections to crawl through CAPS. The
-Raw Crawler Service can then launch crawls of a collection web site. The
+Raw Crawler Service can then launch crawls of a collection Web site. The
 raw crawl data can be made available to external developers who want to
 do their own analysis of the raw crawl data and build new services.
 
 The Analyzed Crawl Service makes use of the raw crawl data to extract
 data and text from pages. CAPS can use this data to perform work like
 validating Achievements, assigning automated tags to collections, and
-confirming the health of web sites. The DPLA could use this analyzed
+confirming the health of Web sites. The DPLA could use this analyzed
 crawl data to create various aggregations, search interfaces, and other
 services for digital collections that are only possible through having
 this central data store. External developers could access the analyzed
@@ -113,16 +113,16 @@ crawl data to create their own aggregations, mashups, and other
 services.
 
 The DPLA can create a generative platform through using the existing
-digital collections on the web and adding value. Each major component of
+digital collections on the Web and adding value. Each major component of
 the DPLA platform can make its data available to the world to enable the
 creation of novel new services and new creative works.
 
 # Collection Achievements and Profiles System (CAPS)
 
-The first component that the DPLA could build is a web application which
+The first component that the DPLA could build is a Web application which
 allows for collecting basic information about collections. DPLA
 Collection Profiles provide a mechanism for the DPLA to host a
-centralized web-based, editable directory of collections on the
+centralized Web-based, editable directory of collections on the
 Internet. DPLA Collection Achievements provide a mechanism for
 progressively expanding Collection Profile descriptions, promote
 standards adoption, validate adherence to standards, and progressively
@@ -132,11 +132,11 @@ the discoverability of their collections and benefit the goals of the
 DPLA.
 
 Before reading the following technical aspects of the CAPS proposal it
-would be best to familiarize yourself with the detailed DPLA Beta Sprint
-submission that forms the initial thinking for this work, including a
-narrative, wireframes, and Achievement ideas:
-
-[http://go.ncsu.edu/dplacaps](http://go.ncsu.edu/dplacaps)
+would be best to familiarize yourself with the 
+[Collection Achievements and Profiles System documentation](http://go.ncsu.edu/dplacaps).
+This detailed documentation was done as part of a DPLA Beta Sprint
+submission, and it forms the initial thinking for this work, including a
+narrative, wireframes, and Achievement ideas.
 
 ## Technical Components of CAPS
 
@@ -148,16 +148,16 @@ and consumers.
 
 Following is a description of the major components of CAPS.
 
-The CAPS web application allows for editing and managing Collection
-Profiles and Achievements (information about collections on the web).
+The CAPS Web application allows for editing and managing Collection
+Profiles and Achievements (information about collections on the Web).
 Collection managers and DPLA volunteers can create and update Profiles
-and Achievement data through web forms. A researcher looking for
+and Achievement data through Web forms. A researcher looking for
 collections (on a particular topic, in a geographic region, or other
 relevant facet) could also discover collections and see all information
 about the collections.
 
-The web application can request pages or other resources for a
-collection on the web using the stored URL. For instance when a
+The Web application can request pages or other resources for a
+collection on the Web using the stored URL. For instance when a
 Collection Profile is first created the URL is validated for being
 well-formed and then the page is requested to check that it returns a
 200 OK status code. Other Achievement validations could also request
@@ -170,7 +170,7 @@ CAPS would require a persistent data store for Collection Profiles and
 Achievement data. Periodically a data dump of all data could be created
 for consumption by external aggregators, crawlers, and service
 providers. Access to all of the data or searches for slices of data
-would be available through a web API. Consumers of the API could be
+would be available through a Web API. Consumers of the API could be
 aggregators, crawlers, and other service providers. Through the API the
 DPLA could also provide other services like aggregated sitemaps. Having
 multiple ways (data dump and API) for accessing the data, lowers the
@@ -184,8 +184,8 @@ which can make Collection Profiles more useful.
 
 Initial effort can be put into Achievements which can be automatically
 detected, therefore requiring minimal effort from contributing
-collections. The DPLA can adopt Achievements for web standards that will
-improve the discoverability of collections on the open web. For instance
+collections. The DPLA can adopt Achievements for Web standards that will
+improve the discoverability of collections on the open Web. For instance
 it is possible to automatically check whether the site allows for
 crawlers (robots.txt) and has a sitemap of the most important pages to
 crawl (sitemap protocol). When digital collections implement these kinds
@@ -221,10 +221,10 @@ digital collections sites, analyzing the data, and making it available.
 ## Benefits of Crawler Services
 
 Rather than using new or existing niche library protocols, the DPLA
-could make use of common, ubiquitous web protocols and standards.
+could make use of common, ubiquitous Web protocols and standards.
 Encouraging standards (through Achievements) that help the DPLA do its
 work to crawl digital collections, will also aid the discoverability of
-digital collections on the open web.
+digital collections on the open Web.
 
 The data created through the Crawler Services is important background
 information for CAPS to validate some Achievements. Certain standards
@@ -261,7 +261,7 @@ when the page was last crawled and the HTTP headers returned with the
 request including the status code.
 
 This data could be made available to external developers who want to
-conduct their own research or analysis on this slice of the web. Both an
+conduct their own research or analysis on this slice of the Web. Both an
 API and data dump could be made available. Whether the API only provides
 for discovery of available raw crawl data or actually returns crawl
 data, is an open question. Because of the size of the corpus, it may be
@@ -271,7 +271,7 @@ more on how this might work.)
 
 The Raw Crawler Service would require an application to coordinate
 robots, a data store for raw crawl data, and a database for technical
-metadata about the crawl data. A web application would also be needed to
+metadata about the crawl data. A Web application would also be needed to
 create the API service.
 
 ### Analyzed Crawl Service
@@ -281,7 +281,7 @@ analyzes the raw crawl data to extract data and text from the raw crawl
 data. At this stage it can also begin to make connections across
 repositories. For various ways the DPLA can get to item-level data
 through crawl analysis, see 
-[Solving the Item-Level Problem on the Web](/blog/solving-the-item-level-problem-on-the-web/). 
+[Solving the Item-Level Problem on the Web](/blog/solving-the-item-level-problem-on-the-Web/). 
 With crawls
 resulting in the full text of the page there is the the potential to
 provide rich item-level data without reliance on niche protocols.
@@ -297,7 +297,7 @@ and services.
 This high-level overview of a DPLA platform architecture is intended to
 spur discussion. There are many possibilities for what a DPLA technical
 architecture may look like. Presented here is a technical architecture
-which would enable the DPLA to function in the way that the web works.
+which would enable the DPLA to function in the way that the Web works.
 Development could be scaffolded quickly and immediately begin to provide
 real benefits from the DPLA effort.
 
