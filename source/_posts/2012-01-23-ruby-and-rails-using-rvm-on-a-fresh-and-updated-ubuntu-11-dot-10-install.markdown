@@ -3,7 +3,7 @@ layout: post
 title: "Ruby and Rails using RVM on a fresh and updated Ubuntu 11.10 install"
 date: 2012-01-23 09:53
 comments: true
-categories: ruby, rails, ubuntu
+categories: [ruby, rails, ubuntu]
 ---
 
 Here are the steps I took to install Ruby and Rails on a fresh and updated 
