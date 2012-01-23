@@ -4,3 +4,9 @@
 body > header {
   background-image: url(/images/background2.png);
 }
+
+
+// do not show the repo for the blog itself
+#gh_repos a[href="https://github.com/jronallo/jronallo.github.com"] {
+  display:none;
+}
