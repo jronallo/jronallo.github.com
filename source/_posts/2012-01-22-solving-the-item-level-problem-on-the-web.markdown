@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Solving the Item-Level Problem on the Web"
-date: 2012-01-22 13:00
+date: 2012-01-23 11:26
 comments: true
 categories: [crawlers, aggregations, microdata]
 published: false
@@ -27,7 +27,7 @@ If you know of prior work with similar critiques and suggested solutions, please
 let me know. I am eager to improve on the techniques of this approach.
 
 This document was initially written in support of a 
-[DPLA Technical Strawman Proposal](https://docs.google.com/document/d/1YsDENbEQVQupe8nC5DVtem5rIN7i8K1U_hI2kaD27LM/edit). 
+[DPLA Technical Strawman Proposal](/blog/dpla-strawman-technical-proposal/). 
 
 Problems with technical approaches taken so far to achieve aggregations
 -----------------------------------------------------------------------
@@ -96,7 +96,7 @@ Some of these will be set forth below.
 Even if an aggregator is able to identify pages that describe individual items, 
 there is still the problem of how to extract useful information to allow for 
 functionality like faceted search interfaces. Until recently search engines 
-have had to be content with using some HTML semantics (<ol> means an ordered 
+have had to be content with using some HTML semantics (`<ol>` means an ordered 
 list), along with natural language processing, in order to discover the core 
 content and meaning of pages on the web. These approaches can go very far in 
 extracting meaning from the unstructured data on a page, but they have their 
@@ -131,10 +131,10 @@ store, though the approaches themselves do not rely on it. I have done prior
 work, along with Tito Sierra, in setting out what a system for compiling 
 metadata about digital 
 collections might look like and how it might function. For more information 
-on this work see the documentation for the Collection Achievements and 
-Profiles System:
+on this work see the documentation for the 
+[Collection Achievements and Profiles System](http://go.ncsu.edu/dplacaps).
 
-[http://go.ncsu.edu/dplacaps](http://go.ncsu.edu/dplacaps)
+
 
 
 Possible Solutions for Detecting Item-Level Pages
@@ -221,7 +221,7 @@ from the pages or otherwise communicate the metadata.
 
 One mechanism which has been available for a long time is the ability to add 
 links to alternative representations of resources in the head of the HTML. For 
-instance, a page which describes a book could advertise that an [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)) 
+instance, a page which describes a book could advertise that an [RIS]( http://en.wikipedia.org/wiki/RIS_\(file_format\) ) 
 formatted representation is available.
 
 ```html
