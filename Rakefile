@@ -375,3 +375,14 @@ task :list do
   puts "Tasks: #{(Rake::Task.tasks - [Rake::Task[:list]]).join(', ')}"
   puts "(type rake -T for more detail)\n\n"
 end
+
+desc "List all blog posts and an asterisk if they are published"
+task :list_pub do |t|    
+  Dir.glob("#{source_dir}/#{posts_dir}/*.markdown").sort.each do |post|    
+    file = File.read(post)
+    file =~ /^(---\s*\n.*?\n?)^(---\s*$\n?)/m
+    data = YAML.load($1)
+    status = data['published'] || data['published'] == nil ? '*' : ' '
+    puts "#{status} #{File.basename(post)}"
+  end
+end

@@ -10,6 +10,7 @@ categories:
 - microdata
 - rails
 - ruby
+published: true
 ---
 
 With the recent release of [schema.org](http://schema.org) and its use of 
