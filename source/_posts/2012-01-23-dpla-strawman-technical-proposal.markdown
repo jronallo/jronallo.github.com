@@ -309,6 +309,9 @@ big tent DPLA effort is an important underlying principle. Technically,
 the DPLA can insure that at every level of the platform that the data
 and metadata it creates is made easily accessible for reuse.
 
+Is there any merit to this kind of approach for digital library aggregations?
+Feedback welcome in the comments.
+
 
 This text is copyright Jason Ronallo and licensed under a 
 [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/).
