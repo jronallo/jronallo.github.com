@@ -11,7 +11,7 @@ In converting my blog from Wordpress to [Octopress](http://octopress.org/), I
 had a lot of old posts I was leaving unpublished. I wanted to keep them around
 but don't see the need to republish them right now. I also want to be able to 
 create a lot of drafts of ideas and leave them unpublished. Then whenever I'm 
-ready to work on a post, they're all right there. 
+ready to work on a post, they're all right there in my repository already. 
 
 Problem is that I find it hard to read through the filenames of posts and try to
 remember which have been published and which have not. So in order to see
