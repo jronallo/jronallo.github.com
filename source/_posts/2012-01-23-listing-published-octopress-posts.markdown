@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "Listing Published Octopress Posts"
-date: 2012-01-23 16:12
+date: 2012-01-24 08:01
 comments: true
-categories: [octopress, jekyll]
-published: false
+categories: [octopress]
+published: true
 ---
 
 In converting my blog from Wordpress to [Octopress](http://octopress.org/), I 
