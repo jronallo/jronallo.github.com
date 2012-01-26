@@ -1157,52 +1157,9 @@ the discoverability and use of our collections and services.
 Appendix: Resources
 -------------------
 
-### Examples from Cultural Heritage Organizations
+This section has been replaced with a [list of bookmarks](/bookmarks).
 
-For the latest see: 
-[Microdata Examples for Cultural Heritage Organizations](/blog/microdata-examples-for-cultural-heritage-organizations/)
-
-### Tools
-
-See this list of [Microdata Tools](/blog/microdata-and-schemaorg-tools/).
-
-### Mappings
-
-There are many efforts to map Schema.org to other vocabularies.
-If you
-maintain your metadata in one of these vocabularies, you can use these to 
-help expose your data in a way that the search engines understand.
-
-* [Dublin Core Alignment Task Group](http://wiki.dublincore.org/index.php/Schema.org_Alignment)
-* [Partial BIBO mapping](http://schema.rdfs.org/mappings/bibo)
-* [Alignment between rNews and Schema.org](http://dev.iptc.org/rNews-10-Implementation-Guide-HTML-5-Microdata)
-* [schema.rdfs.org  list of mappings](http://schema.rdfs.org/mappings.html)
-
-### Other Tutorials
-
-* [Google Rich Snippets Videos](http://googlewebmastercentral.blogspot.com/2011/12/rich-snippets-instructional-videos.html?m=1):
-  This series of short tutorial videos uses Microdata and Schema.org. 
-* [Getting started with schema.org](http://schema.org/docs/gs.html)  The Schema.org
-  examples have been reported to include [some bugs](http://www.w3.org/2011/webschema/track/issues/10).
-* [HTML Data Guide](https://dvcs.w3.org/hg/htmldata/raw-file/default/html-data-guide/index.html#publishers):
-  This guide helps producers and consumers determine which structured data 
-  syntax to use. It covers Microformats, RDFa, and Microdata. Highly Recommended. 
-* [Why rNews?](http://dev.iptc.org/rNews-Why-rNews) is a good tutorial on how
-  organizations often have good structured data that when made accessible 
-  through HTML loses its meaning. 
-* [Dive Into HTML5: “Distributed,” “Extensibility,” And Other Fancy Words](http://diveintohtml5.info/extensibility.html)
-* [Spoonfeeding Library Data to Search Engines](http://go-to-hellman.blogspot.com/2011/07/spoonfeeding-library-data-to-search.html)
-* [Extending microdata vocabularies](http://www.w3.org/wiki/HTML_Data_Vocabularies#Extending_microdata_vocabularies)
-
-### Discussions
-
-* [Public Vocabs list](http://lists.w3.org/Archives/Public/public-vocabs/)
-  Schema.org feedback and discussion has moved over to this W3C list, and other 
-  Web vocabularies may join them in the future.
-* [W3C HTML Data Task Force](http://www.w3.org/wiki/Html-data-tf)
-* [W3C Web Schemas Task Force](http://www.w3.org/2001/sw/interest/webschema.html)
-
-
+<br/><br/>
 The text of this work is licensed under a [Creative Commons Attribution 3.0 United States License](http://creativecommons.org/licenses/by/3.0/us/).
 Any code is licensed under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
 The image of students jumping in front of Memorial Bell Tower
