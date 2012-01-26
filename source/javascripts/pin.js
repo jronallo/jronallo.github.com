@@ -24,8 +24,8 @@ jQuery(document).ready(function() {
         });
         
         $(that).append(ul);
-        var see_all_link = '<a href="'+ base_url +'" class="seeall">See All →</a>';
-        $(that).append(see_all_link);
+        //var see_all_link = '<a href="'+ base_url +'" class="seeall">See All →</a>';
+        //$(that).append(see_all_link);
       },
       error: function(x,y,z) {
         //console.log(x,y,z);
