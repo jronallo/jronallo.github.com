@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Bookmarks"
+title: "Bookmarks (Latest)"
 date: 2012-01-25 21:25
 comments: true
 sharing: true
@@ -8,15 +8,27 @@ footer: true
 published: false
 ---
 
-This is a curated list of some of [my pinboard bookmarks](http://pinboard.in/u:jronallo) in areas where I have done research or otherwise focused. Only the most recent are below. Click on the header for more. Right now these are mostly about Microdata and Schema.org and serve as supplementary material to an forthcoming article on the topic.
+This is a list of some categories of my most recent [pinboard bookmarks](http://pinboard.in/u:jronallo) in areas where I have done research or otherwise focused. Right now these are mostly about Microdata and Schema.org and serve as supplementary material to an forthcoming article on the topic.
 
 [Microdata Cultural Heritage Examples](http://pinboard.in/u:jronallo/t:microdata/t:example)
 ------------------------------------
 
-These are especially examples relevant to the cultural heritage sector.
+While implementing Microdata is relatively simple, it always helps to have more examples to learn from. Below are examples of Microdata and/or Schema.org that may help cultural heritage organizations with their own implementations. The hope is that by seeing more examples, we can discuss best practices and opportunities for more engagement.
 
-<div data-pin="microdata" class="pin"></div>
+<div data-pin="microdata example" class="pin"></div>
 
+
+
+[Microdata Tools](http://pinboard.in/u:jronallo/t:microdata/t:tool)
+-----------------
+
+<div data-pin="microdata tool" class="pin"></div>
+
+
+[Microdata Libraries](http://pinboard.in/u:jronallo/t:microdata/t:library)
+---------------------
+
+<div data-pin="microdata library" class="pin"></div>
 
 
 
