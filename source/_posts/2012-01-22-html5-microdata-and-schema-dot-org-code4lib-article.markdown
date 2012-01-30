@@ -18,13 +18,7 @@ and
 announced the joint effort [Schema.org](http://schema.org). When the big search
 engines talk, Web site authors listen. 
 
-This article is an introduction to Microdata and Schema.org. 
-Included is a tutorial for implementing these new 
-technologies on a 
-site for discovery of cultural heritage materials.
-Along the way, some tools for implementers will be introduced.
-Issues with applying these technologies to cultural heritage materials will crop 
-up along with opportunities for the cultural sector to improve the situation.
+This article is an introduction to Microdata and Schema.org. The first section describes what HTML5, Microdata and Schema.org are, and the problems they have been designed to solve. With this foundation in place section 2 provides a practical tutorial of how to use Microdata and Schema.org using a real life example from the cultural heritage sector. Along the way some tools for implementers will also be introduced. Issues with applying these technologies to cultural heritage materials will crop up along with opportunities to improve the situation.
 
 <!-- more -->
 
@@ -33,21 +27,18 @@ Foundation
 
 ### HTML5
 
-The [HTML5 standard](http://www.w3.org/TR/html5/) 
-(or [HTML Living Standard](http://www.whatwg.org/specs/web-apps/current-work/multipage/), 
-depending on who you ask) has brought a lot of changes to Web authoring.
+The [HTML5 standard](http://www.w3.org/TR/html5/) or (depending on who you ask) the [HTML Living Standard](http://www.whatwg.org/specs/web-apps/current-work/multipage/) has brought a lot of changes to Web authoring.
 Amongst all the buzz about HTML5 (some of which is not even part of the HTML spec),
-is a new semantic markup syntax that *is* part of the HTML standard.
+is a new semantic markup syntax called Microdata.
 
-HTML elements often have semantics. For example, an `ol` element is an ordered list, and by default
+HTML elements have semantics. For example, an `ol` element is an ordered list, and by default
 gets rendered with numbers for the list items. 
 HTML5 provides new semantic elements 
 like `header`, `nav`, `article`, `aside`, `section` and `footer` that allow more expressiveness for 
-page authors. A bunch of `div`s with various class names 
+page authors. A bunch of `div` elements with various class names 
 is no longer the only way to markup this content. 
 
-The new HTML5 elements also
-enable new tools and better services. Browser plugins can more easily pull out 
+The new HTML5 elements enable new tools and better services for the Web ecosystem. Browser plugins can more easily pull out 
 the text of the article for a cleaner reading 
 experience. Search engines can give more weight to the `article` content 
 rather than the advertising in the sidebar. Screen reader software can 
@@ -56,54 +47,26 @@ accessible to people with disabilities.
 
 While these new elements provide useful extra information about the sections of
 content, 
-they provide no deeper understanding of what the `article` is *about*. 
-In many cases you are probably
-using a nicely normalized relational database or an XML document with a lot of 
-fielded information about your resources. The trip metadata takes from the 
-database or XML into HTML results 
-in lost meaning. Maybe a human can read your field labels on the page to 
-understand your metadata, but that meaning is lost on machines.
+they do not really describe what the HTML document is *about*. 
+For example HTML5 does not provide a `book` element for use in Web pages being delivered by library catalog. Most Web applications sit on top of databases that contain lots of structured data. However, the trip this data takes from the database into HTML is often lossy, as the structured data is converted to HTML for display. Maybe a human can read your field labels on the page to understand your metadata, but that meaning is lost on machines.
 
-### One Simple Solution
+Fortunately HTML5 includes a syntax called Microdata, that allows web publishers to layer richly structured metadata directly into their Web presentations. But before we jump into how Microdata works, we’ll take a brief tour through previous attempts at making structured data available on the Web.
 
-One solution to communicate more of this metadata is to provide an alternative 
-representation of your data separate from the HTML representation. You could
-even help with auto-detection of that content by providing an alternative link
-in the `head` of your HTML document. 
+### To Embed Or Not To Embed
 
-Here's a simple [example](http://inkdroid.org/journal/2011/09/22/stepping-backwards/) 
+One way to communicate structured metadata in HTML is to link your HTML presentation to an alternative 
+representation of your data. Here's a simple [example](http://inkdroid.org/journal/2011/09/22/stepping-backwards/) 
 of making RIS formatted citation data available:
 
 ```html
     <link rel="alternate" type="application/x-research-info-systems" href="/search?q=cartoons&format=ris" />
 ```
  
-The link provides the type of the alternative representation and a relative URL 
-where it can be found.
+This pre-HTML5 approach can work in many cases, such as in the area of [Web syndication](http://en.wikipedia.org/wiki/Web_syndication) with RSS and Atom…but it has some problems. Techniques like this require consumers of your data have to know to look for this particular invisible content. It also adds a layer of complexity by relying on a site to have APIs or metadata gateways that can be burdensome to setup and expensive for organizations to maintain.
 
-This approach can work in many cases, but it has some problems.
-Techniques like this require consumers of your data have to know to look for this
-particular invisible content. It also adds a layer of complication by relying 
-on a site to have APIs or
-metadata gateways that can be burdensome to setup and expensive for organizations
-to maintain.
+Another approach which avoids some of those problems is to embed the data directly in the HTML. The HTML representation of a resource is most visible to users, so it is also the HTML code which gets the most attention from developers. Little-used, overlooked APIs or data feeds are easy to let go stale. If the Website goes down, you are likely to hear about it from multiple sources immediately. If the OAI-PMH gateway goes down, it would probably take longer for you to find out about it.
 
-### Embedding Data in Markup
-
-Another approach which avoids some of those problems is to embed the data within
-the HTML. 
-The HTML representation of a resource is most visible to users, so it
-is also the HTML code which gets the most attention from developers. 
-Little-used, overlooked APIs or data feeds are easy to let go stale.
-If the Website goes down, you are likely to hear about it from multiple sources
-immediately. If the OAI-PMH gateway goes down, it would probably take longer
-for you to find out about it. Hidden services and content are too easy to 
-neglect. Data embedded in visible HTML helps keep the representations in sync
-so that page authors only have to expose one public version of their data.
-This insight has lead to a number of different standards over time
-which take the
-approach of embedding structured data along with the visible HTML content. 
-Microdata is just one of the syntaxes in use today.
+Hidden services and content are too easy to neglect. Data embedded in visible HTML helps keep the representations in sync so that page authors only have to expose one public version of their data. This insight has lead to a number of different standards over time which take the approach of embedding structured data along with the visible HTML content. Microdata is just one of the syntaxes in use today.
 
 ### A Short History of Structured Data in HTML
 
@@ -211,7 +174,7 @@ like:
 ```
 
 Those are the only three attributes necessary for a complete understanding of the 
-Microdata model. (You'll learn about two more optional ones later.) 
+Microdata model. You'll learn about two more optional ones later. 
 Pretty simple, right?
 
 ### What is Schema.org?
@@ -463,7 +426,7 @@ even the `html`
 element, though there are [some limitations to using Microdata within `head`](https://www.w3.org/Bugs/Public/show_bug.cgi?id=15304). 
 
 An `itemprop` is added as an attribute to the element which contains its value.
-Within `div#main` we add the two `itemprop`s for the "name" and "image"
+Within `div#main` we add the two `itemprop` attributes for the "name" and "image"
 properties. Different elements take their `itemprop` value from different
 places. 
 In this case the `name` property is taken from the text content of `h2` element.
@@ -585,6 +548,45 @@ is the value of its `href` attribute. To work
 around this we use the common pattern of adding some extra spans around the
 text. Adding the `itemprop` to the spans allows the text content to be selected 
 instead.
+
+```html
+    <div id="main" class="container_12" itemscope itemtype="http:schema.org/ItemPage">
+      <h2 id="page_name" itemprop="name">
+        Students jumping in front of Memorial Bell Tower
+      </h2>
+      <div class="grid_5">
+          <img id="main_image" alt="Students jumping in front of Memorial Bell Tower" 
+            src="/images/bell_tower.png" itemprop="image">    
+      </div>
+      <div id="metadata" class="grid_7" itemprop="about" itemscope itemtype="http://schema.org/Photograph">
+        <div id="object" class="info">
+          <h2>Photograph Information</h2>
+          <dl>            
+            <dt>Created Date</dt>
+            <dd>circa 1981</dd>  
+            
+            <dt>Subjects</dt>
+            <dd>
+              <a href="/s/buildings"><span itemprop="keywords">Buildings</span></a><br>
+              <a href="/s/students"><span itemprop="keywords">Students</span></a><br>
+            </dd> 
+            
+            <dt>Genre</dt>
+            <dd>
+              <a href="/g/architectural_photos"><span itemprop="genre">Architectural photographs</span></a><br>
+              <a href="/g/publicity_photos"><span itemprop="genre">Publicity photographs</span></a>         
+            </dd>
+            
+            <dt>Digital Collection</dt>
+            <dd><a href="/c/uapc">University Archives Photographs</a></dd> 
+          </dl> 
+        </div>
+        ...
+      </div>
+    </div>
+```
+
+You can see what has been implemented in [Microdata so far as JSON](http://foolip.org/microdatajs/live/?html=%3Cdiv%20id%3D%22main%22%20class%3D%22container_12%22%20itemscope%20itemtype%3D%22http%3Aschema.org%2FItemPage%22%3E%0A%20%20%20%20%20%20%3Ch2%20id%3D%22page_name%22%20itemprop%3D%22name%22%3E%0A%20%20%20%20%20%20%20%20Students%20jumping%20in%20front%20of%20Memorial%20Bell%20Tower%0A%20%20%20%20%20%20%3C%2Fh2%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22grid_5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cimg%20id%3D%22main_image%22%20alt%3D%22Students%20jumping%20in%20front%20of%20Memorial%20Bell%20Tower%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20src%3D%22%2Fimages%2Fbell_tower.png%22%20itemprop%3D%22image%22%3E%20%20%20%20%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20id%3D%22metadata%22%20class%3D%22grid_7%22%20itemprop%3D%22about%22%20itemscope%20itemtype%3D%22http%3A%2F%2Fschema.org%2FPhotograph%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22object%22%20class%3D%22info%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Ch2%3EPhotograph%20Information%3C%2Fh2%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdl%3E%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdt%3ECreated%20Date%3C%2Fdt%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdd%3Ecirca%201981%3C%2Fdd%3E%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdt%3ESubjects%3C%2Fdt%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdd%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%2Fs%2Fbuildings%22%3E%3Cspan%20itemprop%3D%22keywords%22%3EBuildings%3C%2Fspan%3E%3C%2Fa%3E%3Cbr%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%2Fs%2Fstudents%22%3E%3Cspan%20itemprop%3D%22keywords%22%3EStudents%3C%2Fspan%3E%3C%2Fa%3E%3Cbr%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdd%3E%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdt%3EGenre%3C%2Fdt%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdd%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%2Fg%2Farchitectural_photos%22%3E%3Cspan%20itemprop%3D%22genre%22%3EArchitectural%20photographs%3C%2Fspan%3E%3C%2Fa%3E%3Cbr%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%2Fg%2Fpublicity_photos%22%3E%3Cspan%20itemprop%3D%22genre%22%3EPublicity%20photographs%3C%2Fspan%3E%3C%2Fa%3E%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdd%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdt%3EDigital%20Collection%3C%2Fdt%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdd%3E%3Ca%20href%3D%22%2Fc%2Fuapc%22%3EUniversity%20Archives%20Photographs%3C%2Fa%3E%3C%2Fdd%3E%20%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdl%3E%20%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20...%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fdiv%3E).
 
 ### Picking Types and Properties (and More Nesting)
 
