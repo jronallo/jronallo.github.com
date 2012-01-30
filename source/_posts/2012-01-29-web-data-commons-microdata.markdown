@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "Common Crawl, Web Data Commons, and Microdata"
-date: 2012-01-30 10:18
+date: 2012-01-30 15:38:08
 comments: true
 categories: [microdata, rdf, crawl, aggregation]
-published: false
+published: true
 ---
 
 The other day I discovered the [Web Data Commons](http://page.mi.fu-berlin.de/muehleis/ccrdf/), which is building on top of the [Common Crawl](http://www.commoncrawl.org/) to extract Microformat, Microdata, and RDFa data and make it available for free download. This means that there is starting to be free structured data from a big portion of the Web available for for anyone to play with at very low cost. Common Crawl takes care of the crawling and then Web Data Commons will do data extraction. This opens up new possibilities for services, specialized search, and aggregations of content. Big web data is being opened up for small startups and individuals. 
