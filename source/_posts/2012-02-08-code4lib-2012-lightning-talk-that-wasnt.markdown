@@ -7,7 +7,7 @@ categories: [crawl, aggregate]
 published: true
 ---
 
-## Digital Collections, Crawling, and Aggregating
+## Digital Collections, Crawling, and Aggregating Content
 
 Lightning talks filled up fast this year at Code4Lib before I had a chance to sign up, which is probably for the best since I had already had the opportunity to give a [full length talk](/blog/code4lib-presentation-on-html5-microdata-and-schema-dot-org-slides/). Here is the lightning talk that I had prepared with each slide being followed by my draft speaker notes.
 
