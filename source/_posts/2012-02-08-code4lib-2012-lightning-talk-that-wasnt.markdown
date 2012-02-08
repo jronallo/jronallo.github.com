@@ -9,7 +9,7 @@ published: true
 
 ## Digital Collections, Crawling, and Aggregating
 
-Lightning talks filled up fast this year at Code4Lib before I had a chance to sign up, which is probably for the best since I had already had the opportunity to give a full length talk. Here is the lightning talk that I had prepared with each slide being followed by my draft speaker notes.
+Lightning talks filled up fast this year at Code4Lib before I had a chance to sign up, which is probably for the best since I had already had the opportunity to give a [full length talk](http://jronallo.github.com/blog/code4lib-presentation-on-html5-microdata-and-schema-dot-org-slides/). Here is the lightning talk that I had prepared with each slide being followed by my draft speaker notes.
 
 ![](/images/crawl_lightning_talk_c4l12/pg_0001.png)
 
