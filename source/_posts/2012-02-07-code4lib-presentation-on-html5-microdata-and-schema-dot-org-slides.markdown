@@ -2,10 +2,13 @@
 layout: post
 title: "Slides from Code4lib Presentation on HTML5 Microdata and Schema.org"
 date: 2012-02-07 13:32
+updated: 2012-02-08
 comments: true
 categories: [html5, microdata, schema.org, code4lib]
 published: true
 ---
+
+**Update**: You can find the [video on Livestream at 01:05:30](http://www.livestream.com/code4lib/video?clipId=pla_696a6586-5700-402c-8fb4-b044daac9f8d).
 
 Here are my slides from slides from my Code4Lib 2012 presentation on HTML5 Microdata and Schema.org. If you want the speaker notes, please dm me on Twitter <a href="https://twitter.com/#!/ronallo">@ronallo</a>.
 
