@@ -25,7 +25,7 @@ This answers the initial question with another question. For the most part, I th
 
 The other suggestion is that you never really have enough metadata. There is always the need to come back to metadata and enhance or refresh it to continue to make it useful. 
 
-I think this is an important point that surfaces some other considerations. There may be some metadata that never gets enhanced while other metadata that continually gets touched to be optimized for certain uses. For our digital collections we often use minimal metadata extracted from the collection guide which we call a stub record. Once there is some kind of stub record, we can almost immediately make the content accessible. From there some get more metadata which make the items more discoverable. I have written about YKK
+I think this is an important point that surfaces some other considerations. There may be some metadata record that never gets enhanced while other metadata that continually gets touched to be optimized for certain uses. For our digital collections we often use minimal metadata extracted from the collection guide which we call a stub record. Once there is some kind of stub record, we can almost immediately make the content accessible. From there some get more metadata which make the items more discoverable. With Brian Dietz, I have written some about how we're doing this in *[Automating a digital special collections workflow through iterative development](http://www.ala.org/acrl/sites/ala.org.acrl/files/content/conferences/confsandpreconfs/national/2011/papers/automating_digital_s.pdf)*.
 
 ## Measured Functionality and Feedback
 
@@ -45,17 +45,15 @@ If a site is not an internal application and it can be crawled, it is no longer 
 
 Indexing, relevance, and uniqueness can all be tested and quantitatively evaluated. At NCSU Libraries we have done some of this work to evaluate how our metadata YKK
 
-**Indexing** Do you have sufficient metadata to get indexed? If you have a sitemap, Google Webmaster Tools will tell you what percentage of your sitemap is indexed. You can use a search like [site:d.lib.ncsu.edu/collections](https://www.google.com/search?q=site%3Ad.lib.ncsu.edu%2Fcollections) to do a quick check of how many pages of your site are indexed. 
+**Indexing.** Do you have sufficient metadata to get indexed? If you have a sitemap, Google Webmaster Tools will tell you what percentage of your sitemap is indexed. You can use a search like [site:d.lib.ncsu.edu/collections](https://www.google.com/search?q=site%3Ad.lib.ncsu.edu%2Fcollections) to do a quick check of how many pages of your site are indexed. 
 
-**Relevance** Does your site get on the first page for the searches you think should lead to your content? If not then you may not have or expose sufficient metadata to appear relevant. 
+**Relevance.** Does your site get on the first page for the searches you think should lead to your content? If not then you may not have or expose sufficient metadata to appear relevant. Word choice can be an important choice which effects rank. New tools for metadata creators like [Google AdWords Keyword Tool](https://adwords.google.com/select/KeywordToolExternal) provide new ways of seeing the effect of metadata choices. 
 
-**Uniqueness** Do you have unique titles? Google notices when too many pages have similar titles and may treat the content as duplicate. Do each of your pages have enough content to distinguish one resource from another? This can be a big problem for digital collections sites where we make stuff accessible with repeated, minimal metadata before having enough metadata to really make them discoverable.
+**Uniqueness.** Do you have unique titles? Google notices when too many pages have similar titles and may treat the content as duplicate. Do each of your pages have enough content to distinguish one resource from another? This can be a big problem for digital collections sites where we make stuff accessible with repeated, minimal metadata before having enough metadata to really make them discoverable.
 
-YKK which words to use?
+If your content is reused on scattered sites on the Web that do not use [URL canonicalization](http://support.google.com/webmasters/bin/answer.py?hl=en&answer=139066) then you may also get penalized for duplicate content. This point is less about sufficient metadata than it is about taking care with how metadata is used.
 
-If your content is reused on scattered sites on the Web that do not use [URL canonicalization](YKK) then you may also get penalized for duplicate content. This point is less about sufficient metadata than it is about taking care with how metadata is used.
-
-**Search Snippet** It can make a big difference if you get an attractive search snippet in the search engines. Titles should be descriptive and put unique, interesting words at the front of the title. While Google may use any part of a page for the description it is still worthwhile to create a good meta description. Descriptive URLs with title words can also help.
+**Search Snippet.** It can make a big difference if you get an attractive search snippet in the search engines. Titles should be descriptive and put unique, interesting words at the front of the title. While Google may use any part of a page for the description it is still worthwhile to create a good meta description. Descriptive URLs with title words can also help.
 
 Beyond this [Schema.org](http://schema.org) can be used to provide data to potentially get a Rich Snippet. Schema.org provides all of the properties that you could associate with a particular type of item, but it is not necessary to have every property to have a chance of displaying a Rich Snippet. Each type of item will have different required properties for each of the search engines. Check [Google Rich Snippets help pages](http://support.google.com/webmasters/bin/topic.py?hl=en&topic=21997) to see whether you have sufficient metadata to trigger a Google Rich Snippet. For example a
 [Recipe](http://support.google.com/webmasters/bin/answer.py?hl=en&answer=173379&topic=1088474&ctx=topic) will only display if it has a name and two of the following: 
@@ -65,21 +63,17 @@ Beyond this [Schema.org](http://schema.org) can be used to provide data to poten
 * calories
 * review (nested)
 
-**Context** Once someone gets to a website, especially if they get to a view of a single resource, it is important to orient the user to the site. While much of this has to do with design, much of this context setting can be helped with better metadata. Does the thing the user is looking at make sense without having arrived at the page through other pages on the same site?
+**Context.** Once someone gets to a website, especially if they get to a view of a single resource, it is important to orient the user to the site. While much of this has to do with design, much of this context setting can be helped with better metadata. Does the thing the user is looking at make sense without having arrived at the page through other pages on the same site?
 
-**Further Discovery** Metadata can help make the site sticky by providing other facets for exploring the site. So while site search and browse may be secondary to open Web search, it is still important to have metadata to provide some way to get to other parts of a site.
+**Further Discovery.** Metadata can help make the site sticky by providing other facets for exploring the site. So while site search and browse may be secondary to open Web search, it is still important to have metadata to provide some way to get to other parts of a site.
 
-**Social** Are you collecting enough metadata in a good format for exposing through social sharing buttons on your site? When you implement these buttons you can have some information pre-filled for the user that clicks the button. Making this content attractive can impact whether other folks come to your site based on their social network. For the most part this will be covered by good titles and descriptions, but as social search becomes more important this will be a space to watch.
+**Social.** Are you collecting enough metadata in a good format for exposing through social sharing buttons on your site? When you implement these buttons you can have some information pre-filled for the user that clicks the button. Making this content attractive can impact whether other folks come to your site based on their social network. For the most part this will be covered by good titles and descriptions, but as social search becomes more important this will be a space to watch.
 
 ## Other Web Uses For Metadata
 
-Discoverability is only one part of how metadata can work on the web. There are many other external services that can be enabled and interoperability that can be powered by Web metadata. Syndication feeds rely on having dates for when resources are created and updated. 
+Dhttp://www.ala.org/acrl/sites/ala.org.acrl/files/content/conferences/confsandpreconfs/national/2011/papers/automating_digital_s.pdfiscoverability is only one part of how metadata can work on the web. There are many other external services that can be enabled and interoperability that can be powered by Web metadata. Syndication feeds rely on having dates for when resources are created and updated. 
 
 In many cases what is metadata about something in turn becomes data for another purpose. The same metadata that can be used to trigger Rich Snippets could be [extracted and reused for metadata aggregations](/blog/dpla-strawman-technical-proposal/) or some other calculations or data mining performed. It will be possible to have information for an Event from one application be dragged and dropped into a Web-based calendar application. Many of the services which this data could enable are yet to be implemented. 
-
-## Tools
-
-
 
 ## Conclusion
 
