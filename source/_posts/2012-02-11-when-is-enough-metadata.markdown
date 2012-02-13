@@ -7,7 +7,7 @@ categories: [metadata]
 published: false
 ---
 
-Recently on the Code4Lib list [Patrick Berry asked the question](YKK):
+Recently on the Code4Lib list [Patrick Berry asked the question](https://listserv.nd.edu/cgi-bin/wa?A2=ind1202&L=CODE4LIB&T=0&F=&S=&P=104952):
 
 > When do you know you have enough metadata?
 
@@ -43,17 +43,17 @@ One aspect of this discussion on sufficient metadata, which I think is often mis
 
 If a site is not an internal application and it can be crawled, it is no longer good enough to think of sufficient metadata only in terms of desired functionality in the local application. Over 75% of my traffic on one of my digital collections sites is from the search engines, and nearly 15% is referral traffic. The overwhelming majority of that traffic is directed to show views of items. Below are some quick notes on how metadata figures in to different aspects of discoverability on the open Web.
 
-Indexing, relevance, and uniqueness can all be tested and quantitatively evaluated. At NCSU Libraries we have done some of this work to evaluate how our metadata YKK
+Indexing, relevance, and uniqueness can all be tested and quantitatively evaluated. At NCSU Libraries we have done some work to evaluate how our metadata effects open Web discoverability. There is still much more to do.
 
 **Indexing.** Do you have sufficient metadata to get indexed? If you have a sitemap, Google Webmaster Tools will tell you what percentage of your sitemap is indexed. You can use a search like [site:d.lib.ncsu.edu/collections](https://www.google.com/search?q=site%3Ad.lib.ncsu.edu%2Fcollections) to do a quick check of how many pages of your site are indexed. 
 
-**Relevance.** Does your site get on the first page for the searches you think should lead to your content? If not then you may not have or expose sufficient metadata to appear relevant. Word choice can be an important choice which effects rank. New tools for metadata creators like [Google AdWords Keyword Tool](https://adwords.google.com/select/KeywordToolExternal) provide new ways of seeing the effect of metadata choices. 
+**Relevance.** Does your site get on the first page for the keywords you think should lead to your content? If not then you may not have or expose sufficient metadata to appear relevant. Word choice can be an important choice which effects rank. New tools for metadata creators like [Google AdWords Keyword Tool](https://adwords.google.com/select/KeywordToolExternal) provide new ways of seeing the effect of metadata choices. As users change the words they search for, we may need to change the terms we use to describe our content. Some word choice can be strategic to target keywords which few others are competing for.
 
 **Uniqueness.** Do you have unique titles? Google notices when too many pages have similar titles and may treat the content as duplicate. Do each of your pages have enough content to distinguish one resource from another? This can be a big problem for digital collections sites where we make stuff accessible with repeated, minimal metadata before having enough metadata to really make them discoverable.
 
 If your content is reused on scattered sites on the Web that do not use [URL canonicalization](http://support.google.com/webmasters/bin/answer.py?hl=en&answer=139066) then you may also get penalized for duplicate content. This point is less about sufficient metadata than it is about taking care with how metadata is used.
 
-**Search Snippet.** It can make a big difference if you get an attractive search snippet in the search engines. Titles should be descriptive and put unique, interesting words at the front of the title. While Google may use any part of a page for the description it is still worthwhile to create a good meta description. Descriptive URLs with title words can also help.
+**Search Snippet.** It can make a big difference if you get an attractive search snippet in the search engines. Titles should be descriptive and put unique, interesting words at the front of the title as long titles often get truncated. While Google may use any part of a page for the description it is still worthwhile to create a good meta description. Descriptive URLs with title words can also help.
 
 Beyond this [Schema.org](http://schema.org) can be used to provide data to potentially get a Rich Snippet. Schema.org provides all of the properties that you could associate with a particular type of item, but it is not necessary to have every property to have a chance of displaying a Rich Snippet. Each type of item will have different required properties for each of the search engines. Check [Google Rich Snippets help pages](http://support.google.com/webmasters/bin/topic.py?hl=en&topic=21997) to see whether you have sufficient metadata to trigger a Google Rich Snippet. For example a
 [Recipe](http://support.google.com/webmasters/bin/answer.py?hl=en&answer=173379&topic=1088474&ctx=topic) will only display if it has a name and two of the following: 
