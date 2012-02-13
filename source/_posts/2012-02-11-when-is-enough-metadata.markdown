@@ -13,10 +13,9 @@ Recently on the Code4Lib list [Patrick Berry asked the question](YKK):
 
 I think this is an interesting question, so thought I would try to provide a longer response in the form of some notes.
 
-The initial reactions to this question fall into two categories:
+<!-- more -->
 
-1. What functionality do you need?
-2. Infinite Return
+The initial reactions I've seen to this question fall into two categories:
 
 ## 1. What Functionality Do You Need?
 
@@ -40,18 +39,48 @@ Sometimes more work needs to be put in for greater reuse. For instance, we creat
 
 ## Open Web Discoverability
 
-One aspect of this discussion on sufficient metadata, which I think is often missing, involves discoverability on the open Web. If a site is not an internal application and it can be crawled, it is no longer good enough to think of sufficient metadata only in terms of desired functionality in the local application. Over 75% of my traffic on one of my digital collections sites is from the search engines, and nearly 15% is referral traffic. The overwhelming majority of that traffic is directed to show views of items. Below are some quick notes on how metadata figures in to different aspects of discoverability on the open Web.
+One aspect of this discussion on sufficient metadata, which I think is often missing, involves discoverability on the open Web. The functionality within a site is only part of the calculation of what metadata is good enough. How a site is viewed and interacts with the Web should often be a much larger consideration than the functionality within a site.
+
+If a site is not an internal application and it can be crawled, it is no longer good enough to think of sufficient metadata only in terms of desired functionality in the local application. Over 75% of my traffic on one of my digital collections sites is from the search engines, and nearly 15% is referral traffic. The overwhelming majority of that traffic is directed to show views of items. Below are some quick notes on how metadata figures in to different aspects of discoverability on the open Web.
+
+Indexing, relevance, and uniqueness can all be tested and quantitatively evaluated. At NCSU Libraries we have done some of this work to evaluate how our metadata YKK
 
 **Indexing** Do you have sufficient metadata to get indexed? If you have a sitemap, Google Webmaster Tools will tell you what percentage of your sitemap is indexed. You can use a search like [site:d.lib.ncsu.edu/collections](https://www.google.com/search?q=site%3Ad.lib.ncsu.edu%2Fcollections) to do a quick check of how many pages of your site are indexed. 
 
-**Relevance**
+**Relevance** Does your site get on the first page for the searches you think should lead to your content? If not then you may not have or expose sufficient metadata to appear relevant. 
 
-**Uniqueness**
+**Uniqueness** Do you have unique titles? Google notices when too many pages have similar titles and may treat the content as duplicate. Do each of your pages have enough content to distinguish one resource from another? This can be a big problem for digital collections sites where we make stuff accessible with repeated, minimal metadata before having enough metadata to really make them discoverable.
 
-**Search Snippet**
+YKK which words to use?
 
-**Context**
+If your content is reused on scattered sites on the Web that do not use [URL canonicalization](YKK) then you may also get penalized for duplicate content. This point is less about sufficient metadata than it is about taking care with how metadata is used.
 
-**Further Discovery** 
+**Search Snippet** It can make a big difference if you get an attractive search snippet in the search engines. Titles should be descriptive and put unique, interesting words at the front of the title. While Google may use any part of a page for the description it is still worthwhile to create a good meta description. Descriptive URLs with title words can also help.
 
-**Social** Are you collecting enough metadata in a good format for exposing through social widgets on your site? 
+Beyond this [Schema.org](http://schema.org) can be used to provide data to potentially get a Rich Snippet. Schema.org provides all of the properties that you could associate with a particular type of item, but it is not necessary to have every property to have a chance of displaying a Rich Snippet. Each type of item will have different required properties for each of the search engines. Check [Google Rich Snippets help pages](http://support.google.com/webmasters/bin/topic.py?hl=en&topic=21997) to see whether you have sufficient metadata to trigger a Google Rich Snippet. For example a
+[Recipe](http://support.google.com/webmasters/bin/answer.py?hl=en&answer=173379&topic=1088474&ctx=topic) will only display if it has a name and two of the following: 
+
+* photo
+* prepTime, cookTime, totalTime, or ingredients
+* calories
+* review (nested)
+
+**Context** Once someone gets to a website, especially if they get to a view of a single resource, it is important to orient the user to the site. While much of this has to do with design, much of this context setting can be helped with better metadata. Does the thing the user is looking at make sense without having arrived at the page through other pages on the same site?
+
+**Further Discovery** Metadata can help make the site sticky by providing other facets for exploring the site. So while site search and browse may be secondary to open Web search, it is still important to have metadata to provide some way to get to other parts of a site.
+
+**Social** Are you collecting enough metadata in a good format for exposing through social sharing buttons on your site? When you implement these buttons you can have some information pre-filled for the user that clicks the button. Making this content attractive can impact whether other folks come to your site based on their social network. For the most part this will be covered by good titles and descriptions, but as social search becomes more important this will be a space to watch.
+
+## Other Web Uses For Metadata
+
+Discoverability is only one part of how metadata can work on the web. There are many other external services that can be enabled and interoperability that can be powered by Web metadata. Syndication feeds rely on having dates for when resources are created and updated. 
+
+In many cases what is metadata about something in turn becomes data for another purpose. The same metadata that can be used to trigger Rich Snippets could be [extracted and reused for metadata aggregations](/blog/dpla-strawman-technical-proposal/) or some other calculations or data mining performed. It will be possible to have information for an Event from one application be dragged and dropped into a Web-based calendar application. Many of the services which this data could enable are yet to be implemented. 
+
+## Tools
+
+
+
+## Conclusion
+
+I hope I have begun to make the point that functionality on a site is only part of how your metadata functions. For public-facing sites it will be increasingly important to look at how your metadata works on the open Web.
