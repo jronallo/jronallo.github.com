@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "Sufficient Metadata and the Open Web"
-date: 2012-02-11 07:54
+date: 2012-02-16 09:42
 comments: true
 categories: [metadata]
-published: false
+published: true
 ---
 
 Recently on the Code4Lib list [Patrick Berry asked the question](https://listserv.nd.edu/cgi-bin/wa?A2=ind1202&L=CODE4LIB&T=0&F=&S=&P=104952):
