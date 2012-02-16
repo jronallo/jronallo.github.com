@@ -81,7 +81,7 @@ Schema.org provides all of the properties that you could associate with a partic
 
 ## Other Web Uses For Metadata
 
-Discoverability is only one part of how metadata can work on the web. There are many other external services that can be enabled and interoperability that can be powered by Web metadata. For instance syndication feeds rely on having dates for when resources are created and updated. 
+Discoverability is only one part of how metadata can work on the Web. There are many other external services that can be enabled and interoperability that can be powered by Web metadata. For instance syndication feeds rely on having dates for when resources are created and updated. 
 
 In many cases metadata about something in turn becomes data for another purpose. The same metadata that can be used to trigger Rich Snippets could be [extracted and reused for metadata aggregations](/blog/dpla-strawman-technical-proposal/) and some data mining performed. Another application that will be possible is to have information for an Event from one Web application be dragged and dropped into a Web-based calendar or timeline application. Many of the services which this data could enable are yet to be implemented. 
 
