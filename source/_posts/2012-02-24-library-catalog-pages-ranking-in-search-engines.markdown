@@ -4,7 +4,7 @@ title: "Library Catalog Pages Ranking in Search Engines"
 date: 2012-02-24 15:20
 comments: true
 categories: [search engines, microdata, schema.org]
-published: false
+published: true
 ---
 
 Recently there was a thread on the code4lib list about [local catalog records showing up in results in the search engines](http://www.mail-archive.com/code4lib@listserv.nd.edu/msg13356.html) like Google, Bing, and Yahoo!. The anecdotal evidence is that Google is [actively crawling and indexing library catalogs like Johns Hopkins'](http://www.mail-archive.com/code4lib@listserv.nd.edu/msg13360.html). 
