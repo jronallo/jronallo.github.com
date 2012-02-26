@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Library Catalog Pages Ranking in Search Engines"
-date: 2012-02-24 15:20
+date: 2012-02-26 13:36:39
 comments: true
 categories: [search engines, microdata, schema.org]
 published: true
