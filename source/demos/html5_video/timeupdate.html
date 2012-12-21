@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Simplest HTML5 Video</title>
+    <meta charset="utf-8">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="javascripts/controls.js"></script>
+    <script src="javascripts/state.js"></script>
+    <script src="javascripts/timeupdate.js"></script>
+  </head>
+  <body>
+    <video controls>
+      <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4" type='video/mp4;codecs="avc1.4D401E, mp4a.40.2"'/>
+      <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.webm" type='video/webm;codecs="vp8, vorbis"'/>
+      <p>Your browser cannot play this video. You might try to <a href="video/getting_a_book.mp4">download it</a>.</p>
+    </video>
+    <div id="controls">
+      <button type="button" id="play">Play</button>
+      <button type="button" id="pause">Pause</button>
+      <button type="button" id=""></button>
+    </div>
+    <div id="state"></div>
+    <div>Current Time: <span id="current_time"></span></div>
+  </body>
+</html>
+
