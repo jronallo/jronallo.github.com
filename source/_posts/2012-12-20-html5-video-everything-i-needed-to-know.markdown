@@ -674,7 +674,7 @@ The examples of using Schema.org markup given by the [Google](https://developers
 
 You can paste the above markup snippet into [Live Microdata](http://foolip.org/microdatajs/live/) and see the JSON output:
 
-```json parsed Microdata for VideoObject
+```javascript parsed Microdata for VideoObject
 {
   "items": [
     {
