@@ -8,15 +8,17 @@ categories: html5 video
 sidebar: collapse
 ---
 
-While there is a lot of good information on the Web about HTML5 Video, I wanted to put down everything that I gathered together about it. 
+While there is a lot of good information on the Web about HTML5 Video, I wanted to put down everything that I gathered together about it. As I work on video projects, I will continue to add more and new information.
 
 <!-- more -->
 
 Some of the information that's out there is outdated (as this will surely be at some point). Some is incomplete or goes deep into areas that were not important for my projects or what I might want to do. Nothing here is particularly original, but gathering it together will at least help me when I have to come back to a video project. I publish it here in the hopes that it might help someone else as well.
 
+If you read this and something was missing that you really needed, please let me know .
+
 I had originally hoped to publish this in my favorite journal, but I could not complete it in time or find the right hook to differentiate it from all the other writing on the topic out there on the Web. Since I've done quite a bit of work and a whole lot of reading, I thought I'd at least publish my incomplete notes. If you see "YKK" anywhere in the text, those are sections I'm still working on and that need to be zipped up.
 
-This post is in the form of a tutorial where a single page is built up as new problems arise or new features will be implemented.
+This post is in the form of a tutorial where a single page is built up as new problems arise or new features are implemented.
 
 ## Intro ##
 
