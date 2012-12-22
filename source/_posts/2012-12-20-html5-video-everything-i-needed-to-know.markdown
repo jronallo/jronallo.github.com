@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "HTML5 Video: Everything I Needed to Know"
-date: 2012-12-20 16:40
+date: 2012-12-21
+update: 2012-12-21 
 comments: true
 categories: html5 video
 sidebar: collapse
@@ -35,7 +36,7 @@ The HTML5 (or HTML the Living Standard as it is now officially know within the W
 
 Let's dive right in and look at the simplest HTML document with a video that will [validate](http://validator.w3.org/). Note first that the `doctype html` ensures that the markup will be treated as HTML5, since the video element is new to HTML5. This video element has a single src attribute pointing to the relative URL for an MP4 video file. The video element cannot be self closing so there is a closing video tag.
 
-```html simplest HTML5 video http://jronallo.github.com/demos/html5_video/simplest.html Demo
+```html simplest HTML5 video http://jronallo.github.com/demos/html5_video/00_simplest.html Demo
 <!doctype html>
 <html>
   <head>
@@ -50,7 +51,7 @@ Let's dive right in and look at the simplest HTML document with a video that wil
 
 If it were just that simple then HTML5 video may have taken off a lot sooner and been more ubiquitous by now. If you look at the page in an older browser that does not understand the video element, the video will be completely ignored. Nothing will show up on the page and the user will not have any access to the video. To accommodate older browsers having some access to the content you can include some text and a download link like the following. Browsers that do understand the video element will not display this text. 
 
-```html simple with text fallback http://jronallo.github.com/demos/html5_video/simplest_with_message.html Demo
+```html simple with text fallback http://jronallo.github.com/demos/html5_video/05_simplest_with_message.html Demo
 <video src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4" controls>
   <p>Your browser cannot play this video. You might try to <a href="video/getting_a_book.mp4">download it</a>.</p>
 </video>
@@ -85,7 +86,7 @@ To solve the Firefox problem we need to include a video source that Firefox unde
 
 To include another codec to make our example work in Firefox we can change the markup like this:
 
-```html with WebM http://jronallo.github.com/demos/html5_video/simple_with_webm.html Demo
+```html with WebM http://jronallo.github.com/demos/html5_video/10_simple_with_webm.html Demo
 <video controls>
   <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4"/>
   <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.webm"/>
@@ -103,7 +104,7 @@ You can also see from the above how the algorithm for choosing an appropriate vi
 
 By including the MIME type of the video along with each source the browser will only have to fetch the video which it has some certainty of being able to play. The [MIME type](http://dev.w3.org/html5/spec/media-elements.html#mime-types) is added as the value of the `type` attribute of the `source` element as below: 
 
-```html with MIME types http://jronallo.github.com/demos/html5_video/simple_with_mimetypes.html Demo
+```html with MIME types http://jronallo.github.com/demos/html5_video/15_simple_with_mimetypes.html Demo
 <video controls>
   <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4" type="video/mp4"/>
   <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.webm" type="video/webm"/>
@@ -115,7 +116,7 @@ Here we are just including the MIME type which represents the video container. F
 
 It is possible to get more specific and list the codecs so that the browser can make a better determination. This can be done by adding a `codecs` MIME parameter to the end. So our example can be updated to the following:
 
-```html with MIME types and codecs http://jronallo.github.com/demos/html5_video/simple_with_mimetypes_and_codecs.html Demo
+```html with MIME types and codecs http://jronallo.github.com/demos/html5_video/20_simple_with_mimetypes_and_codecs.html Demo
 <video controls>
   <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4" type='video/mp4;codecs="avc1.4D401E, mp4a.40.2"'/>
   <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.webm" type='video/webm;codecs="vp8, vorbis"'/>
@@ -135,7 +136,7 @@ The avconv tool seems to give the most exact values among the tools that can rep
 
 You can also interrogate whether your browser can play a particular MIME type using JavaScript. This is our first peek into the JavaScript API for media elements. Open up the developer tools console (or Firebug) in your browser. You can use the `canPlayType` function to test whether a browser might try to play a video. Here's some sample output from Firefox:
 
-```bash
+```bash Browser Console
 >>> var video = document.createElement('video');
 undefined
 >>> video.canPlayType('video/mp4');
@@ -211,7 +212,7 @@ In this section we'll cover the most important attributes which you can place on
 
 We mentioned above in video processing why you might want to create a poster image for your video. Here is how we can update our video to include a poster image with the [`poster` attribute](http://www.whatwg.org/specs/web-apps/current-work/#attr-video-poster):
 
-```html poster image http://jronallo.github.com/demos/html5_video/poster.html Demo
+```html poster image http://jronallo.github.com/demos/html5_video/25_poster.html Demo
 <video controls poster="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.png">
   <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4" type='video/mp4;codecs="avc1.4D401E, mp4a.40.2"'/>
   <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.webm" type='video/webm;codecs="vp8, vorbis"'/>
@@ -269,28 +270,46 @@ volume -->
 
 #### Duration ####
 
-One property of the video is the `duration` which is reported in seconds:
+One property of the video is the `duration` which is reported in seconds. If you go to our most recent [demo video play page]() and open up a console in the browser you can do the following:
 
-```
+```bash Browser Console
 >>> video.duration
 109.266666
+
 ```
 
-I have used this in an administrative interface for a curated video clip discovery project. When an administrator adds a new video through a web form, I dynamically load a video element into the page with that video as the source and check the duration. I then save the duration along with other descriptive metadata about the video clip. This saves the administrator from possibly entering the value incorrectly in the form. The duration can then be displayed back to the visitor. It gives a visitor more information for whether they want to play a video or not.
+I have used this JS in an administrative interface for a curated video clip discovery project. When an administrator adds a new video through a web form, I dynamically load a video element into the page with that video as the source and get the duration. I then save the duration along with other descriptive metadata about the video clip. This saves the administrator from possibly entering the value of the duration incorrectly in the form. 
 
-[YKK show image of time overlayed on the video thumbnail]
+The duration can then be displayed back to the visitor as a small overlay over the video poster. This style of thumbnail can then be added to browse or search results pages. The whole video poster, textual title, and duration then becomes a big link target to click on to take the visitor to the video play page. It gives a visitor more information for whether they want to visit the page to play the video or not. The duration can also be added to the video play page for the same reasons in case the user comes in through Google instead.
+
+
+![time overlayed on the video poster thumbnail](/images/html5_video/getting_a_book_thumbnail.png)
 
 For our example let's just add the duration to the page using JS. We'll also add jQuery to make the rest of our examples more concise. 
 
+```html add jQuery and video duration to page http://jronallo.github.com/demos/html5_video/30_duration.html Demo
+<head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript" src="/demos/html5_video/javascripts/duration.js"></script>
+</head>
+...
+  <div id="duration"></div>
 ```
-YKK
+
+```javascript duration.js http://jronallo.github.com/demos/html5_video/javascripts/duration.js Source
+$(document).ready(function(){
+  $('video').bind('loadedmetadata',function(){
+    var duration = $('video')[0].duration;
+    $('#duration').html('Duration: ' + duration);
+  });
+});
 ```
 
 #### Paused and Ended properties ####
 
 You can also get a boolean value for whether the video has been paused or ended. Before the video is played at all the value of `paused` will be `true` and the value of `ended` will be `false`. These values could be used with events on the page to do something different based on whether the video has been paused or ended.
 
-```bash
+```bash Browser Console
 >>> video.paused
 true
 >>> video.ended
@@ -308,9 +327,9 @@ true
 
 Some properties like `muted`, `volume`, `currentTime`, and `src` can be used as getters and setters. You can test out by looking at the volume control in your browser:
 
-![volume at 100%](YKK)
+![volume at 100%](/images/html5_video/volume_100.png)
 
-```
+```bash  Browser Console
 >>> video.muted
 false
 >>> video.muted = true
@@ -318,11 +337,11 @@ true
 
 ```
 
-![volume muted](YKK)
+![volume muted](/images/html5_video/volume_muted.png)
 
  For `volume` 100% is `1` and 50% is `0.5`:
 
-```
+```bash  Browser Console
 >>> video.volume
 1
 >>> video.muted = false
@@ -332,13 +351,13 @@ false
 
 ```
 
-![volume 50%](YKK)
+![volume 50%](/images/html5_video/volume_50.png)
 
 #### Changing the Source ####
 
-In our example we're currently using multiple source elements and allowing the browser to pick the source to play. If we check on the value of `src` it will be a blank string. To determine the current video source you will need to check the `currentSrc` property. (Your values might be different.) 
+In our example we're currently using multiple source elements and allowing the browser to pick the source to play. If we check on the value of `src` it will be a blank string. To determine the current video source you will need to check the `currentSrc` property. (Your values might be different depending on which source your browser picked.) 
 
-```bash
+```bash currentSrc
 >>> video.src
 ""
 >>> video.currentSrc
@@ -346,10 +365,10 @@ In our example we're currently using multiple source elements and allowing the b
 
 ```
 
-If you set the `src` property dynamically, it will override the source chosen from the `source` elements. This allows you to create dynamic video switchers. Load this demo in your browser, open up the developer's console, and then run the following script there. (Tip: In Firebug click on the ![tiny arrow](YKK) in the console to enter and run this.)
+If you set the `src` property dynamically, it will override the source chosen from the `source` elements. This allows you to create dynamic video switchers. Load [this demo](/demos/html5_video/30_duration.html) in your browser, open up the developer's console, and then run the following script there. (Tip: In Firebug click on the ![tiny arrow](/images/html5_video/firebug_tiny_arrow.png) in the console to enter and run this.)
 
 
-```javascript
+```javascript Raindrop video switcher
 var video = document.getElementsByTagName('video')[0];
 if ( video.canPlayType('video/ogg') ) {
     video.src = 'http://archive.org/download/TheAdventuresOfJr.TheRaindrop/TheAdventuresOfJr.TheRaindrop.ogv';
@@ -360,25 +379,26 @@ video.play();
 
 ```
 
-Now that you've enjoyed that video, here it is as a <a href="javascript: var video = document.getElementsByTagName('video')[0]; if ( video.canPlayType('video/ogg') ) { video.src = 'http://archive.org/download/TheAdventuresOfJr.TheRaindrop/TheAdventuresOfJr.TheRaindrop.ogv'; } else if ( video.canPlayType('video/mp4') ) { video.src = 'http://archive.org/download/TheAdventuresOfJr.TheRaindrop/TheAdventuresOfJr.TheRaindrop.mp4'; } video.play();">bookmarklet</a>, so that you can watch it on any page where a video element is found.
+This script simply finds the first video element on the page and checks whether it can play an Ogg Theora or MP4. If it can play either of those, then it changes the current video source to a video from the Internet Archive. Finally, it begins playing the video.
+
+Now that you've enjoyed that video, here it is as a <a href="javascript: var video = document.getElementsByTagName('video')[0]; if ( video.canPlayType('video/ogg') ) { video.src = 'http://archive.org/download/TheAdventuresOfJr.TheRaindrop/TheAdventuresOfJr.TheRaindrop.ogv'; } else if ( video.canPlayType('video/mp4') ) { video.src = 'http://archive.org/download/TheAdventuresOfJr.TheRaindrop/TheAdventuresOfJr.TheRaindrop.mp4'; } video.play();">bookmarklet</a>, so that you can watch it on any page where a `video` element is found.
 
 ### Methods ###
 
-OK, let's get back to it. You'll notice that the last line (`video.play();`) starts the video playing after changing the source. Any of the methods you can access through the browsers native video controls you can also change through JavaScript. This allows implementers to create their own video controls. Let's create some very simple video controls.
+OK, let's get back to it. You'll notice that the last line (`video.play();`) starts the video playing after changing the source. Any of the methods you can access through the browsers native video controls with a click (or touch) you can also trigger through JavaScript. This allows implementers to create their own video controls. Let's create some very simple video controls.
 
-First remove the `controls` attribute from the video element. This will prevent the browser's native controls from showing up. Then add the following code under the video's closing tag:
+First remove the `controls` attribute from the video element. This will prevent the browser's native controls from showing up. Then add the following code just within the closing `</body>` tag:
 
-```html
+```html Custom Controls http://jronallo.github.com/demos/html5_video/35_custom_controls.html Demo
 <div id="controls">
   <button type="button" id="play">Play</button>
   <button type="button" id="pause">Pause</button>
 </div>
-
 ```
 
-Then we can use this [simple jQuery](controls.js) to have our buttons control the video:
+Then we can use this simple jQuery (make sure to add it to the head) to have our buttons control the video:
 
-```javascript
+```javascript controls.js http://jronallo.github.com/demos/html5_video/javascripts/controls.js Source
 $(document).ready(function(){
   $('#play').on("click", function(){
     $('video')[0].play();
@@ -387,25 +407,21 @@ $(document).ready(function(){
     $('video')[0].pause();
   });
 });
-
 ```
 
-As those are just two of the methods available, there is a lot more you can do. You can then style your controls however you'd like to with standard HTML and CSS. The question is whether you really need to create your own video player controls from scratch. Later we'll look at other reasons you may want to use a polyfill instead of rolling your own. What's important here is that by understanding how the JS API works you can add other functionality on top of those JS-based players.
- 
+As those are just two of the methods available, there is a lot more you can do. You can then style your controls however you'd like to with standard HTML and CSS. The question is whether you really need to create your own video player controls from scratch. Later we'll look at other reasons you may want to use a polyfill instead of rolling your own--at least for the basic player functionality. What's important here is that by understanding how the JS API works you can add other functionality on top of those JS-based players.
 
 ### Events ###
 
 The JS API also provides a way to get access to various events. We can extend our last example to add some text to the page when a video has started playing, has been paused, or has ended. First, add this markup below the controls to hold our content:
 
-[YKK](state.html)
-
-```html
+```html state http://jronallo.github.com/demos/html5_video/40_state.html Demo
 <div id="state"></div>
 ```
 
 Then include the following simple script:
 
-```javascript
+```javascript state.js http://jronallo.github.com/demos/html5_video/javascripts/state.js Source
 $(document).ready(function(){
     $('video').bind('play',function(){
         $('#state').html('playing...')
@@ -417,45 +433,39 @@ $(document).ready(function(){
     $('video').bind('ended',function(){
         $('#state').html('The End')
     });
-
 });
-
 ```
 
-Here we just change the text in the `div#state` element, but we could make any other change we want to on these events. 
+By listening for the `play`, `pause`, and `ended` events we are able to do something. Here we just change the text in the `div#state` element, but we could make any other change we want to on these events. 
 
 #### timeupdate and currentTime ####
 
-What are cooler are the events that get constantly triggered as the video plays. Binding an event to `timeupdate` can allow you to update the current time of the video on the page.
+Even cooler are the events that get constantly triggered as the video plays. Listening for the `timeupdate` event of the `video` element can allow you to update the current time of the video on the page.
 
-[YKK](timeupdate.html)
-
-```html
-<div id="state"></div>
+```html current time http://jronallo.github.com/demos/html5_video/45_timeupdate.html Demo
 <div>Current Time: <span id="current_time"></span></div>
-
 ```
 
-```javascript
+```javascript timeupdate.js http://jronallo.github.com/demos/html5_video/javascripts/timeupdate.js Source
 $(document).ready(function(){
-    $('video').bind('timeupdate',function(){
-      var current_time = $('video')[0].currentTime;
-      console.log(current_time);
-      $('#current_time').html(parseInt(current_time));
-   }); 
+  $('video').bind('timeupdate',function(){
+    var current_time = $('video')[0].currentTime;
+    console.log(current_time);
+    $('#current_time').html(parseInt(current_time));
+  }); 
 });
 
 ```
 
 You can also see that clicking on the time rail in the browser's native controls will also fire off the `timeupdate` event and update the time. The `currentTime` is given in seconds.
 
-Open up the [demo page](timeupdate.html) in a browser and look at the developer's console.You will see that the current time gets output to the console using the above jQuery. Different browsers fire off the `timeupdate` event at different frequencies. Chrome seems to fire it off about every 1/8 of a second, while Firefox does every quarter of a second. In both cases time is kept to a high level of precision. While the timeupdate event is triggered more often than every second we turn the currentTime into an integer before putting it on the page, so it does not update as often as the event is triggered.
+Open up the demo page in a browser and look at the developer's console. You will see that the current time gets output to the console using the above jQuery. Different browsers fire off the `timeupdate` event at different frequencies. Chrome seems to fire the `timeupdate` event about every 1/8 of a second, while Firefox does every 1/4 of a second. In both cases time is kept to a high level of precision. While the timeupdate event is triggered more often than every second we turn the currentTime into an integer before putting it on the page, so from the user's perspective it does not update as often as the event is triggered.
 
-<!-- YKK: skip video engagement analytics section for now. -->
+<!-- YKK: Skip video engagement analytics section for now. -->
 
-<!-- YKK: add conclusion about JS API -->
+<!-- YKK: Add conclusion about JS API -->
 
-## pretty players, polyfills, and fallbacks ##
+## Pretty Players, Polyfills, and Fallbacks ##
 
 <!-- 
 - video with flash fallback
@@ -469,13 +479,13 @@ While it is possible to create your own fully functional, custom HTML5 video pla
 
 Two features that were important to me in selecting a player were Flash fallback and subtitle support. These features narrow the field significantly.
 
-The fallback we currently have in place for older browsers that do not understand the video element is to download the video and play it in an external player. This still does not guarantee that the user will have a suitable player for the MP4 file. It also disrupts the user experience and would probably discourage some use. It would be preferable to have a video player in the page even for older browsers. It is possible to fallback to using a Flash-based player that can reuse the MP4. This works similarly to how our download links currently does except a Flash player object is embedded instead.  Many of the players provide such a Flash fallback.
+The fallback we currently have in place for older browsers that do not understand the video element is to download the video and play it in an external player. This still does not guarantee that the user will have a suitable player for the MP4 file. It also disrupts the user experience and would probably discourage some use. It would be preferable to have a video player in the page even for older browsers. It is possible to fallback to using a Flash-based player that can reuse the MP4. This works similarly to how our download links currently does except a Flash player object is embedded instead. Many of the existing players provide such a Flash fallback. The best style their Flash player the same as the HTML5 video player.
 
-Having the Flash player reuse the MP4 needed for HTML5 video playback, also gives the option of only encoding the video one to MP4 and forcing browsers that cannot play H.264 video to use the Flash version. My current advice is to encode to both MP4 and WebM and only use the Flash fallback for older browsers. With the rapid release cycles of modern browsers... [what percentage of users will this catch?]
+Since the Flash player reuses the MP4 needed for HTML5 video playback in some browsers, the Flash fallback also gives the option of only encoding the video once to MP4. Other browsers that understand the video element but cannot play the H.264 video would use the Flash version. My current advice is to encode to both MP4 and WebM and only use the Flash fallback for older browsers. Some current browsers would needlessly get the Flash fallback at a time when [Flash is waning even inside Adobe](YKK). With the rapid release cycles of modern browsers, encoding to MP4 and WebM will serve an increasing majority of visitors. [YKK: get actual numbers here!]
 
 I wanted a player that looked and worked similarly regardless of whether the browser used the HTML5 player or the Flash fallback. The table linked above has a column for "Unified Look/API."
 
-In the case of [MediaElement.js](http://mediaelementjs.com/), my preferred player, the unified API makes it possible to control both the HTML5 and Flash players with the same API. It mirrors as closely as possible the HTML5 API, though it does differ from that API with regards to setters. It also does miss some methods that are available in the full html5 api. Most of the core methods a ree w there. Being ablew to control the flash player with the same api without caring whether the user gets the HTML or flash player greatly simplifies the implementation of adding new features to a page so that they work across players.
+In the case of [MediaElement.js](http://mediaelementjs.com/), my preferred player, the unified API makes it possible to control both the HTML5 and Flash players with the same API. It mirrors as closely as possible the HTML5 API, though it does differ from that API with regards to setters. It also does miss some methods that are available in the full HTML5 API. Most of the core methods are there. Being able to control the flash player with the same API without caring whether the user gets the HTML or Flash player greatly simplifies the implementation of adding new features to a page so that they work across players.
 
 ### Tracks ###
 
@@ -493,15 +503,18 @@ To understand how to implement subtitles for video on the Web, we need to take a
 
 So you should be able to add a track element like this and have it show subtitles to the user:
 
-[YKK Insert markup from simple_with_track.html]
-
-```html
-<track kind="subtitles" label="English subtitles" src="video/getting_a_book.vtt" srclang="en" default></track>
+```html subtitles track http://jronallo.github.com/demos/html5_video/50_track.html Demo
+<video controls poster="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.png">
+  <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4" type='video/mp4;codecs="avc1.4D401E, mp4a.40.2"'/>
+  <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.webm" type='video/webm;codecs="vp8, vorbis"'/>
+  <track kind="subtitles" label="English subtitles" src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.vtt" srclang="en" default></track>
+  <p>Your browser cannot play this video. You might try to <a href="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4">download it</a>.</p>
+</video>
 ```
 
-The track element includes a kind attribute so the browser or user will know how or whether to use the content. The label is the suggestion for what to display in any user interface that might be created for selecting tracks. The `srclang` attribute is the proper code for the language of the text of the track. The `src` attribute points to the file that contains the cues and text. The format used for these tracks is WEBVTT, a [W3C standard](YKK) (though some players might support other formats). WEBVTT is a relatively new format, still under active development, which improves upon some of the design of past specifications for syncing cues and test with media on the Web. 
+The track element includes a `kind` attribute so the browser or user will know how or whether to use the content. The label is the suggestion for what to display in a user interface that might be created for selecting tracks. The `srclang` attribute is the proper code for the language of the text of the track. The `src` attribute points to the file that contains the cues and text. The format used for these tracks is WebVTT, a [W3C standard](http://dev.w3.org/html5/webvtt/). WebVTT is a relatively new format, still under active development, which improves upon some of the design of past specifications for syncing cues and test with media on the Web. Some players might support other formats, though it seems that WebVTT will become the standard format in the future. 
 
-Here's a snippet of what a [simple WEBVTT](YKK link to full file) file looks like for our demo video:
+Here's a snippet of what a [simple WebVTT file](http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.vtt) looks like for our demo video:
 
 ```text
 WEBVTT
@@ -518,16 +531,19 @@ On the bottom of a book's catalog page, there's information about the location o
 This book is located in DH Hill Library, in the stacks, on the 8th floor.
 ```
 
-A WEBVTT file is just a plain text file. After the "WEBVTT" header are a series of cues. A cue is made up of a cue identifier, cue timings, and the cue payload. In this case the cue identifiers are all consecutive numbers. The next line "00:00:03.000 --> 00:00:08.616" shows the format for a cue timing, the duration that the text will display or otherwise be used. The final line(s) of a cue contains the payload which in this case is the text for subtitles. WEBVTT defines other settings for a cue such as where the text should be placed over the video and some styling of the text.
+A WebVTT file is just a plain text file. After the "WEBVTT" header are a series of cues. A cue is made up of a cue identifier, cue timings, and the cue payload. In this case the cue identifiers are all consecutive numbers. The next line "00:00:03.000 --> 00:00:08.616" shows the format for a cue timing, the duration that the text will display or otherwise be used. The final line(s) of a cue contains the payload which in this case is the text for subtitles. WebVTT defines other settings for a cue such as where the text should be placed over the video and some styling of the text. Cues are separated by two line breaks.
 
-Because WEBVTT is just a simple text file, it is possible to create and edit them by hand in any text editor. There are beginning to be tools available to create and edit WEBVTT files. Microsoft developed a single page [web application for creating WEBVTT files](http://ie.microsoft.com/testdrive/Graphics/CaptionMaker/) [Note that I had to make some changes to the Javascript behind this in order to allow the WEBVTT files to work in mediaelementjs. From what I can tell this is a limitation of mediaelementjs and not an issue with this tool. The tool seems to follow the standard--at least as it was at the time.]. (It is also a good example of a single page application which allows for interacting with video through the Javascript API.)
+Because WebVTT is just a simple text file, it is possible to create and edit them by hand in any text editor. There are beginning to be tools available to create and edit WebVTT files. Microsoft developed a single page [web application for creating WebVTT files](http://ie.microsoft.com/testdrive/Graphics/CaptionMaker/). It is also a good example of a single page application which allows for interacting with video through the Javascript API. (Note: I had to make some changes to the Javascript behind this in order to allow the resulting WEBVTT files to work in mediaelementjs. From what I can tell this is a limitation of mediaelementjs and not an issue with this tool. The tool seems to follow the standard--at least as it was at the time.)
 
-I've also created a [Ruby gem for parsing WEBVTT files](https://github.com/jronallo/webvtt).
+On the server the content type for the WEBVTT files should be set to "text/vtt;charset=utf-8". 
 
-On the server the content type for the WEBVTT files should be set to "text/vtt;charset=utf-8". More information on WEBVTT can be found here:
-http://dev.opera.com/articles/view/an-introduction-to-webvtt-and-track/
+<!-- More information on WebVTT can be found here: http://dev.opera.com/articles/view/an-introduction-to-webvtt-and-track/ -->
 
-Can reuse the WEBVTT to put it on the page which can improve SEO for the content. It is also possible to provide links from lines of text to that point in the video. This can allow viewers to jump to the section of the video they're most interested in. Instead of using the time rail to try to find the correct location in the video using the text to navigate the video may be easier for some users. [show example from SLI] It'd also be possible to create a video search tool which gets the user deep linked into the video [http://www.html5rocks.com/en/tutorials/track/basics/].
+<!-- YKK: Pick up editing from here! -->
+
+I've also created a [Ruby gem for parsing WEBVTT files](https://github.com/jronallo/webvtt). This allowed me to reuse the WebVTT file to put the on the page. By including more text on the page, the hope is that it will improve SEO for the content. It is also possible to provide links from lines of text to that point in the video. This can allow viewers to jump to the section of the video they're most interested in. Instead of using the time rail to try to find the correct location in the video using the text to navigate the video may be easier for some users. [show example from SLI] It'd also be possible to create a video search tool which gets the user deep linked into the video [http://www.html5rocks.com/en/tutorials/track/basics/].
+
+
 
 One simple thing is to just display the contents of the transcript on the page via Javascript. It won't improve SEO, but it can help to make the page more accessible. [See "Displaying a Transcript" http://dev.opera.com/articles/view/an-introduction-to-webvtt-and-track/ and the linked transcript.js file]
 
