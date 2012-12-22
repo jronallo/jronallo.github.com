@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "HTML5 Video: Everything I Needed to Know"
-date: 2012-12-21
-update: 2012-12-21 
+date: 2012-12-22
+update: 2012-12-22 
 comments: true
 categories: html5 video
 sidebar: collapse
 ---
 
-While there is a lot of good information out there on HTML5 Video, I wanted to put down everything that I gathered together about it. 
+While there is a lot of good information on the Web about HTML5 Video, I wanted to put down everything that I gathered together about it. 
 
 <!-- more -->
 
