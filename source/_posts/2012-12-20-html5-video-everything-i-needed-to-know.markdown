@@ -178,7 +178,7 @@ You'll likely have to play around with the values used for the conversions. Chec
 
 These examples are from the [library I created for processing video in batches](https://github.com/jronallo/sli_video). 
  
-It is bad enough that we have to process video into two formats. Responsive video can require a compromise in size and quality. A video which looks good on mobile may not look good when it fills the space available on a wide screen desktop. A video which looks great on a desktop and has a larger file size will lead to wasted bandwidth on mobile. Eventually browsers or JavaScript players may have better, common solutions for switching from standard to high quality video sources. That would mean encoding video in yet more access derivatives, but it might be worth it depending on use patterns and bandwidth concerns. Until there is a good solutions more widely available, it may be better to make some compromises between quality and file sizes. What I've done above is set a max width of 640 pixels as a compromise size.
+It is bad enough that we have to process video into two formats. Responsive video can require a compromise in size and quality. A video which looks good on mobile may not look good when it fills the space available on a wide screen desktop. A video which looks great on a desktop and has a larger file size will lead to wasted bandwidth on mobile. Eventually browsers or JavaScript players may have better, common solutions for switching from standard to high quality video sources. That would mean encoding video in yet more access derivatives, but it might be worth it depending on use patterns and bandwidth concerns. Until there is a good solutions more widely available, it may be better to make some compromises between quality and file sizes. What I've done above is set a max width of 640 pixels as a compromise size. (This double encoding is nowhere near as much as Netflix who reportedly [encodes each video 120 times](http://gigaom.com/video/netflix-encoding/).)
 
 There are complicated ways to do video switching that could work around this limitation using JavaScript. Some shims have the ability to do quality switching. All of this would mean processing the video into yet more derivatives to fit space or display quality. The decision we have made in the projects that I have worked on is to choose a dimension and quality that is a compromise between mobile download bandwidth and high quality big video on the desktop. 
 
@@ -429,7 +429,6 @@ $(document).ready(function(){
     $('video').bind('pause',function(){
         $('#state').html('PAUSED')
     });
-
     $('video').bind('ended',function(){
         $('#state').html('The End')
     });
@@ -489,11 +488,11 @@ In the case of [MediaElement.js](http://mediaelementjs.com/), my preferred playe
 
 ### Tracks ###
 
-<!-- YKK: CORRECTION FOR WHICH BROWSERS HAVE IMPLEMENTED TRACKS
-
+<!-- 
+YKK: CORRECTION FOR WHICH BROWSERS HAVE IMPLEMENTED TRACKS
 YKK: Does WebKit support tracks?
-
-YKK: MENTION THE WORD POLYFILL HERE SOMEWHERE!!! -->
+YKK: MENTION THE WORD POLYFILL HERE SOMEWHERE!!! 
+-->
 
 My other must-have feature in a video player is support for subtitles. While you may have a text transcript of your video available for folks who need or want it, that does not provide as close to the same experience for all users as you can. At least in the US, you probably also have some [legal](Title II of the Americans with Disabilities Act) reasons why you need to have subtitles (with [more rules coming into effect in the coming years](http://www.fcc.gov/encyclopedia/twenty-first-century-communications-and-video-accessibility-act)). Equitable access is a civil rights issue.
 
@@ -541,35 +540,42 @@ On the server the content type for the WEBVTT files should be set to "text/vtt;c
 
 <!-- YKK: Pick up editing from here! -->
 
-I've also created a [Ruby gem for parsing WEBVTT files](https://github.com/jronallo/webvtt). This allowed me to reuse the WebVTT file to put the on the page. By including more text on the page, the hope is that it will improve SEO for the content. It is also possible to provide links from lines of text to that point in the video. This can allow viewers to jump to the section of the video they're most interested in. Instead of using the time rail to try to find the correct location in the video using the text to navigate the video may be easier for some users. [show example from SLI] It'd also be possible to create a video search tool which gets the user deep linked into the video [http://www.html5rocks.com/en/tutorials/track/basics/].
+I've created a [Ruby gem for parsing WEBVTT files](https://github.com/jronallo/webvtt). This allowed me to reuse the WebVTT file to put the on the page. By including more text on the page, the hope is that it will improve SEO for the content. You can then also provide links from lines of text to that point in the video. This can allow viewers to jump to the section of the video they're most interested in. Instead of using the time rail to try to find the correct location in the video using the text to navigate the video may be easier for some users. It'd also be possible to create a video search tool which gets the user deep linked into the video. 
+<!-- [http://www.html5rocks.com/en/tutorials/track/basics/] -->
 
+![on page transcript](/images/html5_video/sli_on_page_transcript.png)
 
-
-One simple thing is to just display the contents of the transcript on the page via Javascript. It won't improve SEO, but it can help to make the page more accessible. [See "Displaying a Transcript" http://dev.opera.com/articles/view/an-introduction-to-webvtt-and-track/ and the linked transcript.js file]
+One simple thing is to just display the contents of the transcript on the page via Javascript. It won't improve SEO, but it can help to make the page more accessible. [See "[Displaying a Transcript](http://dev.opera.com/articles/view/an-introduction-to-webvtt-and-track/)" and the linked [transcript.js](/demos/html5_video/javascripts/transcript.js) file]
 
 It would also be possible to allow an online translation service do automatic translation of the WEBVTT text into a different language.
 
-This is all great, but not all browsers offer support for these features. IE10 has been out in front with its support of `<track>` and will parse and display WEBVTT tracks. Chrome also has some support but it needs to be turned on through a flag. Firefox will parse the track but won't display it. http://net.tutsplus.com/tutorials/html-css-techniques/an-in-depth-overview-of-html5-multimedia-and-accessibility/ This is a key area where polyfills or shims can come into play.
+This is all great, but not all browsers offer support for even the basic features of the track element. IE10 has been out in front with its support of `<track>` and will parse and display WebVTT tracks [YKK: citation?]. Chrome also has some support but it needs to be turned on through a flag. Firefox will parse the track but won't display it. YKK [http://net.tutsplus.com/tutorials/html-css-techniques/an-in-depth-overview-of-html5-multimedia-and-accessibility/](http://net.tutsplus.com/tutorials/html-css-techniques/an-in-depth-overview-of-html5-multimedia-and-accessibility/). Providing support for the `track` elements, WebVTT, and displaying a user interface is a key area where polyfills or shims can come into play.
 
-
-
-<!-- YKK [By default Chrome will may parse the WEBVTT but will not display it. To turn on the flag to get subtitles to display in Chrome go to chrome://flags/ and enable "Enable `<track>` element".] -->
+To get the [tracks demo](http://jronallo.github.com/demos/html5_video/50_track.html) to work natively, you'd have to be using the latest version of Chrome (or an older version with "Enable `<track>` element" flag enabled on the chrome://flags/ page). [YKK: This gives a CORS error on localhost, is this working in production?]
 
 <!-- YKK Mention how it is possible to have a track that has json instead of text which can then be used from a script? -->
 
-
-
-<!-- YKK http://www.longtailvideo.com/blog/27621/whats-new-in-html5-the-track-element/ -->
+<!-- YKK link this up: http://www.longtailvideo.com/blog/27621/whats-new-in-html5-the-track-element/ -->
 
 ## Server Setup ##
 
 ### Organization of Files ###
 
-Since you're just serving up video with a regular web server like Apache, IIS, or nginx, you can place files however you like. I like to have semantic, readable file names arranged in a modified [Pairtree](YKK) that takes part of the file name to create directories. However you structure your directories I recommend keeping all of the access assets related to a single video without a single directory. Any video derivatives you create can be placed alongside the poster image and any tracks like subtitles, descriptions, or chapters you create. 
+Since you're just serving up video with a regular web server like Apache, IIS, or nginx, you can place files however you like. I like to have semantic, readable file names arranged in a modified [Pairtree](https://wiki.ucop.edu/display/Curation/PairTree) that takes part of the file name to create directories. It is easy for humans to traverse and scripts to calculate based on a file name. However you structure your directories, I recommend keeping all of the access assets related to a single video within a single directory. Any video derivatives you create can be placed alongside the poster image and any tracks like subtitles, descriptions, or chapters you create. Here's a simple example of how you could arrange the files:
+
+```text structure for organizing video files
+RIS
+└── getting_a_book
+    ├── getting_a_book.mp4
+    ├── getting_a_book.ogv
+    ├── getting_a_book.png
+    ├── getting_a_book.vtt
+    └── getting_a_book.webm
+```
 
 ### Setting the MIME type on the server ###
 
-We have already shown how to configure `source` elements to include a `type` attribute with the MIME type of the source file. It is also necessary to configure your server to respond with the correct MIME type for your files in the Content-Type response header. Any Web server (Apache, nginx, IIS) ought to be able to have the correct MIME types set. For Apache you can set the correct MIME types like this in a conf file or an .htaccess file. Our demo does not use OGG so we would not have to include the video/ogg line.
+We have already shown how to configure `source` elements to include a `type` attribute with the MIME type of the source file. It is also necessary to configure your server to respond with the correct MIME type for your files in the Content-Type response header. Any Web server (Apache, nginx, IIS) ought to be able to have the correct MIME types set. For Apache you can set the correct MIME types like this in a conf file or an .htaccess file. Our demo does not use OGG so we would not have to include the "video/ogg" line.
 
 ```text
 AddType video/mp4 .mp4
@@ -583,55 +589,138 @@ As we saw with the bookmarklet example that loads a video from the Internet Arch
 
 ### Progressive Download and Range Requests ###
 
-HTML5 video does not work like streaming technologies or Flash. So how does the browser manage to play a long video without downloading the whole file before playing it? Part of the trick is that the video is encoded in such a way that the metadata is at the top of the file. This means once the first chunk of data is returned it is enough to determine whether the browser can play it all the way through. If you are encoding video for use with the video element, you will want to choose the Web optimized option in the encoding software. (YKK: will we have mentioned this earlier or otherwise shown an exmaple?)
+HTML5 video does not work like streaming technologies or Flash. So how does the browser manage to play a long video without downloading the whole file before playing it? Part of the trick is that the video is encoded in such a way that the metadata is at the top of the file. This means once the first chunk of data is returned it is enough to determine whether the browser can play it all the way through. If you are encoding video for use with the video element, you will want to choose the Web optimized option in the encoding software. (See the section on video encoding above.)
 
-The real trick though is how Web servers allow you to only download the a part of a file you request. A chunk of the video is requested at a time which allows HTML5 video to give the appearance of streaming. This behavior of mimicking streaming is called progressive download. Requesting just a chunk of a file is called a range request or "[byte serving](http://en.wikipedia.org/wiki/Byte_serving)."
+The real trick though is how Web servers allow you to only download the a part of a file you request. The browser requests a chunk of the video at a time which allows HTML5 video to give the appearance of streaming. This behavior of mimicking streaming is called progressive download. In general, requesting just a chunk of a file from a Web server is called a range request or "[byte serving](http://en.wikipedia.org/wiki/Byte_serving)."
 
 You may need to do some configuration on your video server to allow for range requests. You can test this by looking at the response headers for one of your video files. Here we look at the headers for our demo video on the command line.
 
+```bash look at the headers 
+$ curl -I http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4
+HTTP/1.1 200 OK
+Content-Length: 8343631
+Content-Type: video/mp4
+Last-Modified: Thu, 20 Dec 2012 19:40:10 GMT
+Accept-Ranges: bytes
+ETag: "f79b80d2e9decd1:89fd"
+Server: Microsoft-IIS/6.0
+Access-Control-Allow-Origin: *
+X-Powered-By: ASP.NET
+Date: Sat, 22 Dec 2012 22:04:23 GMT
 ```
-YKK to be to our demo video wherever that might eventually be
-curl -I http://siskel.lib.ncsu.edu/SLI/atkins/atkins-leader_whitehouse/atkins-leader_whitehouse.mp4
-```
 
-You will be looking for this header "[Accept-Ranges](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html): bytes" which advertises that the server can accept range requests. 
+You will be looking for the "[Accept-Ranges](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html): bytes" header which advertises that the server can accept range requests. 
 
-You can look at the request headers to see how this works from the client's perspective. Using the network tab of the browser's developer tools or an add-on like Firefox's [Live HTTP Headers](https://addons.mozilla.org/en-us/firefox/addon/live-http-headers/). Go to [this demo page](YKK) and you'll see "Range: bytes=0-" as one of the headers when making a request. This is the initial request for the first chunk of bytes. A successful response will begin with a 206 Partial Content response code. The response will include a headers like "Accept-Ranges: bytes" to show that range requests are accepted. The Content-Range header (e.g. "Content-Range: bytes 0-3771428/3771429") shows the range of bytes which were transferred in the current response followed after the slash by the total number of bytes in the file. You'll also see in the time rail for most players that part of the video timeline has been "buffered" and is available to play. The Content-Length header will show the actual number of bytes which were transferred with each request.
+You can look at the request headers to see how this works from the client's perspective. Using the network tab of the browser's developer tools or an add-on like Firefox's [Live HTTP Headers](https://addons.mozilla.org/en-us/firefox/addon/live-http-headers/). Go to [this demo page](http://jronallo.github.com/demos/html5_video/50_track.html) and you'll see "Range: bytes=0-" as one of the headers the browser sends when making a request for the video. This is the initial request for the first chunk of bytes. A successful response will begin with a "206 Partial Content" response code. The response will include the "Accept-Ranges: bytes" header to show that range requests are accepted. The [Content-Range](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.16) header (e.g. "Content-Range: bytes 0-3771428/3771429") shows the range of bytes which were transferred in the current response followed after the slash by the total number of bytes in the file. You'll also see in the time rail for most players that part of the video timeline has been "buffered" and is available to play. The [Content-Length](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13) header will show the actual number of bytes which were transferred with each request.
 
-If you play the video up near the end point of what is "buffered" you'll see that another range request is made. You can also pick a point later in the video and see the which range of bytes are requests. The whole process by which the browser makes determinations of how much and when to buffer video is explained in [this Chromium image at the bottom of the page](http://www.chromium.org/audio-video). Note that not all brower's in their developer tools give the same feedback about requests for video assets.
+If you play the video up to near the end point of what is "buffered" you'll see that another range request is made. You can also pick a point later in the video and see which range of bytes are requests. The whole process by which the browser makes determinations of how much and when to buffer video is explained in [this Chromium image at the bottom of the page](http://www.chromium.org/audio-video). Note that not all browsers in the network tab of their developer tools give the same feedback about requests for video assets. Some will show multiple requests on different lines. Others will show a video on a single line and extend the download time line as more of the video is downloaded.
 
 You'll have to check with your particular server for how to enable range requests if you are not seeing these headers or this behavior. Apache and IIS are reported to serve range requests by default.
 
 ## Search Engine Optimization and Other Site Considerations ##
 
-Once you have a site and are serving up video and everything is working nicely across all browsers and devices, you will want to promote your site and make it more discoverable. Just like with the rest of the technology behind HTML5 media, there is a lot to cover here, but following are some pointers to get you started in making your video more discoverable. Google provides a whole section of their [Webmaster EDU site](https://developers.google.com/webmasters/googleforwebmasters/) for [video search](https://developers.google.com/webmasters/videosearch/). Most of the tips here are taken from that guide.
+Once you have a site and are serving up video and everything is working nicely across all browsers and devices, you will want to promote your site and make it more discoverable. Just like with the rest of the technology behind HTML5 media, there is a lot to cover here, but following are some pointers to get you started in making your video more discoverable. Google provides a whole section of their [Webmaster EDU site](https://developers.google.com/webmasters/googleforwebmasters/) for [video search](https://developers.google.com/webmasters/videosearch/). Most of the tips here are taken from that guide with some details filled in.
 
-Every video should have a "[dedicated video play page for each video](https://developers.google.com/webmasters/videosearch/intro)." It is technically possible to switch the video source dynamically with JavaScript and play more than one video on a page. A single page could be set up to play through a whole playlist of videos. Such playlist pages are not recommended. Having your video have a dedicated play page makes it easier for search engines to index the resource and easier for users to bookmark. Every video resource should have exactly one page it is watchable on.
+Every video should have a "[dedicated video play page for each video](https://developers.google.com/webmasters/videosearch/intro)." It is technically possible to switch the video source dynamically with JavaScript and play more than one video on a page. A single page could be set up to play through a whole playlist of videos. Such playlist pages are not recommended. Having your video have a dedicated play page makes it easier for search engines to index the resource and easier for users to bookmark. It avoids having [duplicate content problems](http://support.google.com/webmasters/bin/answer.py?hl=en&answer=66359). Every video resource should have exactly one page it is watchable on.
 
-You are already publishing a [sitemap](http://www.sitemaps.org/) so that the search engines will better discover and crawl your site, right? If you have video on your site that you would like to get indexed, consider [adding your videos to your sitemap](https://developers.google.com/webmasters/videosearch/sitemaps). There are some fields which are required and others that are suggested. This might effect what kind of metadata you keep on each of your videos so that you are able to generate a sitemap which Google will use. Google can crawl many different video types, but MP4 is the only type which is regularly used with the video element.
+You are already publishing a [sitemap](http://www.sitemaps.org/) for your site (Right?!) so that the search engines will better discover and crawl your site. If you have video on your site that you would like to get indexed, consider [adding your videos to your sitemap](https://developers.google.com/webmasters/videosearch/sitemaps). There are some fields which are required and others that are suggested. This might effect what kind of metadata you keep on each of your videos so that you are able to generate a sitemap which Google will use. Google can crawl many different video types, but MP4 is the only type which is regularly used with the video element.
 
-You can also improve how your videos may be indexed by including embedded semantic markup like [Microdata](http://www.whatwg.org/specs/web-apps/current-work/multipage/microdata.html) (or [RDFa Lite](http://www.w3.org/TR/rdfa-lite/)) using the [Schema.org](http://schema.org/) Web vocabulary. (You can read more about this in my previous Code4Lib Journal article [HTML5 Microdata and Schema.org](http://journal.code4lib.org/articles/6400).) You will want to use the [VideoObject schema](http://schema.org/VideoObject). Note again that there are some properties that are required for Google to index a VideoObject, so you will want to make sure you are collecting this data for each of the videos you want to mark up this way. Again, there are some [fields which Google requires for video markup](https://support.google.com/webmasters/bin/answer.py?hl=en&answer=173839&topic=1088473&ctx=topic).
+You can also improve how your videos may be indexed by including embedded semantic markup like [Microdata](http://www.whatwg.org/specs/web-apps/current-work/multipage/microdata.html) (or [RDFa Lite](http://www.w3.org/TR/rdfa-lite/)) using the [Schema.org](http://schema.org/) Web vocabulary. (You can read more about this in my Code4Lib Journal article [HTML5 Microdata and Schema.org](http://journal.code4lib.org/articles/6400).) You will want to use the [VideoObject schema](http://schema.org/VideoObject). Note again that there are some [properties that are required for Google](https://support.google.com/webmasters/bin/answer.py?hl=en&answer=173839&topic=1088473&ctx=topic) to index a VideoObject, so you will want to make sure you are collecting this data for each of the videos you want to mark up this way. 
 
 The examples of using Schema.org markup given by the [Google](https://developers.google.com/webmasters/videosearch/schema) and [Schema.org](http://schema.org/VideoObject) pages show the video as an embedded Flash object. The markup does not differ very much, but let's show our example video marked up with Microdata and Schema.org (and provide some explanatory comments).
 
 
+```html Microdata and Schema.org VideoObject http://jronallo.github.com/demos/html5_video/55_microdata.html Demo
+<div itemscope itemtype="http://schema.org/VideoObject" itemref="transcript">
+  <h1 itemprop="name">Getting a Book in DH Hill Library</h1>
+
+  <!-- The <meta> elements are hidden to the human user, but still visible to robots. -->
+  <!-- Convert the video duration from seconds to ISO 8601 date format. Another reason to cache the duration and keep it with other metadata like title and description. -->
+  <meta itemprop="duration" content="T1M49S" > 
+
+  <!-- same as poster image -->
+  <meta itemprop="thumbnailUrl" content="getting_a_book.png" > 
+
+  <!-- The MP4 source of the video. -->
+  <meta itemprop="contentURL" content="http://YKK/video/getting_a_book.mp4" >
+
+  <!-- uploadDate: Date when this media object was uploaded to this site. I'm guessing this is used to determine the freshness of the content. -->
+  <meta itemprop="uploadDate" content="2013-01-10T08:00:00+08:00" >
+  
+  <!-- The height and width values can be determined with the videoHeight and videoWidth properties of the video element. It looks as if the values of these properties should really be a http://schema.org/QuantitativeValue. I'm guessing that the Schema.org examples are out of date since the GoodRelations additions have only come recently. So this is what it would look like once the Schema.org partners understand QuantitativeValue, though the Structured Data Testing Tool does not seem to understand it yet.
+  <span itemprop="height" itemscope itemtype="http://schema.org/QuantitativeValue"> 
+    <meta itemprop="value" content="526">
+  </span>
+  <span itemprop="width" itemscope itemtype="http://schema.org/QuantitativeValue"> 
+    <meta itemprop="value" content="840">
+  </span>
+  These values below are probably best to use for the time being.
+  -->
+  <meta itemprop="height" content="526">
+  <meta itemprop="width" content="840">      
+
+  <video poster="getting_a_book.png" controls data-video-id="getting_a_book">
+    <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4" type='video/mp4;codecs="avc1.4D401E, mp4a.40.2"'/>
+    <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.webm" type='video/webm;codecs="vp8, vorbis"'/>
+    <p>Your browser cannot play this video. You might try to <a href="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4">download it</a>.</p>
+  </video>
+  <div id="description">
+    <p itemprop="description">Getting a Book in DH Hill Library is easy!</p>
+  </div>
+</div>
 ```
 
-YKK schema.org
+You can paste the above markup snippet into [Live Microdata](http://foolip.org/microdatajs/live/) and see the JSON output:
 
+```json parsed Microdata for VideoObject
+{
+  "items": [
+    {
+      "type": [
+        "http://schema.org/VideoObject"
+      ],
+      "properties": {
+        "name": [
+          "Getting a Book in DH Hill Library"
+        ],
+        "duration": [
+          "T1M49S"
+        ],
+        "thumbnailUrl": [
+          "getting_a_book.png"
+        ],
+        "contentURL": [
+          "http://YKK/video/getting_a_book.mp4"
+        ],
+        "uploadDate": [
+          "2013-01-10T08:00:00+08:00"
+        ],
+        "height": [
+          "526"
+        ],
+        "width": [
+          "840"
+        ],
+        "description": [
+          "Getting a Book in DH Hill Library is easy!"
+        ]
+      }
+    }
+  ]
+}
 ```
 
 ## HTML5 Audio ##
 
-Both `<video>` and `<audio>` are defined as media elements, so they share many of the same attributes. There's no poster attribute for `<audio>`, but there is still the option to use a `src` attribute or one or more source elements to provide the URI to the audio file. One big difference is, of course, which formats will allow HTML5 audio to work across browsers and devices. [YKK]
+Both `<video>` and `<audio>` are defined as [media elements](http://www.whatwg.org/specs/web-apps/current-work/multipage/the-video-element.html#media-elements), so they share many of the same attributes. There is no poster attribute for `<audio>`, but there is still the option to use a `src` attribute or one or more `source` elements to provide the URI to the audio file. One big difference is, of course, which formats will allow HTML5 audio to work across browsers and devices. [YKK: give details and links to what codecs work.]
 
 ## Future of Media on the Web ##
 
 The simple `video` element is rather pedestrian these days. There're so many other interesting things happening with media on the Web.
 
-- [Web Audio](YKK): Not the same as the `<audio>` element
-- [WebRTC](YKK): Real Time Communication between browsers
-- [Popcornjs](YKK): 
+- [Web Audio API](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html): Not the same as the `<audio>` element
+- [WebRTC](http://www.webrtc.org/): Real Time Communication between browsers
+- [Popcornjs](http://popcornjs.org/): Sync other content along with other time-based media.
 - Canvas + Video: Adding a video to a canvas adds all sorts of possibilities for what you can do with video in the browser.
 
 ## Conclusion ##
