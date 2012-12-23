@@ -730,7 +730,7 @@ You can paste the above markup snippet into [Live Microdata](http://foolip.org/m
 
 ## HTML5 Audio ##
 
-Both `<video>` and `<audio>` are defined as [media elements](http://www.whatwg.org/specs/web-apps/current-work/multipage/the-video-element.html#media-elements), so they share many of the same attributes. There is no poster attribute for `<audio>`, but there is still the option to use a `src` attribute or one or more `source` elements to provide the URI to the audio file. One big difference is, of course, which formats will allow HTML5 audio to work across browsers and devices. [YKK: give details and links to what codecs work.]
+Both `<video>` and `<audio>` are defined as [media elements](http://www.whatwg.org/specs/web-apps/current-work/multipage/the-video-element.html#media-elements), so they share many of the same attributes. There is no poster attribute for `<audio>`, but there is still the option to use a `src` attribute or one or more `source` elements to provide the URI to the audio file. One big difference is, of course, which [formats](https://developer.mozilla.org/en-US/docs/HTML/Supported_media_formats) will allow HTML5 audio to work across browsers and devices. 
 
 ## Future of Media on the Web ##
 
