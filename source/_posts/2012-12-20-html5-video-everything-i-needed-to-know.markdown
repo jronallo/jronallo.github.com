@@ -740,6 +740,8 @@ The simple `video` element is rather pedestrian these days. There're so many oth
 - [WebRTC](http://www.webrtc.org/): Real Time Communication between browsers
 - [Popcornjs](http://popcornjs.org/): Sync other content along with other time-based media.
 - Canvas + Video: Adding a video to a canvas adds all sorts of possibilities for what you can do with video in the browser. Here's a demo of an [exploding video](http://craftymind.com/factory/html5video/CanvasVideo.html).
+- [Media Fragments](http://www.w3.org/TR/media-frags/): Make it possible to address a fragment of a piece of media using URIs.
+- Media Groups
 
 ## Conclusion ##
 
