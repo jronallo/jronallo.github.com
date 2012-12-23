@@ -747,3 +747,12 @@ The simple `video` element is rather pedestrian these days. There're so many oth
 
 HTML and standards for delivering media on the Web are changing quickly. Browsers continue to implement more of the specifications or otherwise change their implementations. I've tried to keep this article to what you can reliably do today. Expect lots of changes and additions in the future.
 
+<!-- 
+TODO
+
+- possible to style video element
+- video tag is semantic
+- http://www.longtailvideo.com/html5/formats/
+- source elements should not be changed. have no effect 
+
+-->
