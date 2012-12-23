@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "HTML5 Video: Everything I Needed to Know"
-date: 2012-12-22
+date: 2012-12-22 18:25:39
 update: 2012-12-22 
 comments: true
 categories: html5 video
@@ -547,9 +547,24 @@ I've created a [Ruby gem for parsing WEBVTT files](https://github.com/jronallo/w
 
 ![on page transcript](/images/html5_video/sli_on_page_transcript.png)
 
-One simple thing is to just display the contents of the transcript on the page via Javascript. It won't improve SEO, but it can help to make the page more accessible. [See "[Displaying a Transcript](http://dev.opera.com/articles/view/an-introduction-to-webvtt-and-track/)" and the linked [transcript.js](/demos/html5_video/javascripts/transcript.js) file]
+One simple thing is to just display the contents of the transcript on the page via Javascript. It won't improve SEO, but it can help to make the page more accessible. [See "[Displaying a Transcript](http://dev.opera.com/articles/view/an-introduction-to-webvtt-and-track/)" and the linked [transcript.js](http://dev.opera.com/static/articles/2012/an-introduction-to-webvtt-and-track/transcript.js) file.] 
 
-It would also be possible to allow an online translation service do automatic translation of the WEBVTT text into a different language.
+```html adding transcript to the page http://jronallo.github.com/demos/html5_video/52_track_on_page.html Demo
+<head>
+  ...
+  <script type="text/javascript" src="http://dev.opera.com/static/articles/2012/an-introduction-to-webvtt-and-track/transcript.js"></script>
+  <script type="text/javascript" src="/demos/html5_video/javascripts/transcript_on_page.js"></script>
+</head>
+<body>
+  ...
+  <div>
+    <h2>Transcript</h2>
+    <div id="transcript"></div>
+  </div> 
+</body>
+```
+
+Using a track element could also make it possible for an online translation service to do automatic translation of the WebVTT text into a different language.
 
 This is all great, but not all browsers offer support for even the basic features of the track element. IE10 has been out in front with its support of `<track>` and will parse and display WebVTT tracks [YKK: citation?]. Chrome also has some support but it needs to be turned on through a flag. Firefox will parse the track but won't display it. YKK [http://net.tutsplus.com/tutorials/html-css-techniques/an-in-depth-overview-of-html5-multimedia-and-accessibility/](http://net.tutsplus.com/tutorials/html-css-techniques/an-in-depth-overview-of-html5-multimedia-and-accessibility/). Providing support for the `track` elements, WebVTT, and displaying a user interface is a key area where polyfills or shims can come into play.
 
