@@ -6,7 +6,7 @@ update: 2012-12-22
 comments: true
 categories: [html5, video]
 sidebar: collapse
-published: false
+published: true
 ---
 
 While there is a lot of good information on the Web about HTML5 Video, I wanted to put down everything that I gathered together about it. As I work on video projects, I will continue to add more and new information to this post.
