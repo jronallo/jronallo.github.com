@@ -739,7 +739,7 @@ The simple `video` element is rather pedestrian these days. There're so many oth
 - [Web Audio API](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html): Not the same as the `<audio>` element
 - [WebRTC](http://www.webrtc.org/): Real Time Communication between browsers
 - [Popcornjs](http://popcornjs.org/): Sync other content along with other time-based media.
-- Canvas + Video: Adding a video to a canvas adds all sorts of possibilities for what you can do with video in the browser.
+- Canvas + Video: Adding a video to a canvas adds all sorts of possibilities for what you can do with video in the browser. Here's a demo of an [exploding video](http://craftymind.com/factory/html5video/CanvasVideo.html).
 
 ## Conclusion ##
 
