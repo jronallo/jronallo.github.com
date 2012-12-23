@@ -23,7 +23,7 @@ I had originally hoped to publish this in my favorite journal, but I could not c
 
 ## Introduction ##
 
-If you use an iOS (or even Android) device, when you go to view some Web pages with video you'll sometimes be presented with a page that looks like this:
+If you use an iOS (or even a recent Android) device, when you go to view some Web pages with video you'll sometimes be presented with a page that looks like this:
 
 ![No Flash found for displaying video!](/demos/html5_video/images/no_flash.jpg)
 
