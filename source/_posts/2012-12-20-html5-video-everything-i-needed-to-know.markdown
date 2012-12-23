@@ -2,7 +2,7 @@
 layout: post
 title: "HTML5 Video: Everything I Needed to Know"
 date: 2012-12-22 18:25:39
-update: 2012-12-22 
+updated: 2012-12-23 
 comments: true
 categories: [html5, video]
 sidebar: collapse
