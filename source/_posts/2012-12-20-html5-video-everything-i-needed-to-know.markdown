@@ -4,8 +4,9 @@ title: "HTML5 Video: Everything I Needed to Know"
 date: 2012-12-22 18:25:39
 update: 2012-12-22 
 comments: true
-categories: html5 video
+categories: [html5, video]
 sidebar: collapse
+published: false
 ---
 
 While there is a lot of good information on the Web about HTML5 Video, I wanted to put down everything that I gathered together about it. As I work on video projects, I will continue to add more and new information.
