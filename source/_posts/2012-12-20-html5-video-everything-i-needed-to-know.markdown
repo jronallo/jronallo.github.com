@@ -273,7 +273,7 @@ volume -->
 
 #### Duration ####
 
-One property of the video is the `duration` which is reported in seconds. If you go to our most recent [demo video play page]() and open up a console in the browser you can do the following:
+One property of the video is the `duration` which is reported in seconds. If you go to our most recent [demo video play page](YKK) and open up a console in the browser you can do the following:
 
 ```bash Browser Console
 >>> video.duration
@@ -635,6 +635,7 @@ If you play the video up to near the end point of what is "buffered" you'll see 
 
 You'll have to check with your particular server for how to enable range requests if you are not seeing these headers or this behavior. Apache and IIS are reported to serve range requests by default.
 
+<a id="search-engine-optimization"></a>
 ## Search Engine Optimization and Other Site Considerations ##
 
 Once you have a site and are serving up video and everything is working nicely across all browsers and devices, you will want to promote your site and make it more discoverable. Just like with the rest of the technology behind HTML5 media, there is a lot to cover here, but following are some pointers to get you started in making your video more discoverable. Google provides a whole section of their [Webmaster EDU site](https://developers.google.com/webmasters/googleforwebmasters/) for [video search](https://developers.google.com/webmasters/videosearch/). Most of the tips here are taken from that guide with some details filled in.
@@ -751,7 +752,7 @@ HTML and standards for delivering media on the Web are changing quickly. Browser
 TODO
 
 - possible to style video element
-- video tag is semantic
+- video tag is semantic. bears mentioning?
 - http://www.longtailvideo.com/html5/formats/
 - source elements should not be changed. have no effect 
 
