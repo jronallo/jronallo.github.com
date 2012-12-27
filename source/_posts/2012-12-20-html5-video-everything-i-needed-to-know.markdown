@@ -2,7 +2,7 @@
 layout: post
 title: "HTML5 Video: Everything I Needed to Know"
 date: 2012-12-22 18:25:39
-updated: 2012-12-23 
+updated: 2012-12-27 
 comments: true
 categories: [html5, video]
 sidebar: collapse
@@ -177,7 +177,7 @@ And here is a command for converting to WebM from the derivative MP4:
 ffmpeg -quality good -qmin 10 -qmax 51 -i "getting_a_book.mp4" "getting_a_book.webm"
 ```
 
-You'll likely have to play around with the values used for the conversions. Check the [HandBrake](YKK) and [ffmpeg](YKK). It seems that ffmpeg is transitioning to the avconv tool which may have a different parameter signature, so you'll want to check the documentation for your platform.
+You'll likely have to play around with the values used for the conversions. Check the [HandBrake](https://trac.handbrake.fr/wiki/CLIGuide) and [ffmpeg](http://ffmpeg.org/ffmpeg.html). It seems that ffmpeg is transitioning to the avconv tool which may have a different parameter signature, so you'll want to check the documentation for your platform.
 
 These examples are from the [library I created for processing video in batches](https://github.com/jronallo/sli_video). 
  
