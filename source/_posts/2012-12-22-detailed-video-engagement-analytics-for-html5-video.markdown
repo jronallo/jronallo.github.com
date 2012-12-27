@@ -37,9 +37,7 @@ We will, though, model the parameters sent to the tracking function on the param
 
 One thing you'll notice is that we are wrapping everything within a event handler for "loadedmetadata". We only want to apply any of this if there is a video element on the page and the video actually loads its metadata. This means that you can use `video.currentSrc` to determine the current video file URL.
 
-```javascript video event tracking function http://jronallo.github.com/demos/html5_video/javascripts/video_analytics.js Source
-VideoAnalytics = {};
-
+```javascript video event tracking function http://jronallo.github.com/demos/html5_video/javascripts/video_analytics_events.js Source
 // Wait for the video element to be parsed before attempting this.
 VideoAnalytics = {};
 
@@ -85,7 +83,7 @@ You can try this tracking function out in the console as follows:
 
 Now to track the `play` and `pause` events, we can add simple event handlers like the following. While we're at it we can track whether the `ended` event is fired. This will tell us that a viewer got to the end of the video but it will not tell us that they have actually watched the whole video. We can also track the `seeked` event. When the current time is set the `seeked` event fires. It also gets triggered when a user clicks on the time rail control.
 
-```javascript tracking video events http://jronallo.github.com/demos/html5_video/javascripts/video_analytics.js Source
+```javascript tracking video events http://jronallo.github.com/demos/html5_video/javascripts/video_analytics_events.js Source
 var VideoAnalytics = {};
 
 $(document).ready(function(){
@@ -216,7 +214,7 @@ Using the `currentTime` setter allows us to jump in time to a point towards the 
 
 Here a function to turn a `TimeRanges` object into an array of objects. Each object will have the appropriate seconds value for each start and end key. 
 
-```javascript time_ranges_to_array http://jronallo.github.com/demo/html5_video/javascripts/video_engagement_analytics.js Source
+```javascript time_ranges_to_array http://jronallo.github.com/demos/html5_video/javascripts/video_engagement_analytics.js Source
 var time_ranges_to_array = function(time_ranges){
   var ranges = [];
   for (var i=0; i < time_ranges.length; i++) { 
