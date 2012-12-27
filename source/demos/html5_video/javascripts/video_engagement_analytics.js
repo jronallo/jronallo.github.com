@@ -14,12 +14,12 @@
 // identifier. We will also send the current time so that only the latest time 
 // gets indexed by the server.
 
-// KINNEY modules. Some of this code is extracted from the kinney Ruby gem:
+// VideoAnalytics modules. Some of this code is extracted from the kinney Ruby gem:
 // https://github.com/jronallo/kinney
-var KINNEY = {};
+var VideoAnalytics = VideoAnalytics || {};
 
 $(document).ready(function(){
-  KINNEY.analytics = (function ($) {
+  VideoAnalytics.engagement = (function ($) {
 
     // Place a data-video-id attribute on the video element, so that we can send that
     // identifier back to the server. Since the video could be anywhere 
@@ -33,15 +33,12 @@ $(document).ready(function(){
     // It'd be best if we could reliably generate unique ids client-side since we want to be able
     // to do page caching so generating them server side won't work.
     // TODO: consider swapping in node-uuid instead: https://github.com/broofa/node-uuid
-    var uuid_generator = function(){
+    var current_uuid = (function(){
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
         return v.toString(16);
       });
-    };
-
-    // Only generate the UUID once
-    var current_uuid = uuid_generator();
+    })();
 
     // Iterate over the TimeRanges object to create an Array of Hashes for the
     // start and end times of each range.
@@ -102,10 +99,10 @@ $(document).ready(function(){
 
   // Every 25 times the timeupdate event fires we'll log the time ranges played.
   $('video').bind('timeupdate',function(){
-    KINNEY.analytics.tracker_delay_counter += 1;    
-    if (KINNEY.analytics.tracker_delay_counter >= 25) {      
-      KINNEY.analytics.track();
-      KINNEY.analytics.tracker_delay_counter = 0; // reset the delay counter     
+    VideoAnalytics.engagement.tracker_delay_counter += 1;    
+    if (VideoAnalytics.engagement.tracker_delay_counter >= 25) {      
+      VideoAnalytics.engagement.track();
+      VideoAnalytics.engagement.tracker_delay_counter = 0; // reset the delay counter     
     }
   });  
 
@@ -113,13 +110,13 @@ $(document).ready(function(){
   // so that we do not lose some data.
   // TODO: Are there other events when we should send the tracker?
   $('video').bind('seeked pause ended', function(){    
-    KINNEY.analytics.track();
+    VideoAnalytics.engagement.track();
   });
 
   // For any link that is clicked on the page also send the tracking data. This will ensure
   // that the latest time ranges are sent to the server before visiting a new page.
   $('a').click(function(){
-    KINNEY.analytics.track();
-    KINNEY.analytics.pause(); // add a pause so we are sure the POST event can finish
+    VideoAnalytics.engagement.track();
+    VideoAnalytics.engagement.pause(); // add a pause so we are sure the POST event can finish
   });
 });
