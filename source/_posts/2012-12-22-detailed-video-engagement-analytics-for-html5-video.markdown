@@ -135,7 +135,7 @@ It will take more information than just play and pause events to get at this dat
 
 ## Simplistic Video Engagement ##
 
-Some have suggested a way to track video engagement with Google Analtyics. The basic idea is that the time of the video can be divided into equal parts. If a 100 second video is divided into 10 parts then once the video plays the 10th second it triggers a tracking event that "10%"" of the video has been played. The same if the 90th second is played, then "90%" is recorded in the tracking event. [YKK: give a couple of links I've seen that take this approach.]
+Some have suggested a way to track video engagement with Google Analtyics. The basic idea is that the time of the video can be divided into equal parts. If a 100 second video is divided into 10 parts then once the video plays the 10th second it triggers a tracking event that "10%"" of the video has been played. The same if the 90th second is played, then "90%" is recorded in the tracking event. (Here is an [example of this approach](http://htmlcssjavascript.com/javascript/html5-demo-tracking-video-progress-with-google-analytics/).)
 
 As standards like [Media Fragments](http://www.w3.org/TR/media-frags/) get implemented, it will be easier to deep link into videos similarly to how you can link to a section of a page that has an `id` attribute. So a user may begin a video in the middle depending on the URI they follow.
 
@@ -288,3 +288,9 @@ The result is that we can use this data to graph out engagement. Within an admin
 While this seems to work across browsers that understand the `video` element, you are likely to have a Flash fallback for older browsers or in the case that you only encode to one codec. My favorite HTML5 video polyfill with Flash fallback is [MediaElement.js](http://mediaelementjs.com/). The player has an API which allows you to work consistently across HTML5 video and Flash fallback using something similar to the standard API, but it does not implement the `played` property. (Do you know a polyfill which does implement `played` for its Flash fallback?) This means that you would have to come up with a different solution for the Flash fallback player if you receive traffic from older browsers.
 
 What I have done in one application to work around this limitation is to duplicate the functionality of `played` and `TimeRanges`. Each time the `timeupdate` event fires, I collect the current time into a array. Every so often I send this array of seconds to the server and also clear out the array so it does not get too big. This seems to work well enough, but would likely have some performance problems.
+
+## Conclusion ##
+
+It is relatively simple with the HTML5 video API to hook into video events for video engagement analytics. The main problem is coming up with a solution that works on older browsers using a Flash fallback.
+
+What other questions would you like to answer about your videos? What data would you need to answer those questions? As I launch the video site I've worked on and take a look at the analytics we're already grabbing, I may have the opportunity to expand on my work and this post. I'd be interested to hear what your use cases are for better video analytics.
