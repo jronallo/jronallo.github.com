@@ -2,7 +2,7 @@
 layout: post
 title: "Detailed Video Engagement Analytics for HTML5 Video"
 date: 2012-12-27 13:35:31
-update: 2012-12-27 13:35:31
+update: 2012-12-27 13:41:31
 comments: true
 categories: [html5, video, analytics]
 sidebar: collapse
