@@ -277,7 +277,14 @@ The [demo](/demos/html5_video/70_analytics.html) does not POST data to a server,
 
 The result is that we can use this data to graph out engagement. Within an administrative console for one of my sites, I have embedded the video into the page along with a chart created with D3.js. As the video plays the line of the current time moves along the chart. Since I can watch the video alongside the chart, I can see exactly when visitors start to drop off. To show how it works, here's an video with dummy data:
 
-[YKK Include video of the video engagement example from SLI]
+<video controls poster="http://siskel.lib.ncsu.edu/SLI/demo/video_engagement_analytics/video_engagement_analytics.png">
+  <source src="http://siskel.lib.ncsu.edu/SLI/demo/video_engagement_analytics/video_engagement_analytics.mp4" type='video/mp4;codecs="avc1.4D401E, mp4a.40.2"'/>
+  <source src="http://siskel.lib.ncsu.edu/SLI/demo/video_engagement_analytics/video_engagement_analytics.webm" type='video/webm;codecs="vp8, vorbis"'/>
+  <source src="http://siskel.lib.ncsu.edu/SLI/demo/video_engagement_analytics/video_engagement_analytics.ogv" type='video/ogg;codecs="theora, vorbis"'/>
+</video>
 
-![image from SLI of video engagement]()
+## Issues ##
 
+While this seems to work across browsers that understand the `video` element, you are likely to have a Flash fallback for older browsers or in the case that you only encode to one codec. My favorite HTML5 video polyfill with Flash fallback is [MediaElement.js](http://mediaelementjs.com/). The player has an API which allows you to work consistently across HTML5 video and Flash fallback using something similar to the standard API, but it does not implement the `played` property. (Do you know a polyfill which does implement `played` for its Flash fallback?) This means that you would have to come up with a different solution for the Flash fallback player if you receive traffic from older browsers.
+
+What I have done in one application to work around this limitation is to duplicate the functionality of `played` and `TimeRanges`. Each time the `timeupdate` event fires, I collect the current time into a array. Every so often I send this array of seconds to the server and also clear out the array so it does not get too big. This seems to work well enough, but would likely have some performance problems.
