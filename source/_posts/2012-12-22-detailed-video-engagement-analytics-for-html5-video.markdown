@@ -1,12 +1,12 @@
 ---
 layout: post
 title: "Detailed Video Engagement Analytics for HTML5 Video"
-date: 2012-12-22 20:26
-update: 2012-12-22 20:26
+date: 2012-12-27 13:35:31
+update: 2012-12-27 13:35:31
 comments: true
 categories: [html5, video, analytics]
 sidebar: collapse
-published: false
+published: true
 ---
 
 If you have published video on the Web with HTML5 Video, then you will want to know how engaged your viewers are with your video. This post will lead you through collecting the data you need to assess your video publishing efforts. Services like Google Analytics only get you so far. To get deeper insights into how your video is being used, you may want to track detailed video engagement analytics.
