@@ -1,3 +1,20 @@
+# Jason Ronallo's blog
+
+# Deploying
+
+commit to source:
+
+```
+git push origin source
+```
+
+deploy:
+
+```
+rake generate
+rake deploy
+```
+
 ## What is Octopress?
 
 Octopress is [Jekyll](https://github.com/mojombo/jekyll) blogging at its finest.
