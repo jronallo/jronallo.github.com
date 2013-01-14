@@ -5,11 +5,14 @@ date: 2013-01-13 18:20
 comments: true
 categories: 
 published: false
+sidebar: collapse
 ---
 
-I was excited to see the announcement from the Common Crawl that a [URL index is now available](http://commoncrawl.org/common-crawl-url-index/). While the Common Crawl has been making a large corpus of crawl data available for over a year now, if you wanted to access the data you'd have to parse through it all yourself. While setting up a parallel Hadoop job running in AWS EC2 is cheaper than crawling the Web, it still is rather expensive. Now with the index it is possible to query for URLs you are interested in to discover whether they are in the Common Crawl corpus. The result you get
+I was excited to see the announcement from the Common Crawl that a [URL index is now available](http://commoncrawl.org/common-crawl-url-index/). While the Common Crawl has been making a large corpus of crawl data available for over a year now, if you wanted to access the data you'd have to parse through it all yourself. While setting up a parallel Hadoop job running in AWS EC2 is cheaper than crawling the Web, it still is rather expensive. Now with the index it is possible to query for URLs you are interested in to discover whether they are in the Common Crawl corpus. 
 
-YKK, who was responsible for putting the index together, writes in the [github README](https://github.com/trivio/common_crawl_index) about the file format used for the index and how to query it. If you're interested you can read the details there.
+<!-- more -->
+
+[Scott Robertson](https://angel.co/srobertson), who was responsible for putting the index together, writes in the [github README](https://github.com/trivio/common_crawl_index) about the file format used for the index and how to query it. If you're interested you can read the details there.
 
 If you just want to see how to get the data now, the repository provides a couple [python scripts for querying the index](https://github.com/trivio/common_crawl_index/tree/master/bin). I used the [`remote_read`](https://github.com/trivio/common_crawl_index/blob/master/bin/remote_read) script. You'll need to clone the git repository to get the script along with the library:
 
@@ -24,7 +27,7 @@ cd common_crawl_index
 chmod u+x bin/remote_read
 ```
 
-You then need to sign up with [Amazon Web Services](http://aws.amazon.com/) if you do not already have an account. You'll have to give them credit card information. While the data set is hosted for free as part of [AWS open data sets](YKK), I believe you will still be charged for use getting data out in many cases. It appears that with light usage you may not incur any costs, though you'll want to double check that for yourself. You'll also want to be careful that your queries are scoped closely enough not to download everything in a TLD if that's not really what you want.
+You then need to sign up with [Amazon Web Services](http://aws.amazon.com/) if you do not already have an account. You'll have to give them credit card information. While the data set is hosted for free as part of [AWS open data sets](http://aws.amazon.com/publicdatasets/), I believe you will still be charged for use getting data out in many cases. It appears that with light usage you may not incur any costs, though you'll want to double check that for yourself. You'll also want to be careful that your queries are scoped closely enough not to download everything in a TLD if that's not really what you want.
 
 Once you have an account you'll update these lines in `remote_read` with your own AWS key and secret. 
 
@@ -127,22 +130,38 @@ What I'm interested in is what NCSU Libraries URLs are represented in the index.
     1: wwwnew.lib.ncsu.edu
     1: blogs.lib.ncsu.edu
     1: bliss.lib.ncsu.edu
-
+Total URLs: 4033
+Total hostnames: 59
 ```
 
-The results here are interesting as I'm always trying to raise the profile of NCSU Libraries' digital collections. At the top of the list is the main web site. The hostnames www.lib.ncsu.edu and lib.ncsu.edu both point to the same resources. If we unpack that further we find that of the 2427 URLs there, many are for digital collections related pages. 636 are under the [Special Collections Research Center](http://www.lib.ncsu.edu/specialcollections/). Some of these are pages for some legacy collections. 407 URLs are for pages in our [collection guides](http://www.lib.ncsu.edu/findingaids/) application, many of them for individual guides or, strangely the EAD XML for the guides. Some of those collection guides [link to online digital collections](http://www.lib.ncsu.edu/findingaids/search?onlineContent=true).
+## Analyzing the Results
+
+The results here are interesting as I'm always trying to raise the profile of NCSU Libraries' digital collections. At the top of the list is the main web site for NCSU Libraries. The hostnames www.lib.ncsu.edu and lib.ncsu.edu both point to the same resources. If we unpack that further we find that of the 2427 URLs there, many are for digital collections related pages. 636 are under the [Special Collections Research Center](http://www.lib.ncsu.edu/specialcollections/). Some of these are pages for some legacy collections. 407 URLs are for pages in our [collection guides](http://www.lib.ncsu.edu/findingaids/) application, many of them for individual guides or, strangely the EAD XML for the guides. Some of those collection guides [link to online digital collections](http://www.lib.ncsu.edu/findingaids/search?onlineContent=true).
 
 The institutional repository is also well represented at the top of this list. The [Technical Reports Repository](http://repository.lib.ncsu.edu/dr) accounts for 159 of those URLs, and the [NCSU Institutional Repository](http://repository.lib.ncsu.edu/ir/) accounts for just 3. The [digital collections](http://repository.lib.ncsu.edu/collections/), mainly special collections, accounts for 626 URLs. 719 of these are URLs directly to the PDFs.
 
-[geodata.lib.ncsu.edu](http://geodata.lib.ncsu.edu/) YKK
+<http://geodata.lib.ncsu.edu> YKK
 
-Other digital collections projects like [Historical State](http://historicalstate.lib.ncsu.edu/), [Inside Wood](http://insidewood.lib.ncsu.edu/), [North Carolina Architects & Builders](http://ncarchitects.lib.ncsu.edu/), and [NCSU Libraries' Rare and Unique Materials](http://d.lib.ncsu.edu/collections) are represented, but not exhaustively.
+Other digital collections projects like [Historical State](http://historicalstate.lib.ncsu.edu/), [Inside Wood](http://insidewood.lib.ncsu.edu/), [North Carolina Architects & Builders](http://ncarchitects.lib.ncsu.edu/), and [NCSU Libraries' Rare and Unique Materials](http://d.lib.ncsu.edu/collections) are represented, but nowhere near exhaustively. For <http://d.lib.ncsu.edu> 
+
+
+Further down in the list there are a bunch of funny looking URLs like these:
+
+- linkinghub.elsevier.com.www.lib.ncsu.edu
+- web.ebscohost.com.www.lib.ncsu.edu
+- isiknowledge.com.www.lib.ncsu.edu
+
+YKK I think these are all proxy URLs for remove user authentication.
+
+<http://gopher.lib.ncsu.edu> no longer seems to exist, so I don't know where they got that page.
 
 You can see the scripts I used for this output in [this gist](https://gist.github.com/4527250).
 
 ## What can libraries and archives do do with this?
 
 YKK
+
+
 
 
 
