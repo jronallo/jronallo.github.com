@@ -166,15 +166,23 @@ Further down in the list there are a bunch of funny looking URLs. I think these 
 
 <http://gopher.lib.ncsu.edu> no longer seems to exist, so I don't know where they got that page.
 
-You can see the Ruby scripts I used for this output in [this gist](https://gist.github.com/4527250).
+## Double Checking in Web Data Commons
+
+While the Common Crawl URL index is useful if you need the whole page, in many cases just extracted embedded semantic markup may be enough. The [Web Data Commons](http://webdatacommons.org/), is already extracting Microdata and RDFa data, and makes indexes available, though it takes a bit more effort to parse through their indexes. (I'd like a service to query for an N-Quad context and get back all the related triples. Anyone know if there is already such a service?) They have a [helpful page on how to download the extracted data](http://webdatacommons.org/2012-08/stats/how_to_get_the_data.html) in whole or in part.
+
+The <http://d.lib.ncsu.edu/collections/> site publishes Microdata and Schema.org. Looking in the [Web Data Commons Microdata index](http://webdatacommons.org/downloads/2012-08/nquads/html-microdata.nq.index.gz) I found the [the nquad file with triples extracted from ncsu.edu pages](http://webdatacommons.org/downloads/2012-08/nquads/html-microdata-00337.nq.sort.gz). They list the same URLs as the Common Crawl URL index lists. This also leaves me to believe that these may be the only URLs in the Common Crawl index right now even though that index is incomplete.
 
 ## What can libraries and archives do with this?
 
-First, we need to figure out how to get our content crawled by the Common Crawl. 
+First, how much of your content is in the Common Crawl corpus? I'd be interested in hearing what your results are like. 
 
-Once more cultural heritage content is a part of the index, then there are all sorts of things we can begin to do. 
+We need to figure out how to get more cultural heritage content crawled by the Common Crawl. Without our stuff in the Common Crawl we are missing many opportunities to broaden the reach of our content. While my sites for rare and unique digital collections get most of their traffic from search engines, mainly Google, an increasing amount of traffic is due to referrals. Referrals, links from other sites, seem like the key for getting our stuff into the corpus. Efforts to [add links to library special or digital collections to appropriate articles](http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Libraries) would seem to be a good starting point. Social sites are in the corpus and may also be a good way to get inbound links to our collections. There are 134,928+ Pinterest URLs in the Common Crawl index, and folks are actively pinning content from [d.lib.ncsu.edu](http://pinterest.com/source/d.lib.ncsu.edu/). Where else are crawlers following people who would make use of our content?
 
+Once more cultural heritage content is a part of the index, then there are all sorts of things we can begin to do. For web archiving projects it would be possible to begin with data in the corpus, potentially saving some expense. New targeted search engines (or [aggregations](http://jronallo.github.com/blog/code4lib-2012-lightning-talk-that-wasnt/)) can be created for different slices of content. Implement [Microdata](http://www.whatwg.org/specs/web-apps/current-work/multipage/microdata.html) (or [RDFa Lite](http://www.w3.org/TR/rdfa-lite/)) with [Schema.org](http://schema.org/) vocabularies and richer metadata can be extracted from your pages. This data can then save the time of the user in finding the content they really want. 
 
+What are some other ways that libraries, archives, and museums might be able to use the Common Crawl?
+
+You can see the simple Ruby scripts I used for parsing the Common Crawl URL index out and the Web Data Commons Nquads in [this gist](https://gist.github.com/4527250).
 
 
 
