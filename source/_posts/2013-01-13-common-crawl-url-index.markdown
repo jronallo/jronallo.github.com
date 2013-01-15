@@ -3,7 +3,7 @@ layout: post
 title: "Common Crawl URL Index"
 date: 2013-01-13 18:20
 comments: true
-categories: 
+categories: [crawl data]
 published: false
 sidebar: collapse
 ---
@@ -42,7 +42,7 @@ Once you have an account you'll update these lines in `remote_read` with your ow
 
 Now you can run the script like this:
 
-```bash querying the Common Crawl URL index http://jronallo.github.com/YKK Output
+```bash querying the Common Crawl URL index
 
 bin/remote_read edu.ncsu.lib
 
@@ -50,13 +50,13 @@ bin/remote_read edu.ncsu.lib
 
 Note because of how the index is constructed you'll be querying for domains in reverse order. This allows you scope your queries to match everything from a TLD down to a specific subdomain. This will return every URL matching under [http://lib.ncsu.edu](http://lib.ncsu.edu) as well as any subdomains like [http://d.lib.ncsu.edu](http://d.lib.ncsu.edu).
 
-Currently, the [index is only partial](YKK), while folks provide feedback on the index, so your current results may not reflect everything that is currently in the Common Crawl corpus.
+Currently, the [index is only partial](https://groups.google.com/d/msg/common-crawl/EfR1YHvtWrY/ImnW7Z0rgq4J), while folks provide feedback on the index, so your current results may not reflect everything that is currently in the Common Crawl corpus.
 
-## NCSU Libraries URLs in the Common Crawl Index
+## NCSU Libraries' URLs in the Common Crawl Index
 
-You can see the [results for my query for edu.ncsu.lib](YKK). Here's a snippet from the beginning of the set:
+You can see the [results for my query for edu.ncsu.lib](/demos/common_crawl/edu.ncsu.lib-commoncrawl-index.txt). Here's a snippet from the beginning of the set:
 
-```text
+```text Query for edu.ncsu.lib in Common Crawl URL Index http://jronallo.github.com/demos/common_crawl/edu.ncsu.lib-commoncrawl-index.txt Full Text
 edu.ncsu.lib.blogs/:http {'arcFileParition': 200, 'compressedSize': 2062, 'arcSourceSegmentId': 1346876860565, 'arcFileDate': 1346911439829, 'arcFileOffset': 1518768}
 edu.ncsu.lib.d/:http {'arcFileParition': 2132, 'compressedSize': 855, 'arcSourceSegmentId': 1346876860782, 'arcFileDate': 1346908147933, 'arcFileOffset': 2759941}
 edu.ncsu.lib.d/collections/:http {'arcFileParition': 2132, 'compressedSize': 5165, 'arcSourceSegmentId': 1346876860782, 'arcFileDate': 1346908633502, 'arcFileOffset': 81186482}
@@ -66,7 +66,7 @@ edu.ncsu.lib.d/collections/catalog/unccmc00145-002-ff0003-002-004_0002:http {'ar
 edu.ncsu.lib.databases/:http {'arcFileParition': 76, 'compressedSize': 5688, 'arcSourceSegmentId': 1346823846039, 'arcFileDate': 1346870337194, 'arcFileOffset': 37040682}
 ```
 
-The result is a line delimited with information about one URL on each line. A space separates the URL from some JSON data. Again, the URL hostname is in reverse order followed by the path in normal order and finally the protocol. The JSON data is a pointer to the location for the file within a segment of the common crawl dataset. This information can be used to [retrieve the page from AWS S3](https://github.com/trivio/common_crawl_index#retrieving-a-page).
+The result is a line delimited file with information about one URL on each line. A space separates the URL from some JSON data. Again, the URL hostname is in reverse order followed by the path in normal order and finally the protocol. The JSON data is a pointer to the location for the file within a segment of the common crawl dataset. This information can be used to [retrieve the page from AWS S3](https://github.com/trivio/common_crawl_index#retrieving-a-page).
 
 What I'm interested in is what NCSU Libraries URLs are represented in the index. In total the URL index has 4033 URLs. Here's the breakdown for subdomains:
 
@@ -136,30 +136,37 @@ Total hostnames: 59
 
 ## Analyzing the Results
 
-The results here are interesting as I'm always trying to raise the profile of NCSU Libraries' digital collections. At the top of the list is the main web site for NCSU Libraries. The hostnames www.lib.ncsu.edu and lib.ncsu.edu both point to the same resources. If we unpack that further we find that of the 2427 URLs there, many are for digital collections related pages. 636 are under the [Special Collections Research Center](http://www.lib.ncsu.edu/specialcollections/). Some of these are pages for some legacy collections. 407 URLs are for pages in our [collection guides](http://www.lib.ncsu.edu/findingaids/) application, many of them for individual guides or, strangely the EAD XML for the guides. Some of those collection guides [link to online digital collections](http://www.lib.ncsu.edu/findingaids/search?onlineContent=true).
+The results here are interesting as I'm always trying to raise the profile of NCSU Libraries' digital collections. At the top of the list is the main web site for NCSU Libraries. The hostnames www.lib.ncsu.edu and lib.ncsu.edu both point to the same resources. If we unpack that further we find that of the 2427 URLs there, many are for digital collections related pages. 636 are under the [Special Collections Research Center](http://www.lib.ncsu.edu/specialcollections/), and some of these are pages for some legacy collections. 407 URLs are for pages in our [collection guides](http://www.lib.ncsu.edu/findingaids/) application, many of them for individual guides or, strangely the EAD XML for the guides. Some of those collection guides do [link to online digital collections](http://www.lib.ncsu.edu/findingaids/search?onlineContent=true).
 
-The institutional repository is also well represented at the top of this list. The [Technical Reports Repository](http://repository.lib.ncsu.edu/dr) accounts for 159 of those URLs, and the [NCSU Institutional Repository](http://repository.lib.ncsu.edu/ir/) accounts for just 3. The [digital collections](http://repository.lib.ncsu.edu/collections/), mainly special collections, accounts for 626 URLs. 719 of these are URLs directly to the PDFs.
+The institutional repository (Dspace instances) is also well represented at the top of this list. The [Technical Reports Repository](http://repository.lib.ncsu.edu/dr) accounts for 159 of those URLs, and the [NCSU Institutional Repository](http://repository.lib.ncsu.edu/ir/) accounts for just 3. The [digital collections](http://repository.lib.ncsu.edu/collections/) in the repository, mainly special collections, accounts for 626 URLs. 719 of these repository URLs are directly to the PDFs.
 
-<http://geodata.lib.ncsu.edu> YKK
+NCSU Libraries has been providing [Geospatial Data Services](http://www.lib.ncsu.edu/gis/) and paying attention to SEO for those pages, so it isn't completely surprising that this directory of files has gotten indexed: <http://geodata.lib.ncsu.edu>
 
-Other digital collections projects like [Historical State](http://historicalstate.lib.ncsu.edu/), [Inside Wood](http://insidewood.lib.ncsu.edu/), [North Carolina Architects & Builders](http://ncarchitects.lib.ncsu.edu/), and [NCSU Libraries' Rare and Unique Materials](http://d.lib.ncsu.edu/collections) are represented, but nowhere near exhaustively. For <http://d.lib.ncsu.edu> 
+Other digital collections projects like [Historical State](http://historicalstate.lib.ncsu.edu/), [Inside Wood](http://insidewood.lib.ncsu.edu/), [North Carolina Architects & Builders](http://ncarchitects.lib.ncsu.edu/), and [NCSU Libraries' Rare and Unique Materials](http://d.lib.ncsu.edu/collections) are represented, but nowhere near exhaustively. 
 
+For <http://d.lib.ncsu.edu> these are the URLs listed:
 
-Further down in the list there are a bunch of funny looking URLs like these:
+- <http://d.lib.ncsu.edu/> <br> This is the root page of a subdomain that includes a growing number of digital collections. It was just updated to not just be a page with a single unstyled link.
+- <http://d.lib.ncsu.edu/collections/> <br> The home page for NCSU Libraries' Digital Collections: Rare and Unique Materials which includes over 63,700 resources.
+- <http://d.lib.ncsu.edu/collections/catalog/0228376> <br> This is an image of Mary Travers singing live on stage. Looking in Google Analytics for this page as a landing page for referrals, google is the top referrer. Since Google is not likely to have been crawled to discover this URL, it is more likely that the next referrer is responsible for this getting in the index. This [post on the Peter, Paul & Mary Love Tumblr](http://weloveppm.tumblr.com/post/15597561903) was reblogged and liked a number of times.
+- <http://d.lib.ncsu.edu/collections/catalog/bh2127pnc001> <br>  This is an image of the [Webb-Barron-Wells House](http://d.lib.ncsu.edu/collections/catalog?utf8=%E2%9C%93&q=Webb-Barron-Wells+House&search_field=all_fields&commit=search) in [Wilson County, North Carolina](http://d.lib.ncsu.edu/collections/catalog?f%5Blocation_facet%5D%5B%5D=Wilson+County+%28N.C.%29&search_field=all_fields&utf8=%E2%9C%93). It has seen better days, and is not the best representation of many of the [beautiful architectural photographs and drawings](http://d.lib.ncsu.edu/collections/catalog?commit=search&f%5Btopic_facet%5D%5B%5D=Architecture&search_field=all_fields&utf8=%E2%9C%93) in the collection. This page is linked to from the [Webb Surname DNA Project Album](http://www.webbdnaproject.org/album.php).
+- <http://d.lib.ncsu.edu/collections/catalog/unccmc00145-002-ff0003-002-004_0002> <br> This is a "First floor plumbing plan" from the [Louis H. Asbury Papers, 1906-1975](http://d.lib.ncsu.edu/collections/catalog?f%5Bclassification_facet%5D%5B%5D=Louis+H.+Asbury+Papers%2C+1906-1975) with many fine drawings. I can't seem to track down a referrer from Google Analytics that might have led to this link.
+
+So it appears that the Common Crawl probably hasn't (at least in this half of the index!), decided to crawl this site to any extent. Once the rest of the index comes out, I'll have to take a look, and consider how to improve that number.
+
+Further down in the list there are a bunch of funny looking URLs. I think these are all proxy URLs for user authentication to restricted resources.
 
 - linkinghub.elsevier.com.www.lib.ncsu.edu
 - web.ebscohost.com.www.lib.ncsu.edu
 - isiknowledge.com.www.lib.ncsu.edu
 
-YKK I think these are all proxy URLs for remove user authentication.
-
 <http://gopher.lib.ncsu.edu> no longer seems to exist, so I don't know where they got that page.
 
 You can see the scripts I used for this output in [this gist](https://gist.github.com/4527250).
 
-## What can libraries and archives do do with this?
+## What can libraries and archives do with this?
 
-YKK
+I've written before about how YKK
 
 
 

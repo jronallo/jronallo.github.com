@@ -35,6 +35,12 @@ div.pin{
     }
 }
 
+@media only screen and (min-width: 550px) {
+  body > nav ul {
+    float: none;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   ul, ol {
     margin-left: 30px;
