@@ -27,9 +27,9 @@ cd common_crawl_index
 chmod u+x bin/remote_read
 ```
 
-You then need to sign up with [Amazon Web Services](http://aws.amazon.com/) if you do not already have an account. You'll have to give them credit card information. While the data set is hosted for free as part of [AWS open data sets](http://aws.amazon.com/publicdatasets/), I believe you will still be charged for use getting data out in many cases. It appears that with light usage you may not incur any costs, though you'll want to double check that for yourself. You'll also want to be careful that your queries are scoped closely enough not to download everything in a TLD if that's not really what you want.
+Since the data set is hosted for free as part of [AWS open data sets](http://aws.amazon.com/publicdatasets/), it appears that they allow anonymous access. This means that you may not have to sign up for an [Amazon Web Services](http://aws.amazon.com/) account. The current `remote_read` script does not have this anonymous access turned on, but there is an [open issue and patch submitted to allow anonymous access](https://github.com/trivio/common_crawl_index/pull/4). You may want to get the raw version of that pull request file and use it until that issue is closed.
 
-Once you have an account you'll update these lines in `remote_read` with your own AWS key and secret. 
+If you have an account you want to use, you'll update these lines in `remote_read` with your own AWS key and secret. 
 
 ```
   mmap = BotoMap(
@@ -40,12 +40,16 @@ Once you have an account you'll update these lines in `remote_read` with your ow
   )
 ```
 
-Now you can run the script like this:
+Finally you'll have to install boto:
+
+```bash
+pip install boto
+```
+
+Now you can run the script:
 
 ```bash querying the Common Crawl URL index
-
 bin/remote_read edu.ncsu.lib
-
 ```
 
 Note because of how the index is constructed you'll be querying for domains in reverse order. This allows you scope your queries to match everything from a TLD down to a specific subdomain. This will return every URL matching under [http://lib.ncsu.edu](http://lib.ncsu.edu) as well as any subdomains like [http://d.lib.ncsu.edu](http://d.lib.ncsu.edu).
@@ -66,9 +70,9 @@ edu.ncsu.lib.d/collections/catalog/unccmc00145-002-ff0003-002-004_0002:http {'ar
 edu.ncsu.lib.databases/:http {'arcFileParition': 76, 'compressedSize': 5688, 'arcSourceSegmentId': 1346823846039, 'arcFileDate': 1346870337194, 'arcFileOffset': 37040682}
 ```
 
-The result is a line delimited file with information about one URL on each line. A space separates the URL from some JSON data. Again, the URL hostname is in reverse order followed by the path in normal order and finally the protocol. The JSON data is a pointer to the location for the file within a segment of the common crawl dataset. This information can be used to [retrieve the page from AWS S3](https://github.com/trivio/common_crawl_index#retrieving-a-page).
+The result is a line delimited file with information about one URL on each line. A space separates the URL from some JSON-like data. (You'll need to convert the single quotes to double quotes for it to parse as JSON.) Again, the URL hostname is in reverse order followed by the path in normal order and finally the protocol. The JSON data is a pointer to the location for the file within a segment of the common crawl dataset. This information can be used to [retrieve the page from AWS S3](https://github.com/trivio/common_crawl_index#retrieving-a-page).
 
-What I'm interested in is what NCSU Libraries URLs are represented in the index. In total the URL index has 4033 URLs. Here's the breakdown for subdomains:
+What I'm interested in is what NCSU Libraries URLs are represented in the index. In total the URL index has 4033 URLs that all look to be from a crawl in early September. Here's the breakdown for subdomains:
 
 ```
  2278: www.lib.ncsu.edu
@@ -140,19 +144,19 @@ The results here are interesting as I'm always trying to raise the profile of NC
 
 The institutional repository (Dspace instances) is also well represented at the top of this list. The [Technical Reports Repository](http://repository.lib.ncsu.edu/dr) accounts for 159 of those URLs, and the [NCSU Institutional Repository](http://repository.lib.ncsu.edu/ir/) accounts for just 3. The [digital collections](http://repository.lib.ncsu.edu/collections/) in the repository, mainly special collections, accounts for 626 URLs. 719 of these repository URLs are directly to the PDFs.
 
-NCSU Libraries has been providing [Geospatial Data Services](http://www.lib.ncsu.edu/gis/) and paying attention to SEO for those pages, so it isn't completely surprising that this directory of files has gotten indexed: <http://geodata.lib.ncsu.edu>
+NCSU Libraries has been providing [Geospatial Data Services](http://www.lib.ncsu.edu/gis/) and paying attention to SEO for those pages for a long time, so it isn't completely surprising that this directory of files has gotten indexed: <http://geodata.lib.ncsu.edu>. (Note that this server may not be accessible from off-campus.) Many of the URLs under www.lib.ncsu.edu are also GIS pages, so GIS data services and collections pages are even better represented--and human-friendly--than at first appears.
 
 Other digital collections projects like [Historical State](http://historicalstate.lib.ncsu.edu/), [Inside Wood](http://insidewood.lib.ncsu.edu/), [North Carolina Architects & Builders](http://ncarchitects.lib.ncsu.edu/), and [NCSU Libraries' Rare and Unique Materials](http://d.lib.ncsu.edu/collections) are represented, but nowhere near exhaustively. 
 
 For <http://d.lib.ncsu.edu> these are the URLs listed:
 
-- <http://d.lib.ncsu.edu/> <br> This is the root page of a subdomain that includes a growing number of digital collections. It was just updated to not just be a page with a single unstyled link.
+- <http://d.lib.ncsu.edu/> <br> This is the root page of a subdomain that includes a growing number of digital collections sites. It was just updated to be more than a single unstyled link.
 - <http://d.lib.ncsu.edu/collections/> <br> The home page for NCSU Libraries' Digital Collections: Rare and Unique Materials which includes over 63,700 resources.
 - <http://d.lib.ncsu.edu/collections/catalog/0228376> <br> This is an image of Mary Travers singing live on stage. Looking in Google Analytics for this page as a landing page for referrals, google is the top referrer. Since Google is not likely to have been crawled to discover this URL, it is more likely that the next referrer is responsible for this getting in the index. This [post on the Peter, Paul & Mary Love Tumblr](http://weloveppm.tumblr.com/post/15597561903) was reblogged and liked a number of times.
 - <http://d.lib.ncsu.edu/collections/catalog/bh2127pnc001> <br>  This is an image of the [Webb-Barron-Wells House](http://d.lib.ncsu.edu/collections/catalog?utf8=%E2%9C%93&q=Webb-Barron-Wells+House&search_field=all_fields&commit=search) in [Wilson County, North Carolina](http://d.lib.ncsu.edu/collections/catalog?f%5Blocation_facet%5D%5B%5D=Wilson+County+%28N.C.%29&search_field=all_fields&utf8=%E2%9C%93). It has seen better days, and is not the best representation of many of the [beautiful architectural photographs and drawings](http://d.lib.ncsu.edu/collections/catalog?commit=search&f%5Btopic_facet%5D%5B%5D=Architecture&search_field=all_fields&utf8=%E2%9C%93) in the collection. This page is linked to from the [Webb Surname DNA Project Album](http://www.webbdnaproject.org/album.php).
-- <http://d.lib.ncsu.edu/collections/catalog/unccmc00145-002-ff0003-002-004_0002> <br> This is a "First floor plumbing plan" from the [Louis H. Asbury Papers, 1906-1975](http://d.lib.ncsu.edu/collections/catalog?f%5Bclassification_facet%5D%5B%5D=Louis+H.+Asbury+Papers%2C+1906-1975) with many fine drawings. I can't seem to track down a referrer from Google Analytics that might have led to this link.
+- <http://d.lib.ncsu.edu/collections/catalog/unccmc00145-002-ff0003-002-004_0002> <br> This is a "First floor plumbing plan" from the [Louis H. Asbury Papers, 1906-1975](http://d.lib.ncsu.edu/collections/catalog?f%5Bclassification_facet%5D%5B%5D=Louis+H.+Asbury+Papers%2C+1906-1975) with many fine drawings. I can't seem to track down a referrer from Google Analytics that might have led to this link finding its way into the Common Crawl.
 
-So it appears that the Common Crawl probably hasn't (at least in this half of the index!), decided to crawl this site to any extent. Once the rest of the index comes out, I'll have to take a look, and consider how to improve that number.
+So it appears that the Common Crawl probably hasn't (at least in this half of the index!), decided to crawl this site to any extent. Once the rest of the index comes out, I'll have to take a look, and consider how to improve that number. The key though is obviously getting more links into the site.
 
 Further down in the list there are a bunch of funny looking URLs. I think these are all proxy URLs for user authentication to restricted resources.
 
@@ -162,11 +166,13 @@ Further down in the list there are a bunch of funny looking URLs. I think these 
 
 <http://gopher.lib.ncsu.edu> no longer seems to exist, so I don't know where they got that page.
 
-You can see the scripts I used for this output in [this gist](https://gist.github.com/4527250).
+You can see the Ruby scripts I used for this output in [this gist](https://gist.github.com/4527250).
 
 ## What can libraries and archives do with this?
 
-I've written before about how YKK
+First, we need to figure out how to get our content crawled by the Common Crawl. 
+
+Once more cultural heritage content is a part of the index, then there are all sorts of things we can begin to do. 
 
 
 
