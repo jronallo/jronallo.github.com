@@ -1,18 +1,18 @@
 ---
 layout: post
 title: "Common Crawl URL Index"
-date: 2013-01-13 18:20
+date: 2013-01-15 18:20
 comments: true
-categories: [crawl data]
-published: false
+categories: [crawl, microdata, schema.org, rdf, search engines, analytics]
+published: true
 sidebar: collapse
 ---
 
-The Common Crawl now has a [URL index available](http://commoncrawl.org/common-crawl-url-index/). While the Common Crawl has been making a large corpus of crawl data available for over a year now, if you wanted to access the data you'd have to parse through it all yourself. While setting up a parallel Hadoop job running in AWS EC2 is cheaper than crawling the Web, it still is rather expensive for most. Now with the index it is possible to query for URLs you are interested in to discover whether they are in the Common Crawl corpus. Then you can grab just those pages out of the crawl segments.
+The Common Crawl now has a [URL index available](http://commoncrawl.org/common-crawl-url-index/). While the Common Crawl has been making a large corpus of crawl data available for over a year now, if you wanted to access the data you'd have to parse through it all yourself. While setting up a parallel Hadoop job running in AWS EC2 is cheaper than crawling the Web, it still is rather expensive for most. Now with the URL index it is possible to query for domains you are interested in to discover whether they are in the Common Crawl corpus. Then you can grab just those pages out of the crawl segments.
 
 <!-- more -->
 
-[Scott Robertson](https://angel.co/srobertson), who was responsible for putting the index together, writes in the [github README](https://github.com/trivio/common_crawl_index) about the file format used for the index and how to query it. If you're interested you can read the details there.
+[Scott Robertson](https://angel.co/srobertson), who was responsible for putting the index together, writes in the [github README](https://github.com/trivio/common_crawl_index) about the file format used for the index and the algorithm for querying it. If you're interested you can read the details there.
 
 If you just want to see how to get the data now, the repository provides a couple [python scripts for querying the index](https://github.com/trivio/common_crawl_index/tree/master/bin). I used the [`remote_read`](https://github.com/trivio/common_crawl_index/blob/master/bin/remote_read) script. You'll need to clone the git repository to get the script along with the library files:
 
@@ -52,7 +52,7 @@ Now you can run the script:
 bin/remote_read edu.ncsu.lib
 ```
 
-Note because of how the index is constructed you'll be querying for domains in reverse order. This allows you scope your queries to match everything from a TLD down to a specific subdomain. This will return every URL matching under [http://lib.ncsu.edu](http://lib.ncsu.edu) as well as any subdomains like [http://d.lib.ncsu.edu](http://d.lib.ncsu.edu).
+Note that because of how the index is constructed you'll be querying for domains in reverse order. This allows you scope your queries to match everything from a TLD down to a specific subdomain. This will return every URL matching under [http://lib.ncsu.edu](http://lib.ncsu.edu) as well as any subdomains like [http://d.lib.ncsu.edu](http://d.lib.ncsu.edu).
 
 As I write this, the [index is only partial](https://groups.google.com/d/msg/common-crawl/EfR1YHvtWrY/ImnW7Z0rgq4J), while folks provide feedback on the index, so your current results may not reflect everything that is currently in the Common Crawl corpus.
 
@@ -70,7 +70,7 @@ edu.ncsu.lib.d/collections/catalog/unccmc00145-002-ff0003-002-004_0002:http {'ar
 edu.ncsu.lib.databases/:http {'arcFileParition': 76, 'compressedSize': 5688, 'arcSourceSegmentId': 1346823846039, 'arcFileDate': 1346870337194, 'arcFileOffset': 37040682}
 ```
 
-The result is a line delimited file with information about one URL on each line. A space separates the URL from some JSON-like data. (You'll need to convert the single quotes to double quotes for it to parse as JSON.) Again, the URL hostname is in reverse order followed by the path in normal order and finally the protocol. The JSON data is a pointer to the location for the file within a segment of the common crawl dataset. This information can be used to [retrieve the page from AWS S3](https://github.com/trivio/common_crawl_index#retrieving-a-page).
+The result is a line delimited file with information about one URL on each line. A space separates the URL from some JSON-like data. (You'll need to convert the single quotes to double quotes for it to parse as JSON, or just eval the data with Python if you are filled with trust or like to live dangerously.) Again, the URL hostname is in reverse order followed by the path in normal order and finally the protocol. The data is a pointer to the location for the file within a segment of the common crawl dataset. This information can be used to [retrieve the page from AWS S3](https://github.com/trivio/common_crawl_index#retrieving-a-page).
 
 What I'm interested in is what NCSU Libraries URLs are represented in the index. In total the URL index has 4033 URLs that all look to be from a crawl in early September. Here's the breakdown for subdomains:
 
@@ -140,13 +140,13 @@ Total hostnames: 59
 
 ## Analyzing the Results
 
-The results here are interesting as I'm always trying to raise the profile of NCSU Libraries' digital collections. At the top of the list is the main web site for NCSU Libraries. The hostnames www.lib.ncsu.edu and lib.ncsu.edu both point to the same resources. If we unpack that further we find that of the 2427 URLs there, many are for digital collections related pages. 636 are under the [Special Collections Research Center](http://www.lib.ncsu.edu/specialcollections/), and some of these are pages for some legacy collections. 407 URLs are for pages in our [collection guides](http://www.lib.ncsu.edu/findingaids/) application, many of them for individual guides or, strangely the EAD XML for the guides. Some of those collection guides do [link to online digital collections](http://www.lib.ncsu.edu/findingaids/search?onlineContent=true).
+The results here are interesting as I'm always trying to raise the discoverability of NCSU Libraries' digital collections. At the top of the list is the main web site for NCSU Libraries. The hostnames www.lib.ncsu.edu and lib.ncsu.edu both point to the same resources. Looking closer we find that of the 2427 URLs there, many are for digital collections related pages. 636 are under the [Special Collections Research Center](http://www.lib.ncsu.edu/specialcollections/), and some of these are pages for some legacy collections. 407 URLs are for pages in our [collection guides](http://www.lib.ncsu.edu/findingaids/) application, many of them for individual guides or, strangely the EAD XML for the guides. Some of those collection guides do [link to online digital collections](http://www.lib.ncsu.edu/findingaids/search?onlineContent=true).
 
 The institutional repository (Dspace instances) is also well represented at the top of this list. The [Technical Reports Repository](http://repository.lib.ncsu.edu/dr) accounts for 159 of those URLs, and the [NCSU Institutional Repository](http://repository.lib.ncsu.edu/ir/) accounts for just 3. The [digital collections](http://repository.lib.ncsu.edu/collections/) in the repository, mainly special collections, accounts for 626 URLs. 719 of the 801 repository URLs are directly to the PDFs. Evidently the PDFs rank higher than the landing pages.
 
 NCSU Libraries has been providing [Geospatial Data Services](http://www.lib.ncsu.edu/gis/) and paying attention to SEO for those pages for a long time, so it isn't completely surprising that this directory of files has gotten indexed: <http://geodata.lib.ncsu.edu>. (Note that this server may not be accessible from off-campus.) Many of the URLs under www.lib.ncsu.edu are also GIS pages, so GIS data services and collections pages are even better represented--and human-friendly--than at first appears.
 
-Other digital collections projects like [Historical State](http://historicalstate.lib.ncsu.edu/), [Inside Wood](http://insidewood.lib.ncsu.edu/), [North Carolina Architects & Builders](http://ncarchitects.lib.ncsu.edu/), and [NCSU Libraries' Rare and Unique Materials](http://d.lib.ncsu.edu/collections) are represented, but nowhere near exhaustively. 
+Other digital collections projects like [Historical State](http://historicalstate.lib.ncsu.edu/), [Inside Wood](http://insidewood.lib.ncsu.edu/), [North Carolina Architects & Builders](http://ncarchitects.lib.ncsu.edu/), and [NCSU Libraries' Rare and Unique Materials](http://d.lib.ncsu.edu/collections) are represented, but nowhere near exhaustively. Historical State now [canonicalizes](http://support.google.com/webmasters/bin/answer.py?hl=en&answer=139066) its URLs for individual resources to point to the Rare and Unique Materials site, but Common Crawl may not be paying attention that that hint. (Hopefully, at some point I'll be able to do a similar analysis for historicalstate.lib.nsu.edu as I've done in the following.)
 
 For <http://d.lib.ncsu.edu> these are the URLs listed:
 
