@@ -2,6 +2,7 @@
 layout: post
 title: "Common Crawl URL Index"
 date: 2013-01-15 18:20
+update: 2013-01-15 21:54:25
 comments: true
 categories: [crawl, microdata, schema.org, rdf, search engines, analytics]
 published: true
@@ -27,14 +28,14 @@ cd common_crawl_index
 chmod u+x bin/remote_read
 ```
 
-Since the data set is hosted for free as part of [AWS open data sets](http://aws.amazon.com/publicdatasets/), it appears that they allow anonymous access. This means that you may not have to sign up for an [Amazon Web Services](http://aws.amazon.com/) account. The current `remote_read` script does not have this anonymous access turned on, but there is an [open issue and patch submitted to allow anonymous access](https://github.com/trivio/common_crawl_index/pull/4). You may want to get that version of the `remote_read` script and use it until that issue is closed.
+Since the data set is hosted for free as part of [AWS open data sets](http://aws.amazon.com/publicdatasets/), it appears that they allow anonymous access. This means that you may not have to sign up for an [Amazon Web Services](http://aws.amazon.com/) account. ~~The current remote_read script does not have this anonymous access turned on, but there is an [open issue and patch submitted to allow anonymous access](https://github.com/trivio/common_crawl_index/pull/4). You may want to get that version of the remote_read script and use it until that issue is closed.~~ The anonymous access patch was accepted and now the `remote_read` script works without modification.
 
-If you have an account you want to use, you'll update these lines in `remote_read` with your own AWS key and secret. 
+If you have an account you want to use, for whatever reason, you'll update these lines in `remote_read` with your own AWS key and secret. 
 
-```
+```python
   mmap = BotoMap(
-    '<YOUR AWS KEY>',
-    '<YOUR AWS SECRET>',
+#   '<YOUR AWS KEY>',
+#   '<YOUR AWS SECRET>',
     'aws-publicdatasets',
     '/common-crawl/projects/url-index/url-index.1356128792'
   )
