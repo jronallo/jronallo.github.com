@@ -2,7 +2,7 @@
 layout: post
 title: "Common Crawl URL Index"
 date: 2013-01-15 18:20
-update: 2013-01-15 21:54:25
+updated: 2013-01-15 21:54:25
 comments: true
 categories: [crawl, microdata, schema.org, rdf, search engines, analytics]
 published: true

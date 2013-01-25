@@ -2,7 +2,7 @@
 layout: post
 title: "The Prevalence of Schema.org Book Properties in the Wild"
 date: 2013-01-24 23:00
-update: 2013-01-25
+updated: 2013-01-25 12:10
 comments: true
 categories: [crawl, microdata, schema.org]
 published: true
