@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "The Prevelance of Schema.org Book Properties in the Wild"
-date: 2013-01-24 19:28
+date: 2013-01-24 23:00
 update: 2013-01-24
 comments: true
 categories: [crawl, microdata, schema.org]
-published: false
+published: true
 ---
 
 The [Web Data Commons](YKK) is extracting the structured data discovered in the [Common Crawl](YKK) corpus, and they're making the extracted data and some high-level analyzed data available for free to all. I took a look at which properties of <http://schema.org/Book> were actually used in the wild in the [August 2012 corpus](http://webdatacommons.org/2012-08/stats/how_to_get_the_data.html). My hope is to inform, in a small way, the discussion around extending Schema.org to better accommodate bibliographic data happening through the [W3C Schema Bib Extend Community Group](http://www.w3.org/community/schemabibex/). By seeing what is actually being used, we might make better decisions about how Schema.org could be extended. 
