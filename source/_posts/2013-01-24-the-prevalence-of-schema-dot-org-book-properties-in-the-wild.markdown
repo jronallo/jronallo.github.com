@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The Prevelance of Schema.org Book Properties in the Wild"
+title: "The Prevalence of Schema.org Book Properties in the Wild"
 date: 2013-01-24 23:00
 update: 2013-01-24
 comments: true
