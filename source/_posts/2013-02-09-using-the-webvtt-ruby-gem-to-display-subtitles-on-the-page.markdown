@@ -54,7 +54,7 @@ page, there's information about the
 
 For more on the format used here and the other features of this file format, [see the WebVTT specification](http://dev.w3.org/html5/webvtt/).
 
-We'll just use [pry](YKK) for now.
+We'll just use [pry](http://pryrepl.org/) for now.
 
 ```bash
 $ pry
