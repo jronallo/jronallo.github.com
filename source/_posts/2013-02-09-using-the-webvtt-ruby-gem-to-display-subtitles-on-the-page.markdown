@@ -5,6 +5,7 @@ date: 2013-02-09 13:12
 comments: true
 categories: [accessibility, seo, html5, video, audio]
 published: false
+sidebar: collapse
 ---
 
 Using the [webvtt](https://github.com/jronallo/webvtt) gem, you can display on the page the [WebVTT](http://dev.w3.org/html5/webvtt/) subtitles, captions, or chapters you've created for HTML5 video or audio. If you're already creating WebVTT files for your media, you ought to get the most use out of it as you can. I'll show you how.
@@ -93,9 +94,71 @@ Mainly what we're interested in are the text, start, and end attributes of each 
 
 ## Adding track to page
 
-Let's assume that we have a Rails application
+Let's assume that we have a Rails application, and we're showing a video play page for a single video. Let's further assume that our controller knows how to get the contents of the WebVTT file and assign it to the variable `@webvtt` which is available in our view. We can then create the following template which will convert our WebVTT file into a table of cue text and timestamp links.
 
+```erb 
+<% if @webvtt %>  
+  <h2><%= t 'kinney.transcript.title' %></h2>  
+  <table class="table table-striped" id="transcript_table">
+    <thead>
+      <tr>
+        <th><%= t 'kinney.transcript.text' %></th>
+        <th><%= t 'kinney.transcript.timestamp' %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @webvtt.cues.each do |cue| %>
+        <tr>
+          <td><%= cue.text %></td>
+          <td><%= link_to cue.start, '', :class => 'transcript_jump', :'data-video-jump-time' => jump_time(cue.start) %> - <%= cue.end %></td>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>    
+<% end -%>
+```
 
-YKK YKK
+[This ERB template](https://github.com/jronallo/kinney/blob/master/app/views/kinney/_webvtt.html.erb) is taken from the [Kinney gem](https://github.com/jronallo/kinney), which is a Rails Engine for creating an oral history video clips site. You can see the translation keys with "kinney" at the root.
 
-- media fragments
+The `@webvtt.cues` are iterated over. Each cue text and timestamps are displayed on the page. The important line is the `link_to`. The link is given a class of `transcript_jump` and a `data-video-jump-time` to the start time for that cue. We'll use that in our JavaScript to jump to that section of the video. There is also a helper for converting the cue start time timestamp into seconds, which is what we need to use to jump to a particular time in the video.
+
+```ruby
+def jump_time(timestamp)
+  time_parts = timestamp.split(':')
+  seconds = time_parts.pop
+  minutes = time_parts.pop
+  hours   = time_parts.first if !time_parts.blank?
+  total_seconds = hours.to_i.hours.seconds
+  total_seconds += minutes.to_i.minutes.seconds
+  total_seconds += seconds.split('.').first.to_i
+end
+```
+
+The timestamp we get in a WebVTT file has hours, minutes, and seconds separated by colons and fractional seconds separated by a full stop. The above method splits the file by colon and then pops off the seconds, minuts, and, if present, hours from the end of the resulting array. Then ActiveSupport duration methods are used to convert the hours and minutes into seconds. (This timestamp to seconds conversion might be something [better done in the WebVTT gem](https://github.com/jronallo/webvtt/issues/3).)
+
+## JavaScript time jumps
+
+Next we'll add some JavaScript so that the links trigger the video to jump to that point in the current video.
+
+```javascript
+$('.transcript_jump').on('click', function(){
+  $('video')[0].currentTime = parseInt($(this).data('videoJumpTime'));
+  $('video')[0].play();
+  return false;
+});
+```
+
+The JavaScript listens for the click event on any of the links with the transcript_jump class. Because we're using [HTML5 video](/blog/categories/video), it is easy to change the current time and then, if the video isn't already playing, start the video playing. The `currentTime` property for the video is changed to the contents of the `data-video-jump-time` attribute converted to an integer. Then the video is played.
+
+Below is an example of what it looks like. The video starts to play, and then the user scrolls down the page to the transcript. The transcript is expended and the user clicks on the cue at the 39 second point. The page scrolls the video back into view and the video starts playing from the 39 second mark.
+
+<video controls muted>
+  <source src="/video/webvtt_transcript.mp4" type="video/mp4">
+  <source src="/video/webvtt_transcript.webm" type="video/ogg">
+</video>
+
+While this works, eventually it'd be nice to augment or replace this with the use of [Media Fragments](http://www.w3.org/TR/media-frags/).
+
+## Conclusion
+
+I hope you begin to see some of the possibilities for how you can use the transcript for more than just displaying it on top of the video. Once you have WebVTT files for your 
