@@ -153,7 +153,7 @@ $('.transcript_jump').on('click', function(){
 
 The JavaScript listens for the click event on any of the links with the transcript_jump class. Because we're using [HTML5 video](/blog/categories/video), it is easy to change the current time and then, if the video isn't already playing, start the video playing. The `currentTime` property for the video is set to the contents of the `data-video-jump-time` attribute converted to an integer. Then the video is played.
 
-Below is an example of what it looks like. The video starts to play, and then the user scrolls down the page to the transcript. The transcript is expanded and the user clicks on the cue at the 39 second point. Other JavaScript scrolls the video back into view and the video starts playing from the 39 second mark.
+Below is an example of what it looks like. The video starts to play, and then the user scrolls down the page to the transcript. The transcript is expanded and the user clicks on the cue at the 36 second point. Other JavaScript scrolls the video back into view and the video starts playing from the 36 second mark.
 
 <video controls muted>
   <source src="/video/webvtt_transcript.mp4" type="video/mp4">
