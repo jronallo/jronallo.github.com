@@ -1,34 +1,37 @@
 ---
 layout: post
 title: "Using the webvtt Ruby gem to display subtitles on the page"
-date: 2013-02-09 13:12
+date: 2013-02-19 17:12
+updated: 2013-02-19
 comments: true
 categories: [accessibility, seo, html5, video, audio]
-published: false
+published: true
 sidebar: collapse
 ---
 
-Using the [webvtt](https://github.com/jronallo/webvtt) gem, you can display on the page the [WebVTT](http://dev.w3.org/html5/webvtt/) subtitles, captions, or chapters you've created for HTML5 video or audio. If you're already creating WebVTT files for your media, you ought to get the most use out of it as you can. I'll show you how.
+Using the [webvtt gem](https://github.com/jronallo/webvtt), you can display on the page the [WebVTT](http://dev.w3.org/html5/webvtt/) subtitles, captions, or chapters you've created for HTML5 video or audio. If you're already creating WebVTT files for your media, you ought to get the most use out of it as you can. I'll show you one way you could use them.
 
 <!-- more -->
 
 ## Why include subtitles on the page?
 
-There are a variety of reasons why you might want to include the subtitles or captions on a page. Some of the reasons are based on uncertainty whether robots are currently smart enough to be crawling the content behind track elements. (If anyone knows whether this is happening, I'd love to know! And if they're doing voice recognition of non-YouTube videos they find on the Web, that'd be very interesting as well!) Other reasons for wanting to put the WebVTT content on the page is to add new features which may work for your use case regardless of what the search engines are currently doing.
+There are a variety of reasons why you might want to include the subtitles or captions on a page. Placing the text of your WebVTT files on the page can increase the SEO by including more content to easily index. Other reasons for wanting to put the WebVTT content on the page is to add new features which may work for your use case regardless of what the search engines are currently doing.
 
 Media often has very little metadata to support discoverability of the content. A title and short description alone might not include the details someone is looking for. For instance a name dropped in the middle of a video might not be the main subject of the content, but it could be the important detail to some user. That user might otherwise not find your content through a search engine because the detail was hidden behind the non-indexable content of the media. Including the text from WebVTT on the page allows that text to be crawled and indexed to improve access points to media. 
 
+This point about SEO due to my uncertainty about whether crawlers are finding track element content. Are robots currently smart enough to be crawling the content behind track elements? If anyone knows whether robots are crawling track element sources, I'd love to know! If they aren't currently, I'd have to imagine that it is only a matter of time until they do. Similarly they could be doing voice recognition of audio and video they find on the Web similar to how YouTube can do some basic speech recognition.
+
 Also consider how reading can be faster than watching time-based media. Instead of having to watch some of a video to make decisions about whether to continue on with it, scanning a transcript can give a much quicker idea of whether the media suits the user. It also would allow for searching through the content and jumping to interesting sections. This and other non-SEO use cases could be met with client-side parsing, but there still might be reasons why you'd want to do this processing server-side.
 
-You might also want to cover the second part of SEO by providing users with a rich discovery experience on your own site. You could have an indexing script which can parse the file for indexing in a full-text search server. Every WebVTT file begins with the string "WEBVTT". You don't want every video or audio file you index to come up for a search for "WEBVTT" and there are other pieces like the cue timings that you'd want to remove before indexing. Depending on how your WebVTT file has been phrased and what full-text search engine you're using, you'd probably want to concatenate the text. Otherwise phrase queries might not work as intended, since sentences often must span cues in captioning. (OK, this paragraph isn't about why you'd want the content on the page, but it is a good reason to have this kind of library available for server-side processing.)
+You might also want to cover the second part of SEO by providing users with a rich discovery experience on your own site. You could have an indexing script which can parse the file for indexing in a full-text search server. Every WebVTT file begins with the string "WEBVTT". You don't want every video or audio file you index to come up for a search for "WEBVTT" and there are other pieces like the cue timings that you'd want to remove before indexing. Depending on how your WebVTT file has been phrased and what full-text search engine you're using, you'd probably want to concatenate the text. Otherwise phrase queries might not work as intended, since sentences often must span cues in captioning. (OK, this paragraph isn't about why you'd want the content on the page, but it is a good reason to have this kind of library for parsing WebVTT available for server-side processing.)
 
-At least one video polyfill includes the [ability to auto-translate tracks](http://mediaelementjs.com/examples/?name=translation). I expect this feature would come to other polyfills and browsers in the future. While we're waiting for that to happen, including the text on the page allows for normal google translate functionality to make the video accessible.
+At least one video polyfill includes the [ability to auto-translate tracks](http://mediaelementjs.com/examples/?name=translation). I expect this feature would come to other polyfills and browsers in the future. While we're waiting for that to happen, including the text on the page allows for normal google translate functionality to make the video more accessible.
 
 So now that we have some reasons to need a library for parsing WebVTT files, let's take a look at how it works.
 
 ## Simple webvtt
 
-Before showing how to display caption text on the page, let's get started by showing how you could concatenate all of the text into a single string for indexing. You can install the webvtt gem with:
+Before showing how to display caption text on the page, let's get started by showing how you could use the [webvtt gem](https://github.com/jronallo/webvtt) to read in a file and concatenate all of the text into a single string for indexing. You can install the webvtt gem with:
 
 ```
 gem install webvtt
@@ -52,9 +55,9 @@ page, there's information about the
 <b>location</b> of the book.
 ```
 
-For more on the format used here and the other features of this file format, [see the WebVTT specification](http://dev.w3.org/html5/webvtt/).
+Every WebVTT file begins with the line "WEBVTT" followed by a series of cues separated by a blank line. For more on the format used here and the other features of this file format, [see the WebVTT specification](http://dev.w3.org/html5/webvtt/).
 
-We'll just use [pry](http://pryrepl.org/) for now.
+We'll use [pry](http://pryrepl.org/) to show how to read in a file for parsing and manipulation of the cue text.
 
 ```bash
 $ pry
@@ -134,7 +137,7 @@ def jump_time(timestamp)
 end
 ```
 
-The timestamp we get in a WebVTT file has hours, minutes, and seconds separated by colons and fractional seconds separated by a full stop. The above method splits the file by colon and then pops off the seconds, minuts, and, if present, hours from the end of the resulting array. Then ActiveSupport duration methods are used to convert the hours and minutes into seconds. (This timestamp to seconds conversion might be something [better done in the WebVTT gem](https://github.com/jronallo/webvtt/issues/3).)
+The timestamp we get in a WebVTT file has hours, minutes, and seconds separated by colons and fractional seconds separated by a full stop. The above method splits the file by colon and then pops off the seconds, minutes, and, if present, hours from the end of the resulting array. Then ActiveSupport duration methods are used to convert the hours and minutes into seconds. (This timestamp to seconds conversion might be something [better done in the WebVTT gem](https://github.com/jronallo/webvtt/issues/3).)
 
 ## JavaScript time jumps
 
@@ -148,17 +151,17 @@ $('.transcript_jump').on('click', function(){
 });
 ```
 
-The JavaScript listens for the click event on any of the links with the transcript_jump class. Because we're using [HTML5 video](/blog/categories/video), it is easy to change the current time and then, if the video isn't already playing, start the video playing. The `currentTime` property for the video is changed to the contents of the `data-video-jump-time` attribute converted to an integer. Then the video is played.
+The JavaScript listens for the click event on any of the links with the transcript_jump class. Because we're using [HTML5 video](/blog/categories/video), it is easy to change the current time and then, if the video isn't already playing, start the video playing. The `currentTime` property for the video is set to the contents of the `data-video-jump-time` attribute converted to an integer. Then the video is played.
 
-Below is an example of what it looks like. The video starts to play, and then the user scrolls down the page to the transcript. The transcript is expended and the user clicks on the cue at the 39 second point. The page scrolls the video back into view and the video starts playing from the 39 second mark.
+Below is an example of what it looks like. The video starts to play, and then the user scrolls down the page to the transcript. The transcript is expanded and the user clicks on the cue at the 39 second point. Other JavaScript scrolls the video back into view and the video starts playing from the 39 second mark.
 
 <video controls muted>
   <source src="/video/webvtt_transcript.mp4" type="video/mp4">
   <source src="/video/webvtt_transcript.webm" type="video/ogg">
 </video>
 
-While this works, eventually it'd be nice to augment or replace this with the use of [Media Fragments](http://www.w3.org/TR/media-frags/).
+While this works, eventually it'd be nice to augment or replace this with the use of [Media Fragments](http://www.w3.org/TR/media-frags/) for uses like bookmarking and annotations.
 
 ## Conclusion
 
-I hope you begin to see some of the possibilities for how you can use the transcript for more than just displaying it on top of the video. Once you have WebVTT files for your 
+I hope you begin to see some of the possibilities for how you can use the contents of your WebVTT transcripts for more than just displaying it on top of the video. Once you have WebVTT files for your video there is more you can do with it. Let me know in the comments other ideas or how you're currently using your transcripts.
