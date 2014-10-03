@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="canonical" href="http://ronallo.com/blog/code4lib-2012-lightning-talk-that-wasnt/">
+    <!-- FIXME: After DNS caches have been cleared it will be safe to put this redirect in place. -->
+    <!-- <meta http-equiv="refresh" content="0;URL=http://ronallo.com/blog/code4lib-2012-lightning-talk-that-wasnt/"> -->
+
+
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Digital Collections, Crawling, and Aggregating Content | Preliminary Inventory of Digital Collections by Jason Ronallo</title>
+
+    <link href="/stylesheets/normalize-ef7858ef.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/all-7cf8716f.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/all-fe1cfabb.js" type="text/javascript"></script>
+    <link href="/images/images/favicon.png" rel="icon" type="image/png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28548205-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body class="blog blog_code4lib-2012-lightning-talk-that-wasnt blog_code4lib-2012-lightning-talk-that-wasnt_index">
+    <div id="page-wrap">
+      <header id="masthead" class="site-header" role="banner">
+  <a class="home-link" href="/" rel="home">
+    <h1 class="site-title">Preliminary Inventory of Digital Collections</h1>
+    <h2 class="site-description hidden-xs">Incomplete thoughts on digital libraries.</h2>
+  </a>
+</header>
+      <nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="/">Preliminary Inventory of Digital Collections</a> -->
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/">Latest</a></li>
+          <li><a href="/blog/tags">Tags</a></li>
+          <li><a href="/blog/by_year">Calendar</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">CV <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/presentations">Presentations</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/experience">Experience</a></li>
+          <li><a target="_blank" href="/cv">Print Full CV</a></li>
+        </ul>
+      </li>
+
+
+      <li><a href="/about">About</a></li>
+      <li><a href="/feed.xml"><i class="icon-rss-sign"></i> </a></li>
+    </ul>
+
+    <form class="navbar-form navbar-right" action="http://google.com/search" method="get" role="search">
+      <div class="form-group">
+        <input type="hidden" name="q" value="site:jronallo.github.io">
+        <input class="search form-control" type="text" name="q" results="0" placeholder="Search...">
+        </div>
+    </form>
+
+  </div><!-- /.navbar-collapse -->
+</nav>
+      <div class="container">
+        <div id="redirect_message">
+          <p class="large">This page has permanently moved to <a href="http://ronallo.com/blog/code4lib-2012-lightning-talk-that-wasnt/">http://ronallo.com/blog/code4lib-2012-lightning-talk-that-wasnt/</a></p>
+          <p class="small">The stale content is below for a limited time for your convenience while DNS caches get expired.</p>
+        </div>
+          <article>
+    <h1>Digital Collections, Crawling, and Aggregating Content</h1>
+    <p>Published: 2012-02-08 00:18:00 -0500</p>
+    
+    <h2 id="toc_0">Code4Lib 2012 Lightning Talk That Wasn&rsquo;t</h2>
+
+<p>Lightning talks filled up fast this year at Code4Lib before I had a chance to sign up, which is probably for the best since I had already had the opportunity to give a <a href="/blog/code4lib-presentation-on-html5-microdata-and-schema-dot-org-slides/">full length talk</a>. Here is the lightning talk that I had prepared with each slide being followed by my draft speaker notes.</p>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0001-4322cd27.png" /></p>
+
+<p>Hi.</p>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0002-dab89cb0.png" /></p>
+
+<p>Digital Libraries have aspired to create the one big pot of digital library stuff to hold everything. For the most part we&rsquo;ve used niche protocols, dumbed-down metadata, cumbersome workflows, and lots of time massaging metadata in an effort to achieve these big aggregations.</p>
+
+<p>I want to talk about what I think is better way to do aggregations. There&rsquo;s a lot more you can build with what I&rsquo;m talking about, but I want to set aggregations in my sights.</p>
+
+
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0003-154ae5d3.png" /></p>
+
+<p>What if we start with the existing distributed collections on the open web? Instead of using niche protocols and metadata formats we used web pages as source materials. Collections are already producing Web pages, so why ask them to maintain something else too just for your aggregation?</p>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0004-b6136141.png" /></p>
+
+<p>Then we could crawl those pages. But we can&rsquo;t crawl the whole web, so how do we figure out what to crawl?</p>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0005-858312f3.png" /></p>
+
+<p>We curate profiles for digital collections, like LinkedIn profiles. A minimal profile for a digital collection could be a name and a URL.</p>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0006-9ae0fc48.png" /></p>
+
+<p>There&rsquo;s a lot more you could do with collection profiles, and I&rsquo;ve written about some of those with Tito Sierra. But right now let&rsquo;s stick to how they enable crawling. Once you know what URLs exist you can constrain your crawling to just those trusted domains. A lot less work for the crawlers.</p>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0007-fd42baa4.png" /></p>
+
+<p>OK, now we&rsquo;re able to crawl just part of the web and have the pages. We&rsquo;ll want to do some processing on them to extract content and index. Some natural language processing can be done on the apge. You can also pull out structured data like RDFa, Microformats, or Microdata from the pages. Since all of the collections have profiles, we can trust the data on the page.</p>
+
+<p>You could also fetch images and other linked assets for thumbnails.</p>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0008-2aba3437.png" /></p>
+
+<p>On top of this data you can start to create any number of virtual aggregations.</p>
+
+<p>Now even this architecture could be rather expensive to generate all this crawl data.</p>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0009-6258cfdd.png" /></p>
+
+<p><a href="http://commoncrawl.org/">Common Crawl</a> is a relatively new effort to crawl the quality web and make the crawl data available for free. It does cost a bit to access the Amazon buckets. But it is possible to run Hadoop Map/Reduce jobs over the corpus to extract what part you&rsquo;re interested in. This could be significatly cheaper than crawling the web yourself. You could eventually use an API to process only those parts of the corpus which contain pages from the sites you&rsquo;re interested in.</p>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0010-f0d416d9.png" /></p>
+
+<p><a href="http://webdatacommons.org">Web Data Commons</a> is a new effort to use the Common Crawl corpus to extract structured data like RDFa, Microformats, and Microdata. They plan on making this web data available for free download.</p>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0011-11e29ea3.png" /></p>
+
+<p>So it is beginning to be possible to create digital library aggregations (and lots of other services) at scale at very low cost using a web-centric approach. Small startups and individuals will soon be able to create their own aggregations or services around this common infrastructure at very low cost.</p>
+
+<p>What&rsquo;s nice about this approach is that anything you ask a digital collections site to do could benefit the collection more generally on the open web. Sitemaps are good and the search engines use those too.</p>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/services-19d1ffc1.png" /></p>
+
+<p>And once we&rsquo;re to this point the need for a huge aggregation kind of drifts away. Small aggregations may have a place but otherwise discovery happens through search engines. With all of this digital collections data available it becomes possible to stop thinking in terms of aggregations and to think instead of value-added services for collections.</p>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0012-ca15bd70.png" /></p>
+
+<p>Here are some next steps to get us closer to this approach working.</p>
+
+<ol>
+<li><p>Get Crawled. I&rsquo;ve made contact with Common Crawl and have raised the issue about getting cultural heritage sites crawled.</p></li>
+<li><p>Use Microdata. I&rsquo;ve <a href="http://journal.code4lib.org/articles/6400">written about using Microdata and Schema.org</a>. Let&rsquo;s talk more about this.</p></li>
+<li><p>Build a Collection Profiles System. I&rsquo;ve got lots of ideas and <a href="https://github.com/jronallo/capsys">some code started</a>. I would like some help and support to get it going further.</p></li>
+</ol>
+
+<p><img src="/images/crawl_lightning_talk_c4l12/pg_0013-fbeeeee9.png" /></p>
+
+<p>Please get in touch with me if you&rsquo;re interested in this approach. I&rsquo;d be interested in a breakout session about aggregations, crawling, and big web data. Please let me know if you&rsquo;re interested in talking more about this.</p>
+
+  </article>
+  <hr>
+  <div class="pagination">
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/code4lib-presentation-on-html5-microdata-and-schema-dot-org-slides/">
+        <i class="icon-arrow-left"></i> Slides from Code4lib Presentation on HTML5 Microdata and Schema.org
+      </a>
+    
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/sufficient-metadata-and-the-open-web/">
+        Sufficient Metadata and the Open Web <i class="icon-arrow-right"></i>
+      </a>
+    
+  </div>
+
+      </div>
+      <div id="footer-push"></div>
+    </div><!-- end page-wrap -->
+    <footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">by Jason Ronallo</div>
+      <div class="col-md-6 social">
+        <a href="mailto:jronallo@gmail.com"><i class="icon-envelope"></i></a>
+        <a href="https://plus.google.com/116830234234977722391?rel=author"><i class="icon-google-plus-sign"></i></a>
+        <a href="http://twitter.com/ronallo"><i class="icon-twitter-sign"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

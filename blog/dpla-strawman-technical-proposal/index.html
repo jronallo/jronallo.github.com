@@ -1,0 +1,448 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="canonical" href="http://ronallo.com/blog/dpla-strawman-technical-proposal/">
+    <!-- FIXME: After DNS caches have been cleared it will be safe to put this redirect in place. -->
+    <!-- <meta http-equiv="refresh" content="0;URL=http://ronallo.com/blog/dpla-strawman-technical-proposal/"> -->
+
+
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>DPLA Strawman Technical Proposal | Preliminary Inventory of Digital Collections by Jason Ronallo</title>
+
+    <link href="/stylesheets/normalize-ef7858ef.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/all-7cf8716f.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/all-fe1cfabb.js" type="text/javascript"></script>
+    <link href="/images/images/favicon.png" rel="icon" type="image/png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28548205-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body class="blog blog_dpla-strawman-technical-proposal blog_dpla-strawman-technical-proposal_index">
+    <div id="page-wrap">
+      <header id="masthead" class="site-header" role="banner">
+  <a class="home-link" href="/" rel="home">
+    <h1 class="site-title">Preliminary Inventory of Digital Collections</h1>
+    <h2 class="site-description hidden-xs">Incomplete thoughts on digital libraries.</h2>
+  </a>
+</header>
+      <nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="/">Preliminary Inventory of Digital Collections</a> -->
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/">Latest</a></li>
+          <li><a href="/blog/tags">Tags</a></li>
+          <li><a href="/blog/by_year">Calendar</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">CV <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/presentations">Presentations</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/experience">Experience</a></li>
+          <li><a target="_blank" href="/cv">Print Full CV</a></li>
+        </ul>
+      </li>
+
+
+      <li><a href="/about">About</a></li>
+      <li><a href="/feed.xml"><i class="icon-rss-sign"></i> </a></li>
+    </ul>
+
+    <form class="navbar-form navbar-right" action="http://google.com/search" method="get" role="search">
+      <div class="form-group">
+        <input type="hidden" name="q" value="site:jronallo.github.io">
+        <input class="search form-control" type="text" name="q" results="0" placeholder="Search...">
+        </div>
+    </form>
+
+  </div><!-- /.navbar-collapse -->
+</nav>
+      <div class="container">
+        <div id="redirect_message">
+          <p class="large">This page has permanently moved to <a href="http://ronallo.com/blog/dpla-strawman-technical-proposal/">http://ronallo.com/blog/dpla-strawman-technical-proposal/</a></p>
+          <p class="small">The stale content is below for a limited time for your convenience while DNS caches get expired.</p>
+        </div>
+          <article>
+    <h1>DPLA Strawman Technical Proposal</h1>
+    <p>Published: 2012-01-23 13:56:00 -0500</p>
+    
+    <h2 id="toc_0">Collection Achievements and Profiles System and DPLA Crawler Services</h2>
+
+<p>This is a quick strawman proposal for what the Digital Public Library of
+America should build as the first parts of a generative platform. This document
+is not in a finished state, but just as the DPLA has been good at opening up its
+process with the <a href="http://blogs.law.harvard.edu/dpla/">Beta Sprint</a>,
+I wanted to release this
+document early even in this unfinished state.</p>
+
+<p>I attended the December DPLA Technical Workshop in Cambridge and was
+inspired by the discussion there. I hope that this document
+makes it clearer some of the approaches I and others at that meeting
+were advocating. I shared this with the DPLA Interim Development Team a couple
+of weeks ago, and now that development has started I thought I would share it
+here as well.</p>
+
+<p>While the first iteration of the DPLA platform may be set and on
+its way, I still wanted to share one vision of what a generative platform for
+aggregations might involve. The main point is to get the DPLA to the
+aggregations they likely need to present at some point. This document leaves
+aside the question of whether creating aggregations is a good idea. The desire
+to create aggregations is a big, often unquestioned, assumption of big
+digital library projects.
+I think what is set out below is one simple architecture for
+accomplishing aggregations in a very Web-centered way while potentially having
+more reuse outside of just aggregations.</p>
+
+
+
+<h1 id="toc_1">Introduction</h1>
+
+<p>This proposal gives a high-level overview of one possible DPLA technical
+architecture. This gives the idea of what a beginning of a scalable,
+extensible DPLA platform could look like. The architecture starts with a
+foundation in the distributed digital collections which already exist on
+the Web. The platform set out here works with the way the Web works
+while allowing the DPLA to meet its goals. As a result it will also help
+cultural heritage organizations to meet their goals for greater
+discoverability of their collections.</p>
+
+<p>Collecting and keeping track of the those existing collections is the
+job of the Collection Achievements and Profiles System (CAPS). The
+metadata CAPS collects can be reused to do focused crawls of digital
+collections through a DPLA Crawl Service. The results of those crawls
+can be analyzed, and the data used for a variety of applications
+including topical or format aggregations, mashups, visualizations, and
+other internal and external tools.</p>
+
+<p>This architecture can be summarized through the following diagram.</p>
+
+<p><img alt="image" src="/images/dplastrawman/image00-6f2c82c2.png" /></p>
+
+<p>The rest of this document begins with an overview of how these major
+components fit together. It then goes into more detail about the
+architecture and technical components required to implement the two
+major pieces of this platform:</p>
+
+<ol>
+<li> Collection Achievements and Profiles System</li>
+<li> Crawler Services: Crawler Services are further divided into the Raw
+Crawler Service and the Analyzed Crawl Service.</li>
+</ol>
+
+<h1 id="toc_2">Architecture Overview</h1>
+
+<p>The foundation for the DPLA platform would be the distributed
+collections on the Web. The DPLA can help make these distributed
+collections more discoverable on the open Web and enable new services. A
+user with a browser can already enter the address for these digital
+collections and get something useful back. In this scenario any digital
+collection on the Web can be a part of the DPLA. The collection (and
+hosting institution) is not required to implement any new metadata
+format, gateway, or API. The existing published HTML pages are enough to
+gain the initial benefits of a DPLA. Collections can choose to adopt
+other Web standards or provide more information on their collections to
+gain more of the benefits of the DPLA and the Web at large.</p>
+
+<p>The technical barriers to entry into the DPLA are purposefully low to
+maximize participation. The DPLA has an opportunity to be a truly big
+tent approach to solving the problems of making America&rsquo;s cultural
+heritage accessible and discoverable. When suggesting digital
+collections adopt standards or make changes, this proposal gives
+preference to asking digital collections to optimize for the Web for
+broad applicability. The technical decisions made here always choose
+what would make the system simpler and easier for producers of digital
+collections over what would be easier for the DPLA or other aggregators.</p>
+
+<p>The Collection Achievements and Profiles System (CAPS) is an editable
+directory of Web-accessible digital collections. In its most basic form
+Collection Profiles hold the name and URL of digital collections.
+Achievements are a way to expand Collection Profiles through gathering
+discrete pieces of data about collections and their institutions. In
+order to validate various Achievements, CAPS can request pages and
+resources from a collection Website. Full Collection Profiles with all
+completed Achievements are available through a simple API.</p>
+
+<p>The Raw Crawler Service finds new collections to crawl through CAPS. The
+Raw Crawler Service can then launch crawls of a collection Web site. The
+raw crawl data can be made available to external developers who want to
+do their own analysis of the raw crawl data and build new services.</p>
+
+<p>The Analyzed Crawl Service makes use of the raw crawl data to extract
+data and text from pages. CAPS can use this data to perform work like
+validating Achievements, assigning automated tags to collections, and
+confirming the health of Web sites. The DPLA could use this analyzed
+crawl data to create various aggregations, search interfaces, and other
+services for digital collections that are only possible through having
+this central data store. External developers could access the analyzed
+crawl data to create their own aggregations, mashups, and other
+services.</p>
+
+<p>The DPLA can create a generative platform through using the existing
+digital collections on the Web and adding value. Each major component of
+the DPLA platform can make its data available to the world to enable the
+creation of novel new services and new creative works.</p>
+
+<h1 id="toc_3">Collection Achievements and Profiles System (CAPS)</h1>
+
+<p>The first component that the DPLA could build is a Web application which
+allows for collecting basic information about collections. We call this
+the Collection Achievements and Profiles System (CAPS). DPLA
+Collection Profiles provide a mechanism for the DPLA to host a
+centralized Web-based, editable directory of collections on the
+Internet. DPLA Collection Achievements provide a mechanism for
+progressively expanding Collection Profile descriptions, promote
+standards adoption, validate adherence to standards, and progressively
+engage the community. While the initial barrier of entry is low, CAPS
+encourages digital collection managers to adopt standards that benefit
+the discoverability of their collections and benefit the goals of the
+DPLA.</p>
+
+<p>Before reading the following technical aspects of the CAPS proposal it
+would be best to familiarize yourself with the
+<a href="http://go.ncsu.edu/dplacaps">Collection Achievements and Profiles System documentation</a>.
+This detailed documentation was done as part of a DPLA Beta Sprint
+submission, and it forms the initial thinking for this work, including a
+narrative, wireframes, and Achievement ideas.</p>
+
+<h2 id="toc_4">Technical Components of CAPS</h2>
+
+<p>CAPS can be modeled with the following diagram. Elements in blue are
+managed by the DPLA. Other colors refer to various external contributors
+and consumers.</p>
+
+<p><img alt="image" src="/images/dplastrawman/image01-03d1fae1.png" /></p>
+
+<p>Following is a description of the major components of CAPS.</p>
+
+<p>The CAPS Web application allows for editing and managing Collection
+Profiles and Achievements (information about collections on the Web).
+Collection managers and DPLA volunteers can create and update Profiles
+and Achievement data through Web forms. A researcher looking for
+collections (on a particular topic, in a geographic region, or other
+relevant facet) could also discover collections and see all information
+about the collections.</p>
+
+<p>The Web application can request pages or other resources for a
+collection on the Web using the stored URL. For instance when a
+Collection Profile is first created the URL is validated for being
+well-formed and then the page is requested to check that it returns a
+200 OK status code. Other Achievement validations could also request
+information from the site (e.g. robots.txt, sitemap). To insure that the
+CAPS application returns a timely response for editors, CAPS can defer
+some of these longer running processes and validations to a background
+job queue.</p>
+
+<p>CAPS would require a persistent data store for Collection Profiles and
+Achievement data. Periodically a data dump of all data could be created
+for consumption by external aggregators, crawlers, and service
+providers. Access to all of the data or searches for slices of data
+would be available through a Web API. Consumers of the API could be
+aggregators, crawlers, and other service providers. Through the API the
+DPLA could also provide other services like aggregated sitemaps. Having
+multiple ways (data dump and API) for accessing the data, lowers the
+barrier for developers both internally and externally to build new and
+interesting applications.</p>
+
+<h2 id="toc_5">Standards through Achievements</h2>
+
+<p>Through Achievements the DPLA can encourage the use of various standards
+which can make Collection Profiles more useful.</p>
+
+<p>Initial effort can be put into Achievements which can be automatically
+detected, therefore requiring minimal effort from contributing
+collections. The DPLA can adopt Achievements for Web standards that will
+improve the discoverability of collections on the open Web. For instance
+it is possible to automatically check whether the site allows for
+crawlers (robots.txt) and has a sitemap of the most important pages to
+crawl (sitemap protocol). When digital collections implement these kinds
+of standards it benefits all consumers of digital collections resources,
+including the DPLA and search engines.</p>
+
+<p>These same Achievements will have interconnections with the rest of the
+architecture laid out here. For instance automated Achievement
+validations can require analyzed crawl data to be confirmed.</p>
+
+<p>Other Achievements which would benefit libraries and museums could also
+figure prominently. Knowing the hours of operation and geographic
+location of the access point to the physical collections, could help
+encourage visits to a library or museum. CAPS can provide the data to
+start making connections between the digital and the physical.</p>
+
+<p>Since Achievements add a named, small, discrete piece of information to
+a Collection Profile, the code required to implement an Achievement is
+relatively small and self-contained. The starter set of Achievements
+could create a basic functional system that can be delivered quickly to
+help bootstrap the rest of the DPLA effort. Achievements can be
+incrementally added over time. Communities and developers could work to
+create and incubate new Achievements around new standards before they
+become part of the DPLA core platform. Achievements are another way in
+which the DPLA could continue to spur innovation around digital
+collections standards and services.</p>
+
+<h1 id="toc_6">Crawler Services</h1>
+
+<p>Crawler Services are responsible for coordinating robots to crawl
+digital collections sites, analyzing the data, and making it available.</p>
+
+<h2 id="toc_7">Benefits of Crawler Services</h2>
+
+<p>Rather than using new or existing niche library protocols, the DPLA
+could make use of common, ubiquitous Web protocols and standards.
+Encouraging standards (through Achievements) that help the DPLA do its
+work to crawl digital collections, will also aid the discoverability of
+digital collections on the open Web.</p>
+
+<p>The data created through the Crawler Services is important background
+information for CAPS to validate some Achievements. Certain standards
+which the DPLA may want to promote through Achievements, would require
+requesting multiple pages from a collection. For instance validating a
+sitemap could involve requesting each of the listed URLs. The resulting
+data could be used to confirm the presence of listed URLs.</p>
+
+<p>Analyzed crawl data could form the basis of various DPLA aggregations
+and services. Making this data available will also encourage other
+developers to create applications using digital collections.</p>
+
+<h2 id="toc_8">Architecture of Crawler Services</h2>
+
+<p>Crawler Services can be split into two interrelated, but separate,
+applications. The Raw Crawler Service is responsible for coordinating
+crawls of digital collections sites and making the raw crawl data
+available. The Analyzed Crawl Service is responsible for extracting data
+and meaning from the raw crawl data to enable DPLA services. Building
+them as two independent applications can allow much of their development
+to happen in parallel.</p>
+
+<h3 id="toc_9">Raw Crawler Service</h3>
+
+<p>The Raw Crawler Service uses the data collected by CAPS to discover
+digital collections to crawl. Crawls could fall into different
+categories. CAPS or other DPLA services could require a focused crawl of
+a collection to be triggered for timely data. Extensive crawls of
+digital collections sites could also be made.</p>
+
+<p>The final product of the Raw Crawler Service is a store of the pages
+crawled along with technical metadata. Technical metadata would include
+when the page was last crawled and the HTTP headers returned with the
+request including the status code.</p>
+
+<p>This data could be made available to external developers who want to
+conduct their own research or analysis on this slice of the Web. Both an
+API and data dump could be made available. Whether the API only provides
+for discovery of available raw crawl data or actually returns crawl
+data, is an open question. Because of the size of the corpus, it may be
+that the raw crawl data is made available in a lower cost way through
+cloud services. (See the <a href="http://www.commoncrawl.org/">Common Crawl</a> for
+more on how this might work.)</p>
+
+<p>The Raw Crawler Service would require an application to coordinate
+robots, a data store for raw crawl data, and a database for technical
+metadata about the crawl data. A Web application would also be needed to
+create the API service.</p>
+
+<h3 id="toc_10">Analyzed Crawl Service</h3>
+
+<p>The DPLA could also provide an Analyzed Crawl Service. This service
+analyzes the raw crawl data to extract data and text from the raw crawl
+data. At this stage it can also begin to make connections across
+repositories. For various ways the DPLA can get to item-level data
+through crawl analysis, see
+<a href="/blog/solving-the-item-level-problem-on-the-web/">Solving the Item-Level Problem on the Web</a>.
+With crawls
+resulting in the full text of the page there is the the potential to
+provide rich item-level data without reliance on niche protocols.</p>
+
+<p>The initial consumer of this service would be the DPLA. The resulting
+data could be used as the source metadata about collection pages
+underlying new DPLA aggregations and services. The data could be made
+available to external developers to create new aggregations, mashups,
+and services.</p>
+
+<h1 id="toc_11">Conclusion</h1>
+
+<p>This high-level overview of a DPLA platform architecture is intended to
+spur discussion. There are many possibilities for what a DPLA technical
+architecture may look like. Presented here is a technical architecture
+which would enable the DPLA to function in the way that the Web works.
+Development could be scaffolded quickly and immediately begin to provide
+real benefits from the DPLA effort.</p>
+
+<p>If the model set out here is not followed, the hope is that some of the
+principles here will remain in the DPLA effort. Allowing for content
+producers at all levels of technological sophistication to be part of a
+big tent DPLA effort is an important underlying principle. Technically,
+the DPLA can insure that at every level of the platform that the data
+and metadata it creates is made easily accessible for reuse.</p>
+
+<p>Is there any merit to this kind of approach for digital library aggregations?
+Feedback welcome in the comments.</p>
+
+<p>This text is copyright Jason Ronallo and licensed under a
+<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.</p>
+
+  </article>
+  <hr>
+  <div class="pagination">
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/ruby-and-rails-using-rvm-on-a-fresh-and-updated-ubuntu-11-dot-10-install/">
+        <i class="icon-arrow-left"></i> Ruby and Rails using RVM on a fresh and updated Ubuntu 11.10 install
+      </a>
+    
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/solving-the-item-level-problem-on-the-web/">
+        Solving the Item-Level Problem on the Web <i class="icon-arrow-right"></i>
+      </a>
+    
+  </div>
+
+      </div>
+      <div id="footer-push"></div>
+    </div><!-- end page-wrap -->
+    <footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">by Jason Ronallo</div>
+      <div class="col-md-6 social">
+        <a href="mailto:jronallo@gmail.com"><i class="icon-envelope"></i></a>
+        <a href="https://plus.google.com/116830234234977722391?rel=author"><i class="icon-google-plus-sign"></i></a>
+        <a href="http://twitter.com/ronallo"><i class="icon-twitter-sign"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

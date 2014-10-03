@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>HTML5 Video with Subtitle Track</title>
+    <meta charset="utf-8">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/demos/html5_video/javascripts/duration.js"></script>
+    <script type="text/javascript" src="/demos/html5_video/javascripts/controls.js"></script>
+    <script type="text/javascript" src="/demos/html5_video/javascripts/state.js"></script>
+    <script type="text/javascript" src="/demos/html5_video/javascripts/timeupdate.js"></script>
+  </head>
+  <body>
+    <video controls poster="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.png">
+      <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4" type='video/mp4;codecs="avc1.4D401E, mp4a.40.2"'/>
+      <source src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.webm" type='video/webm;codecs="vp8, vorbis"'/>
+      <track kind="subtitles" label="English subtitles" src="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.vtt" srclang="en" default/>
+      <p>Your browser cannot play this video. You might try to <a href="http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.mp4">download it</a>.</p>
+    </video>
+    <div id="duration"></div>
+    <div id="controls">
+      <button type="button" id="play">Play</button>
+      <button type="button" id="pause">Pause</button>
+    </div>
+    <div id="state"></div>
+    <div>Current Time: <span id="current_time"></span></div>
+  </body>
+</html>
+

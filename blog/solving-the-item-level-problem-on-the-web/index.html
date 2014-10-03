@@ -1,0 +1,484 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="canonical" href="http://ronallo.com/blog/solving-the-item-level-problem-on-the-web/">
+    <!-- FIXME: After DNS caches have been cleared it will be safe to put this redirect in place. -->
+    <!-- <meta http-equiv="refresh" content="0;URL=http://ronallo.com/blog/solving-the-item-level-problem-on-the-web/"> -->
+
+
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Solving the Item-Level Problem on the Web | Preliminary Inventory of Digital Collections by Jason Ronallo</title>
+
+    <link href="/stylesheets/normalize-ef7858ef.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/all-7cf8716f.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/all-fe1cfabb.js" type="text/javascript"></script>
+    <link href="/images/images/favicon.png" rel="icon" type="image/png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28548205-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body class="blog blog_solving-the-item-level-problem-on-the-web blog_solving-the-item-level-problem-on-the-web_index">
+    <div id="page-wrap">
+      <header id="masthead" class="site-header" role="banner">
+  <a class="home-link" href="/" rel="home">
+    <h1 class="site-title">Preliminary Inventory of Digital Collections</h1>
+    <h2 class="site-description hidden-xs">Incomplete thoughts on digital libraries.</h2>
+  </a>
+</header>
+      <nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="/">Preliminary Inventory of Digital Collections</a> -->
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/">Latest</a></li>
+          <li><a href="/blog/tags">Tags</a></li>
+          <li><a href="/blog/by_year">Calendar</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">CV <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/presentations">Presentations</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/experience">Experience</a></li>
+          <li><a target="_blank" href="/cv">Print Full CV</a></li>
+        </ul>
+      </li>
+
+
+      <li><a href="/about">About</a></li>
+      <li><a href="/feed.xml"><i class="icon-rss-sign"></i> </a></li>
+    </ul>
+
+    <form class="navbar-form navbar-right" action="http://google.com/search" method="get" role="search">
+      <div class="form-group">
+        <input type="hidden" name="q" value="site:jronallo.github.io">
+        <input class="search form-control" type="text" name="q" results="0" placeholder="Search...">
+        </div>
+    </form>
+
+  </div><!-- /.navbar-collapse -->
+</nav>
+      <div class="container">
+        <div id="redirect_message">
+          <p class="large">This page has permanently moved to <a href="http://ronallo.com/blog/solving-the-item-level-problem-on-the-web/">http://ronallo.com/blog/solving-the-item-level-problem-on-the-web/</a></p>
+          <p class="small">The stale content is below for a limited time for your convenience while DNS caches get expired.</p>
+        </div>
+          <article>
+    <h1>Solving the Item-Level Problem on the Web</h1>
+    <p>Published: 2012-01-23 13:57:00 -0500</p>
+    
+    <h2 id="toc_0">Digital Collections Services Through Using Web Crawls</h2>
+
+<p>Digital libraries have attempted to provide various aggregations of their
+content. Usually the participants in the aggregation already make that content
+accessible on the open web. The approaches to aggregating content
+that have been taken in the past have relied on hosting institutions to provide
+their metadata in new ways and support additional infrastructure and workflows.
+An alternative approach to creating aggregations is to perform targeted crawls
+and reuse the content on the pages. The problem with the crawler approach
+dentifying items in the collection as opposed to other pages. This document
+presents a few possibilities for how to identify items.</p>
+
+
+
+<p>If you know of prior work with similar critiques and suggested solutions, please
+let me know. I am eager to improve on the techniques of this approach.</p>
+
+<p>This document was initially written in support of a
+<a href="/blog/dpla-strawman-technical-proposal/">DPLA Technical Strawman Proposal</a>.</p>
+
+<h2 id="toc_1">Problems with technical approaches taken so far to achieve aggregations</h2>
+
+<p>Leaving aside the usefulness of aggregations, the approaches taken to achieve
+aggregations of digital collections have had
+problems for those who want to be a part of such aggregations. These problems
+fall into the categories of separate standards, separate infrastructure, and
+metadata dumb-down.</p>
+
+<p>The primary way in which
+institutions make their resources available is on the Web. Great effort is
+expended to make web pages that are optimized for search engines and usable
+and attractive for users. The standards used are common, ubiquitous standards
+like HTML and HTTP
+shared by developers throughout the world. The metadata presented provides as
+rich context as is available for the objects made accessible.</p>
+
+<p>Counter this to the common approach found in aggregations created by libraries.
+They often rely on an OAI-PMH gateway
+for harvesting item-level metadata about collections.
+In order for collections to take part in an OAI-PMH enabled aggregation,
+institutions which host digital collections must expose their information
+through special XML rather than the HTML they already have. The different
+standards and tools are foreign and a barrier to entry for the many developers
+more familiar with web standards.
+An OAI-PMH gateway is another separate service which needs to
+be maintained in addition to the web site. The effort for providing services
+and harmonizing data can be pushed down from the aggregator to the source
+collections. It takes
+extra effort on the part of institutions which are already squeezed. There are
+maintenance costs to keeping these services up and in sync with the data which
+is exposed through the website. New aggregators would do well to investigate
+the problems encountered by previous aggregations using this kind of approach
+like the DLF Aquifer.</p>
+
+<p>Metadata dumb-down is where metadata goes through a transformation which
+decreases the level of precision of metadata. It has been a valuable strategy
+to harmonizing metadata across institutions. The problem is that many
+institutions have rich, specialized metadata that, when dumbed-down, loses much
+of its value. This rich content is often exposed on collection websites but
+cannot make it through the transformation to the shared metadata schema. In
+order to create the powerful aggregations that we want, we need to look for
+new ways to leverage more of the rich metadata our institutions have invested in.</p>
+
+<h2 id="toc_2">Crawling for Data</h2>
+
+<p>Instead of relying on separate standards or infrastructure to provide an
+aggregation, it is possible to crawl websites instead. This significantly
+lowers the barrier for institutions to participate in an aggregation as it
+relies on the existing web sites of digital collections. When a robot crawls
+a web site, it may follow all of the links on a page. Pages like browse, search,
+about, and contact pages can be crawled along with the pages that describe
+individual digital objects. For many kinds of search, an index of all of that
+crawled content could be useful.</p>
+
+<p>Some aggregations, though, prefer to only expose item-level metadata including
+small surrogates for objects like thumbnails. Crawling digital collections is not
+incompatible with being able to identify individual items in a digital
+collection. There are relatively simple solutions for identifying items which
+could cover many of the digital collections that already exist on the web.
+Some of these will be set forth below.</p>
+
+<p>Even if an aggregator is able to identify pages that describe individual items,
+there is still the problem of how to extract useful information to allow for
+functionality like faceted search interfaces. Until recently search engines
+have had to be content with using some HTML semantics (<code>&lt;ol&gt;</code> means an ordered
+list), along with natural language processing, in order to discover the core
+content and meaning of pages on the web. These approaches can go very far in
+extracting meaning from the unstructured data on a page, but they have their
+limits.</p>
+
+<p>Recently there have been renewed efforts to create simple standards for
+embedding data in HTML. These allow search engines to extract data from the
+page and make sense of it. While these efforts so far have been targeted
+toward the use cases of search engines and commercial organizations, there are
+possibilities for the cultural heritage sector to make use of these same
+technologies. By digital collections using hidden markup embedded in HTML
+the crawler approach could also have access to the rich content that is
+already accessible in a form which would enable more interesting interfaces
+for aggregations.</p>
+
+<p>Following sections will make the case for how this could be accomplished.</p>
+
+<h3 id="toc_3">Collection Profiles</h3>
+
+<p>The first problem encountered in using crawlers to create item-level
+aggregations is curatorial. It is infeasible for most institutions to crawl
+the whole web looking for appropriate digital collections content. Instead
+there needs to be a store of metadata about digital collection web sites to
+know what
+is accessible and where to find it. Such a system can store metadata about
+collections that enable crawling and other services.</p>
+
+<p>Collection Profiles are a compilation of metadata about digital collections on
+the open web. The other solutions set out below could use such a metadata
+store, though the approaches themselves do not rely on it. I have done prior
+work, along with Tito Sierra, in setting out what a system for compiling
+metadata about digital
+collections might look like and how it might function. For more information
+on this work see the documentation for the
+<a href="http://go.ncsu.edu/dplacaps">Collection Achievements and Profiles System</a>.</p>
+
+<h2 id="toc_4">Possible Solutions for Detecting Item-Level Pages</h2>
+
+<h3 id="toc_5">Identifying Item Pages</h3>
+
+<p>The first problem is determining which pages in a crawl of a site are
+item-level pages rather than search or browse pages.
+Below are different solutions for being able to discover item-level pages and
+make the best use of them.</p>
+
+<h4 id="toc_6">URL Template</h4>
+
+<p>The URLs for item-level pages often have a standard pattern on a single site.
+Knowing the pattern would allow a system to only use those crawled URLs which
+fit the pattern to be included in an search aggregation. For example, it would
+be simple to determine that URLs of this pattern are item-level:</p>
+<pre class="highlight text">http://example.org/items/asdf
+http://example.edu/items?id=asdf
+</pre>
+<p>While these are not:</p>
+<pre class="highlight text">http://example.org/
+http://example.org/items
+http://example.org/about
+</pre>
+<p>We could do something like the following to create templates for those URLs
+which are about individual items:</p>
+<pre class="highlight text">http://example.org/items/{identifier}
+http://example.edu/items?id={identifier}
+</pre>
+<p>These URL templates could be stored with a centralized Collection Profile or
+made available through metadata in the head of web pages. This is a simple,
+low-cost solution that could work for many digital collections sites.</p>
+
+<p>This is a pattern inspired by <a href="http://www.opensearch.org/">OpenSearch</a>.</p>
+
+<h4 id="toc_7">Meta extension</h4>
+
+<p>A site which can add content to the head of the HTML on item pages could add a
+<code>meta</code> element with a particular name and a value specifying that the page is an
+item page. The HTML5 specification has a way to officially <a href="http://wiki.whatwg.org/wiki/MetaExtensions">extend the values</a>
+allowed for the name attribute to meta.</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;itempage&quot;</span> <span class="na">content=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span></pre>
+              </div>
+            </figure>
+
+<p>The problem with this approach is that consumers would have to know to look
+for this particular extension.</p>
+
+<h4 id="toc_8">Sitemaps</h4>
+
+<p>The <a href="http://www.sitemaps.org/">Sitemap Protocol</a> is a simple standard to allow
+crawlers to see a list of
+the pages that a site suggests could be crawled. In most cases a site will only
+want to expose the most important pages. Item-level pages would be included,
+while search pages or pages with duplicate content could be excluded from
+a sitemap. These non-item-level pages could still could be crawled by search
+engines, but by excluding them from the sitemap makes it easier for a crawler
+to zero in on the item-level pages.</p>
+
+<p>Many sites are already publishing sitemaps, making them discoverable through
+their robots.txt, and sending them to search engines. There are common tools
+for creating sitemaps based on existing sites.</p>
+
+<p>An aggregation could specify that the sitemap provided to their crawler should
+only contain item-level URLs. Since this is something that many sites are
+already doing, it could be a low-cost way for many digital collections to
+give an indication as to what pages are item-level.</p>
+
+<h3 id="toc_9">Extracting Meaning</h3>
+
+<p>Once item-level pages are identified, there are various ways to extract meaning
+from the pages or otherwise communicate the metadata.</p>
+
+<h4 id="toc_10">Links to Alternate Representations</h4>
+
+<p>One mechanism which has been available for a long time is the ability to add
+links to alternative representations of resources in the head of the HTML. For
+instance, a page which describes a book could advertise that an <a href="http://en.wikipedia.org/wiki/RIS_(file_format)">RIS</a>
+formatted representation is available.</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;alternate&quot;</span> <span class="na">type=</span><span class="s">&quot;application/x-research-info-systems&quot;</span>
+  <span class="na">href=</span><span class="s">&quot;/search?q=cartoons&amp;format=ris&quot;</span> <span class="nt">/&gt;</span></pre>
+              </div>
+            </figure>
+
+<p>This communicates that there is an alternative representation of a particular
+type at the given URL.
+The metadata in the alternative representation could be retrieved, parsed,
+and indexed.</p>
+
+<p>A problem with this approach is that the alternative representation could go
+out of sync with the public-facing HTML or the API could be neglected.
+Nevertheless this approach could be a bridge between a specialized API and a
+crawl-centered approach.</p>
+
+<h4 id="toc_11">Meta head content</h4>
+
+<p>Digital collections may already make some of their structured data
+about digital objects
+available by exposing Dublin Core terms through <code>meta</code> elements in the head of
+the HTML.</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight html"><span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;DC.title&quot;</span> <span class="na">content=</span><span class="s">&quot;Title of Digital Object&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/head&gt;</span></pre>
+              </div>
+            </figure>
+
+<p>The content of the <code>meta</code> elements could be supplemented with parsing
+and indexing of the
+visible content of the page.</p>
+
+<h4 id="toc_12">Semantic HTML Markup</h4>
+
+<p>Semantic markup is a promising future direction for digital collections
+aggregators to be able to extract richer metadata out of the visible content
+on web pages.</p>
+
+<p>Semantic markup is the use within HTML of additional, hidden markup and
+vocabularies to more fully express the meaning of the visible content of the page.
+Cultural heritage organizations often have detailed metadata about the
+digital and physical objects they curate. Digital collections metadata are
+often stored in relational databases with rich schema. When they currently
+expose their metadata through the Web, search engines for the most part get
+plain text and need to attempt to make sense of the page with natural language
+processing.</p>
+
+<p>Semantic markup would allow cultural heritage organizations to expose their
+metadata in a way that preserves more of the intention and meaning. Rather
+than dumb-down the metadata to Dublin Core before being used by an aggregator,
+consumers of structured data could utilize something much closer to the
+intention of the producer. It also allows organizations to expose this
+structured data without having the burden of maintaining a separate, little
+used service. Since effort is already being put into the website, it allows
+organizations to leverage that representation of the data which they already
+make available.</p>
+
+<p>Producers of digital collections only need to expose to the public one version
+of the metadata they have. Everyone wants to have web pages for their digital
+collections. The semantic HTML enables both human users and machines to access
+the same data and understand it. Relying on collections to have metadata
+gateways or APIs to expose alternative representations of their data can be
+burdensome. It adds greater maintenance costs for making the data available.
+Having more than one public representation of the data leads to the less public
+one becoming unmaintained and getting stale or out of sync.</p>
+
+<p>Semantic markup is implemented through various syntaxes.
+<a href="http://microformats.org/">Microformats</a> and <a href="http://www.w3.org/TR/xhtml-rdfa-primer/">RDFa</a>
+syntaxes have allowed for making embedded, structured
+data available on the Web through HTML for a while and have existing communities
+of practice. The syntaxes are sometimes difficult to implement. The newer standard
+<a href="http://developers.whatwg.org/links.html#microdata">HTML5 Microdata</a>
+has learned from previous efforts and attempts to be simpler for page authors.
+<a href="http://www.w3.org/TR/rdfa-lite/">RDFa Lite</a> is a profile of RDFa which tries
+to simplify the RDFa syntax similar to Microdata.</p>
+
+<p>These syntaxes are used in combination with a vocabulary to make meaning. In
+2011 the big search engines announced the <a href="http://schema.org/">schema.org</a>
+vocabulary and support
+for Microdata. When the search engines make an announcement it gets the
+attention of webmasters. This means that many webmasters will be applying
+Microdata and schema.org. The tools and ecosystem will be growing. Already
+many content management systems are providing a way to implement this kind of
+markup.</p>
+
+<p>There are simple to complex ways in which semantic markup could be implemented
+to better support aggregations through crawling. For instance, it is simple in
+Microdata using Schema.org to specify that a particular page is an
+<a href="http://schema.org/ItemPage">item-level page</a>.
+Even this amount of information would allow
+an aggregator to sort item-level pages from others. Layered on top of that,
+digital collections sites could embed a whole host of other types of data.
+This structured data could be extracted to create new tools and more powerful
+search interfaces.</p>
+
+<p>Utilizing semantic markup would allow aggregators, search engines, and
+others to do more interesting
+things with the pages of resources that collections already make accessible.
+This broad benefit for collection producers could encourage more involvement
+from within and outside the cultural heritage community. So while benefiting
+digital collections through the aggregation this would also benefit them on
+the open Web.</p>
+
+<p>Semantic HTML markup and relevant vocabularies are also areas where cultural
+heritage organizations could still have input on the web. While the predominant
+vocabularies at use now meet the needs of e-commerce, they could be improved
+and expanded to better fit cultural heritage materials. Using a common,
+standard, widely-accepted, and widely-consumed web vocabulary for description
+of cultural heritage materials would have multiplier effects for these
+collections. Aggregators could be a strong force for spurring creation of web
+vocabularies which better fit our data models and the use cases we want to
+enable. Through using common web standards, aggregators could also encourage
+consumption of this data at scale in ways that have until now been impossible.</p>
+
+<h2 id="toc_13">Conclusion</h2>
+
+<p>Creating aggregations through crawling can lessen the burden on institutions
+that want to make their collections more discoverable. With just a little more
+effort, the crawler approach to aggregations can still be narrowed to item-level
+resources. Collections can implement semantic markup to make structured data
+available on their pages, then rich semantic data can be extracted
+from pages for more powerful aggregations. All of these web-centered approaches
+to the item-level problem benefit digital collections broadly on the web as
+well as aggregators, search engines, and developers.</p>
+
+<p>At this point an aggregator may need to use some of the existing infrastructure
+distributed digital collections have in place for exposing item-level resources,
+but the nudge of standards ought to be in the direction of doing this in the
+future in this more Web-centric way. There are possibilities for merging the
+HTML and alternative (e.g. XML) versions for indexing. While a current
+implementation of an aggregation is likely to use niche protocols like OAI-PMH
+to include some collections, these approaches should be deprecated.</p>
+
+<p>Please let me know if you know of other and better ways aggregators could
+identify item-level pages and extract meaning from those pages. I would also
+be interested in known aggregators that use these approaches.</p>
+
+<p>This text is copyright Jason Ronallo and is licensed under a
+<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.</p>
+
+  </article>
+  <hr>
+  <div class="pagination">
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/dpla-strawman-technical-proposal/">
+        <i class="icon-arrow-left"></i> DPLA Strawman Technical Proposal
+      </a>
+    
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/listing-published-octopress-posts/">
+        Listing Published Octopress Posts <i class="icon-arrow-right"></i>
+      </a>
+    
+  </div>
+
+      </div>
+      <div id="footer-push"></div>
+    </div><!-- end page-wrap -->
+    <footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">by Jason Ronallo</div>
+      <div class="col-md-6 social">
+        <a href="mailto:jronallo@gmail.com"><i class="icon-envelope"></i></a>
+        <a href="https://plus.google.com/116830234234977722391?rel=author"><i class="icon-google-plus-sign"></i></a>
+        <a href="http://twitter.com/ronallo"><i class="icon-twitter-sign"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

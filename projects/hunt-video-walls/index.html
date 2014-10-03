@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="canonical" href="http://ronallo.com/projects/hunt-video-walls/">
+    <!-- FIXME: After DNS caches have been cleared it will be safe to put this redirect in place. -->
+    <!-- <meta http-equiv="refresh" content="0;URL=http://ronallo.com/projects/hunt-video-walls/"> -->
+
+
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Hunt Video Walls | Preliminary Inventory of Digital Collections by Jason Ronallo</title>
+
+    <link href="/stylesheets/normalize-ef7858ef.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/all-7cf8716f.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/all-fe1cfabb.js" type="text/javascript"></script>
+    <link href="/images/images/favicon.png" rel="icon" type="image/png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28548205-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body class="projects projects_hunt-video-walls projects_hunt-video-walls_index">
+    <div id="page-wrap">
+      <header id="masthead" class="site-header" role="banner">
+  <a class="home-link" href="/" rel="home">
+    <h1 class="site-title">Preliminary Inventory of Digital Collections</h1>
+    <h2 class="site-description hidden-xs">Incomplete thoughts on digital libraries.</h2>
+  </a>
+</header>
+      <nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="/">Preliminary Inventory of Digital Collections</a> -->
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/">Latest</a></li>
+          <li><a href="/blog/tags">Tags</a></li>
+          <li><a href="/blog/by_year">Calendar</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">CV <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/presentations">Presentations</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/experience">Experience</a></li>
+          <li><a target="_blank" href="/cv">Print Full CV</a></li>
+        </ul>
+      </li>
+
+
+      <li><a href="/about">About</a></li>
+      <li><a href="/feed.xml"><i class="icon-rss-sign"></i> </a></li>
+    </ul>
+
+    <form class="navbar-form navbar-right" action="http://google.com/search" method="get" role="search">
+      <div class="form-group">
+        <input type="hidden" name="q" value="site:jronallo.github.io">
+        <input class="search form-control" type="text" name="q" results="0" placeholder="Search...">
+        </div>
+    </form>
+
+  </div><!-- /.navbar-collapse -->
+</nav>
+      <div class="container">
+        <div id="redirect_message">
+          <p class="large">This page has permanently moved to <a href="http://ronallo.com/projects/hunt-video-walls/">http://ronallo.com/projects/hunt-video-walls/</a></p>
+          <p class="small">The stale content is below for a limited time for your convenience while DNS caches get expired.</p>
+        </div>
+          <a class="btn btn-default" href="/projects"><< back to projects</a>
+  <article>
+    <h1>Hunt Video Walls</h1>
+    <h2 id="toc_0">Related Projects</h2>
+
+<ul>
+<li><a href="/projects/hunt-video-walls/listen-to-wikipedia">Listen to Wikipedia</a> in the iPearl Immersion Theater</li>
+<li><a href="/projects/hunt-video-walls/visualization-wall-digital-collections-explorer">Visualization Wall Digital Collections Explorer</a></li>
+<li><a href="/projects/hunt-video-walls/html-templates">HTML Templates</a></li>
+</ul>
+
+<h2 id="toc_1">Designing for the Walls</h2>
+
+<p>The projects I designed for the Hunt walls had the challenge of having to design it two very different modes. Creating complete interactive applications involved designing for two distinct device types. One piece needed to work on a huge wall and another would likely be used mostly on mobile devices. I found switching between working in these two design modes to be challenging at first. I was designing for very large displays, on my relatively small desktop monitors, and for mobile, on my relatively large desktop monitors. Responsive design and how desktop browsers respond when made narrow works well enough as a stand-in for a mobile device during development, but what about designing for a wall? </p>
+
+<p>Luckily the same tools that help with responsive design testing are of help here as well. The <a href="https://developer.chrome.com/devtools/docs/mobile-emulation">Chrome screen emulation tools</a> not only allow you to emulate a smaller device but also a much, much larger one. There is a checkbox to &ldquo;shrink to fit&rdquo; which allows for seeing a shrunk down version of what would go on the large display. This is particularly convenient as we currently deploy Web-based content to the Hunt walls within Chrome. I found the screen emulation good enough for doing most development for the walls, though once you finally see something up on the intended wall there are always tweaks that need to be made.</p>
+
+<p>To help ease this for other content creators I&rsquo;ve begun work on creating <a href="/projects/hunt-video-walls/html-templates">HTML templates</a> for each of the Hunt Library video walls.</p>
+
+  </article>
+
+      </div>
+      <div id="footer-push"></div>
+    </div><!-- end page-wrap -->
+    <footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">by Jason Ronallo</div>
+      <div class="col-md-6 social">
+        <a href="mailto:jronallo@gmail.com"><i class="icon-envelope"></i></a>
+        <a href="https://plus.google.com/116830234234977722391?rel=author"><i class="icon-google-plus-sign"></i></a>
+        <a href="http://twitter.com/ronallo"><i class="icon-twitter-sign"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

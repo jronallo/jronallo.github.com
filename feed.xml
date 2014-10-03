@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Preliminary Inventory of Digital Collections by Jason Ronallo</title>
+  <subtitle>Incomplete thoughts on digital libraries.</subtitle>
+  <id>http://jronallo.github.io/blog</id>
+  <link href="http://jronallo.github.io/blog"/>
+  <link href="http://jronallo.github.io/feed.xml" rel="self"/>
+  <updated>2014-06-26T07:16:00Z</updated>
+  <author>
+    <name>Jason Ronallo</name>
+  </author>
+  <entry>
+    <title>A Plugin For Mediaelement.js For Preview Thumbnails on Hover Over the Time Rail Using WebVTT</title>
+    <link rel="alternate" href="http://jronallo.github.io/blog/a-plugin-for-mediaelement-js-for-preview-thumbnails-on-hover-over-the-time-rail/"/>
+    <id>http://jronallo.github.io/blog/a-plugin-for-mediaelement-js-for-preview-thumbnails-on-hover-over-the-time-rail/</id>
+    <published>2014-06-26T07:16:00Z</published>
+    <updated>2014-10-03T12:12:23-04:00</updated>
+    <author>
+      <name>Jason Ronallo</name>
+    </author>
+    <content type="html">&lt;p&gt;The time rail or progress bar on video players gives the viewer some indication of how much of the video they&amp;rsquo;ve watched, what portion of the video remains to be viewed, and how much of the video is buffered. The time rail can also be clicked on to jump to a particular time within the video. But figuring out where in the video you want to go can feel kind of random. You can usually hover over the time rail and move from side to side and see the time that you&amp;rsquo;d jump to if you clicked, but who knows what you might see when you get there. &lt;/p&gt;
+
+&lt;p&gt;Some video players have begun to use the time rail to show video thumbnails on hover in a tooltip. For most videos these thumbnails give a much better idea of what you&amp;rsquo;ll see when you click to jump to that time. I&amp;rsquo;ll show you how you can create your own thumbnail previews using HTML5 video.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt; Use the &lt;a href="https://github.com/jronallo/mep-feature-time-rail-thumbnails"&gt;time rail thumbnails plugin for Mediaelement.js&lt;/a&gt;.&lt;/p&gt;
+
+
+
+&lt;h2 id="toc_0"&gt;Archival Use Case&lt;/h2&gt;
+
+&lt;p&gt;We usually follow agile practices in our &lt;a href="http://en.wikipedia.org/wiki/Archival_processing"&gt;archival processing&lt;/a&gt;. This style of processing became popularized by the article &lt;a href="http://archivists.metapress.com/content/c741823776k65863/fulltext.pdf"&gt;More Product, Less Process: Revamping Traditional Archival Processing&lt;/a&gt; by Mark A. Greene and Dennis Meissner. For instance, we don&amp;rsquo;t read every page of every folder in every box of every collection in order to describe it well enough for us to make the collection accessible to researchers. Over time we may decide to make the materials for a particular collection or parts of a collection more discoverable by doing the work to look closer and add more metadata to our description of the contents. But we try not to allow the perfect from being the enemy of the good enough. Our goal is to make the materials accessible to researchers and not hidden in some box no one knows about.&lt;/p&gt;
+
+&lt;p&gt;Some of our collections of videos are &lt;a href="http://d.lib.ncsu.edu/student-leaders"&gt;highly curated like for video oral histories&lt;/a&gt;. We&amp;rsquo;ve created transcripts for the whole video. We extract out the most interesting or on topic clips. For each of these video clips we create a WebVTT caption file and an &lt;a href="/blog/using-the-webvtt-ruby-gem-to-display-subtitles-on-the-page/"&gt;interface to navigate within the video from the transcript&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;At NCSU Libraries we have begun digitizing more archival videos. And for these videos we&amp;rsquo;re much more likely to treat them like other archival materials. We&amp;rsquo;re never going to watch every minute of every video about &lt;a href="https://d.lib.ncsu.edu/collections/catalog?f[format][]=Video&amp;amp;f[subject_facet][]=Cucumbers"&gt;cucumbers&lt;/a&gt; or &lt;a href="https://d.lib.ncsu.edu/collections/catalog?f[format][]=Video&amp;amp;f[subject_facet][]=Agricultural+machinery"&gt;agricultural machinery&lt;/a&gt; in order to fully describe the contents. Digitization gives us some opportunities to automate the summarization that would be manually done with physical materials. Many of these videos don&amp;rsquo;t even have dialogue, so even when automated video transcription is more accurate and cheaper we&amp;rsquo;ll still be left with only the images. In any case, the visual component is a good place to start.&lt;/p&gt;
+
+&lt;h2 id="toc_1"&gt;Video Thumbnail Previews&lt;/h2&gt;
+
+&lt;p&gt;When you hover over the time rail on some video viewers, you see a thumbnail image from the video at that time. YouTube does this for many of its videos. I first saw that this would be possible with HTML5 video when I saw the JW Player page on &lt;a href="http://support.jwplayer.com/customer/portal/articles/1407439-adding-preview-thumbnails"&gt;Adding Preview Thumbnails&lt;/a&gt;. From there I took the idea to use an image sprite and a WebVTT file to structure which media fragments from the sprite to use in the thumbnail preview. I&amp;rsquo;ve implemented this as a &lt;a href="https://github.com/jronallo/mep-feature-time-rail-thumbnails"&gt;plugin for Mediaelement.js&lt;/a&gt;. You can see detailed instructions there on how to use the plugin, but I&amp;rsquo;ll give the summary here.&lt;/p&gt;
+
+&lt;h3 id="toc_2"&gt;1. Create an Image Sprite from the Video&lt;/h3&gt;
+
+&lt;p&gt;This uses ffmpeg to take a snapshot every 5 seconds in the video and then uses montage (from ImageMagick) to stitch them together into a sprite. This means that only one file needs to be downloaded before you can show the preview thumbnail.&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight shell"&gt;ffmpeg -i &lt;span class="s2"&gt;&amp;quot;video-name.mp4&amp;quot;&lt;/span&gt; -f image2 -vf &lt;span class="nv"&gt;fps&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;fps&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1/5 video-name-%05d.jpg
+montage video-name&lt;span class="k"&gt;*&lt;/span&gt;jpg -tile 5x -geometry 150x video-name-sprite.jpg&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;h3 id="toc_3"&gt;2. Create a WebVTT metadata file&lt;/h3&gt;
+
+&lt;p&gt;This is just a standard &lt;a href="http://dev.w3.org/html5/webvtt/"&gt;WebVTT&lt;/a&gt; file except the cue text is metadata instead of captions. The URL is to an image and uses a &lt;a href="http://www.w3.org/TR/media-frags/"&gt;spatial Media Fragment&lt;/a&gt; for what part of the sprite to display in the tooltip.&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight shell"&gt;WEBVTT
+
+00:00:00.000 --&amp;gt; 00:00:05.000
+http://example.com/video-name-sprite.jpg#xywh&lt;span class="o"&gt;=&lt;/span&gt;0,0,150,100
+
+00:00:05.000 --&amp;gt; 00:00:10.000
+http://example.com/video-name-sprite.jpg#xywh&lt;span class="o"&gt;=&lt;/span&gt;150,0,150,100
+
+00:00:10.000 --&amp;gt; 00:00:15.000
+http://example.com/video-name-sprite.jpg#xywh&lt;span class="o"&gt;=&lt;/span&gt;300,0,150,100
+
+00:00:15.000 --&amp;gt; 00:00:20.000
+http://example.com/video-name-sprite.jpg#xywh&lt;span class="o"&gt;=&lt;/span&gt;450,0,150,100
+
+00:00:20.000 --&amp;gt; 00:00:25.000
+http://example.com/video-name-sprite.jpg#xywh&lt;span class="o"&gt;=&lt;/span&gt;600,0,150,100
+
+00:00:25.000 --&amp;gt; 00:00:30.000
+http://example.com/video-name-sprite.jpg#xywh&lt;span class="o"&gt;=&lt;/span&gt;0,100,150,100&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;h3 id="toc_4"&gt;3. Add the Video Thumbnail Preview Track&lt;/h3&gt;
+
+&lt;p&gt;Put the following within the &lt;code&gt;&amp;lt;video&amp;gt;&lt;/code&gt; element.&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight html"&gt;&lt;span class="nt"&gt;&amp;lt;track&lt;/span&gt; &lt;span class="na"&gt;kind=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;metadata&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;time-rail-thumbnails&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://example.com/video-name-sprite.vtt&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/track&amp;gt;&lt;/span&gt;&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;h3 id="toc_5"&gt;4. Initialize the Plugin&lt;/h3&gt;
+
+&lt;p&gt;The following assumes that you&amp;rsquo;re already using &lt;a href="YKK"&gt;Mediaelement.js&lt;/a&gt;, jQuery, and have included the &lt;a href="https://github.com/mozilla/vtt.js"&gt;vtt.js&lt;/a&gt; library. &lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight javascript"&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;video&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;mediaelementplayer&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+   &lt;span class="na"&gt;features&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;playpause&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;progress&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;duration&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;tracks&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;volume&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;timerailthumbnails&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+    &lt;span class="na"&gt;timeRailThumbnailsSeconds&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;h2 id="toc_6"&gt;The Result&lt;/h2&gt;
+
+&lt;p&gt;&lt;video controls&gt;
+&lt;source src="http://jronallo.github.io/mep-feature-time-rail-thumbnails/mep-feature-time-rail-thumbnails-example.mp4" type="video/mp4"/&gt;
+&lt;span&gt;Your browser won&amp;rsquo;t play an MP4. You can &lt;a href="http://jronallo.github.io/mep-feature-time-rail-thumbnails/mep-feature-time-rail-thumbnails-example.mp4"&gt;download it instead&lt;/a&gt;.&lt;/span&gt;
+&lt;/video&gt;&lt;/p&gt;
+
+&lt;p&gt;See &lt;a href="http://d.lib.ncsu.edu/collections/catalog/ua024-002-bx0149-066-001"&gt;Bug Sprays and Pets&lt;/a&gt; with sound.&lt;/p&gt;
+
+&lt;h2 id="toc_7"&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;The plugin can either be installed using the &lt;a href="https://github.com/jronallo/mep-feature-time-rail-thumbnails#rails"&gt;Rails gem&lt;/a&gt; or the &lt;a href="https://github.com/jronallo/mep-feature-time-rail-thumbnails#bower"&gt;Bower package&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="toc_8"&gt;MutationObserver&lt;/h2&gt;
+
+&lt;p&gt;One of the DOM API features I hadn&amp;rsquo;t used before is &lt;a href="http://www.w3.org/TR/dom/#mutation-observers"&gt;MutationObserver&lt;/a&gt;. One thing the thumbnail preview plugin needs to do is know what time is being hovered over on the time rail. I could have calculated this myself, but I wanted to rely on MediaElement.js to provide the information. Maybe there&amp;rsquo;s a callback in MediaElement.js for when this is updated, but I couldn&amp;rsquo;t find it. Instead I use a MutationObserver to watch for when MediaElement.js changes the DOM for the default display of a timestamp on hover. Looking at the time code there then allows the plugin to pick the correct cue text to use for the media fragment. MutationObserver is more performant than the now deprecated MutationEvents. I&amp;rsquo;ve experienced very little latency using a MutationObserver which allows it to trigger lots of events quickly. &lt;/p&gt;
+
+&lt;p&gt;The plugin currently only works in the &lt;a href="http://caniuse.com/mutationobserver"&gt;browsers that support MutationObserver&lt;/a&gt;, which is most current browsers. In browsers that do not support MutationObserver the plugin will do nothing at all and just show the default timestamp on hover. I&amp;rsquo;d be interested in other ideas on how to solve this kind of problem, though it is nice to know that plugins that rely on another library have tools like MutationObserver around.&lt;/p&gt;
+
+&lt;h2 id="toc_9"&gt;Other Caveats&lt;/h2&gt;
+
+&lt;p&gt;This plugin is brand new and works for me, but there are some caveats. All the images in the sprite must have the same dimensions. The durations for each thumbnail must be consistent. The timestamps currently aren&amp;rsquo;t really used to determine which thumbnail to display, but is instead faked relying on the consistent durations. The plugin just does some simple addition and plucks out the correct thumbnail from the array of cues. Hopefully in future versions I can address some of these issues.&lt;/p&gt;
+
+&lt;h2 id="toc_10"&gt;Discoveries&lt;/h2&gt;
+
+&lt;p&gt;Having this feature be available for our digitized video, we&amp;rsquo;ve already found things in our collection that we wouldn&amp;rsquo;t have seen before. You can see how a &lt;a href="http://d.lib.ncsu.edu/collections/catalog/ua100_014-006-cn0056-004-001#t=545"&gt;&amp;ldquo;Profession with a Future&amp;rdquo;&lt;/a&gt; evidently involves shortening your life by smoking (at about 9:05). I found a &lt;a href="http://d.lib.ncsu.edu/collections/catalog/ua024-002-bx0113-241-001#t=133"&gt;spinning spherical display of Soy-O and synthetic meat&lt;/a&gt; (at about 2:12). Some videos &lt;a href="http://d.lib.ncsu.edu/collections/catalog/ua024_007-college-days"&gt;switch between black &amp;amp; white and color&lt;/a&gt; which you wouldn&amp;rsquo;t know just from the poster image. And there are some videos, like talking heads, that appear from the thumbnails to have no surprises at all. But maybe you like watching &lt;a href="http://d.lib.ncsu.edu/collections/catalog/AV9_FM_1-boiling-process"&gt;boiling water&lt;/a&gt; for almost 13 minutes.&lt;/p&gt;
+
+&lt;p&gt;OK, this isn&amp;rsquo;t really a discovery in itself, but it is fun to watch a &lt;a href="http://d.lib.ncsu.edu/collections/catalog/ua024-002-bx0147-060-001"&gt;head banging JFK&lt;/a&gt; as you go back and forth over the time rail. He really likes milk. And Eisenhower had a &lt;a href="https://d.lib.ncsu.edu/collections/catalog/AV2_FM_296-people2people"&gt;different speaking style&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can see this in action for all of our &lt;a href="https://d.lib.ncsu.edu/collections/catalog?f[format][]=Video"&gt;videos on the NCSU Libraries&amp;#39; Rare &amp;amp; Unique Digital Collections site&lt;/a&gt; and make your own discoveries. Let me know if you find anything interesting.&lt;/p&gt;
+
+&lt;h2 id="toc_11"&gt;Preview Thumbnail Sprite Reuse&lt;/h2&gt;
+
+&lt;p&gt;Since we already had the sprite images for the time rail hover preview, I created another interface to allow a user to jump through a video. Under the video player is a control button that shows a modal with the thumbnail sprite. The sprite alone provides a nice overview of the video that allows you to see very quickly what might be of interest. I used an image map so that the rather large sprite images would only have to be in memory once. (Yes, image maps are still valid in HTML5 and have their legitimate uses.) &lt;a href="https://github.com/stowball/jQuery-rwdImageMaps"&gt;jQuery RWD Image Maps&lt;/a&gt; allows the map area coordinates to scale up and down across devices. Hovering over a single thumb will show the timestamp for that frame. Clicking a thumbnail will set the current time for the video to be the start time of that section of the video. One advantage of this feature is that it doesn&amp;rsquo;t require the kind of fine motor skill necessary to hover over the video player time rail and move back and forth to show each of the thumbnails.&lt;/p&gt;
+
+&lt;p&gt;This feature has just been added this week and deployed to production this week, so I&amp;rsquo;m looking for feedback on whether folks find this useful, how to improve it, and any bugs that are encountered.&lt;/p&gt;
+
+&lt;h2 id="toc_12"&gt;Summarization Services&lt;/h2&gt;
+
+&lt;p&gt;I expect that automated summarization services will become increasingly important for researchers as archives do more large-scale digitization of physical collections and collect more born digital resources in bulk. We&amp;rsquo;re already seeing projects like &lt;a href="https://github.com/edsu/fondz"&gt;fondz&lt;/a&gt; which autogenerates archival description by extracting the contents of born digital resources. At NCSU Libraries we&amp;rsquo;re working on other ways to summarize the metadata we create as we ingest born digital collections. As we learn more what summarization services and interfaces are useful for researchers, I hope to see more work done in this area. And this is just the beginning of what we can do with summarizing archival video.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>The Lenovo X240 Keyboard and the End/Insert Key With FnLk On as a Software Developer on Linux</title>
+    <link rel="alternate" href="http://jronallo.github.io/blog/the-lenovo-x240-keyboard-and-the-end-insert-key-with-fnlk-on-as-a-software-developer-on-linux/"/>
+    <id>http://jronallo.github.io/blog/the-lenovo-x240-keyboard-and-the-end-insert-key-with-fnlk-on-as-a-software-developer-on-linux/</id>
+    <published>2014-06-21T20:23:00Z</published>
+    <updated>2014-10-03T12:12:23-04:00</updated>
+    <author>
+      <name>Jason Ronallo</name>
+    </author>
+    <content type="html">&lt;p&gt;As a software developer I&amp;rsquo;m using keys like F5 a lot. When I&amp;rsquo;m doing any writing, I use F6 a lot to turn off and on spell correction underlining. On the Lenovo X240 the function keys are overlaid on the same keys as volume and brightness control. This causes some problems for me. Luckily there&amp;rsquo;s a solution that works for me under Linux.&lt;/p&gt;
+
+
+
+&lt;p&gt;To access the function keys you have to also press the Fn key. If most of what you&amp;rsquo;re doing is reloading a browser and not using the volume control, then this is a problem, so they&amp;rsquo;ve created a function lock which is enabled by pressing the Fn and Esc/FnLk key. The Fn key lights up and you can press F5 without using the Fn modifier key.&lt;/p&gt;
+
+&lt;p&gt;That&amp;rsquo;s all well and good until you get to another quirk of this keyboard where the Home, End, and Delete keys are in the same function key row in a way that the End key also functions as the Insert key. When function lock is on the End key becomes an Insert key. I don&amp;rsquo;t ever use the Insert key on a keyboard, so I understand why they combined the End/Insert key. But in this combination it doesn&amp;rsquo;t work for me as a software developer. I&amp;rsquo;m continually going between something that needs to be reloaded with F5 and in an editor where I need to quickly go to the end of a line in a program.&lt;/p&gt;
+
+&lt;p&gt;Luckily there&amp;rsquo;s a pretty simple answer to this if you don&amp;rsquo;t ever need to use the Insert key. I found the &lt;a href="http://askubuntu.com/a/24930"&gt;answer on askubuntu&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;All I needed to do was run the following:&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight shell"&gt;xmodmap -e &lt;span class="s2"&gt;&amp;quot;keycode 118 = End&amp;quot;&lt;/span&gt;&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;p&gt;And now even when the function keys are locked the End/Insert key always behaves as End. To make this is permanent and the mapping gets loaded with X11 starts, add &lt;code&gt;xmodmap -e &amp;quot;keycode 118 = End&amp;quot;&lt;/code&gt; to your &lt;code&gt;~/.xinitrc&lt;/code&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>HTML Slide Decks With Synchronized and Interactive Audience Notes Using WebSockets</title>
+    <link rel="alternate" href="http://jronallo.github.io/blog/html-slide-decks-with-synchronized-and-interactive-audience-notes-using-websockets/"/>
+    <id>http://jronallo.github.io/blog/html-slide-decks-with-synchronized-and-interactive-audience-notes-using-websockets/</id>
+    <published>2014-06-16T13:48:00Z</published>
+    <updated>2014-10-03T12:12:23-04:00</updated>
+    <author>
+      <name>Jason Ronallo</name>
+    </author>
+    <content type="html">&lt;p&gt;One question I got asked after giving my &lt;a href="http://code4lib.org"&gt;Code4Lib&lt;/a&gt; &lt;a href="/presentations/code4lib-2014-websockets"&gt;presentation on WebSockets&lt;/a&gt; was how I created my slides. I&amp;rsquo;ve &lt;a href="/blog/html-and-pdf-slideshows-with-dzslides/"&gt;written about how I create HTML slides before&lt;/a&gt;, but this time I added some new features like an audience interface that synchronizes automatically with the slides and allows for audience participation.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt; I&amp;rsquo;ve open sourced &lt;a href="https://github.com/jronallo/starterdeck-node"&gt;starterdeck-node&lt;/a&gt; for creating synchronized and interactive HTML slide decks.&lt;/p&gt;
+
+
+
+&lt;p&gt;Not every time that I give a presentation am I able to use the technologies that I am talking about within the presentation itself, so I like to do it when I can. I write my slide decks as &lt;a href="http://en.wikipedia.org/wiki/Markdown"&gt;Markdown&lt;/a&gt; and convert them with &lt;a href="http://johnmacfarlane.net/pandoc/"&gt;Pandoc&lt;/a&gt; to HTML slides which use &lt;a href="http://paulrouget.com/dzslides/"&gt;DZslides&lt;/a&gt; for slide sizing and animations. I use a browser to present the slides. Working this way with HTML has allowed me to do things like embed HTML5 video into a &lt;a href="http://jronallo.github.io/presentations/html5-video-now/"&gt;presentation on HTML5 video&lt;/a&gt; and show examples of the &lt;a href="http://jronallo.github.io/presentations/html5-video-now/presentation/#27.0"&gt;JavaScript API&lt;/a&gt; and how &lt;a href="http://jronallo.github.io/presentations/html5-video-now/presentation/#32.0"&gt;videos can be styled with CSS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For a &lt;a href="/presentations/code4lib-2014-websockets/"&gt;presentation on WebSockets I gave at Code4Lib 2014&lt;/a&gt;, I wanted to provide another example from within the presentation itself of what you can do with WebSockets. If you have the &lt;a href="http://websocket-presentation.herokuapp.com/slides"&gt;slides&lt;/a&gt; and the &lt;a href="http://websocket-presentation.herokuapp.com/audience"&gt;audience notes handout page&lt;/a&gt; open at the same time, you will see how they are synchronized. (Beware slowness as it is a large self-contained HTML download using data URIs.) When you change to certain slides in the presenter view, new content is revealed in the audience view. Because the slides are just an HTML page, it is possible to make the slides more interactive. WebSockets are used to allow the slides to send messages to each audience members&amp;#39; browser and reveal notes. I am never able to say everything that I would want to in one short 20 minute talk, so this provided me a way to give the audience some supplementary material. &lt;/p&gt;
+
+&lt;p&gt;Within the slides I even included a simplistic chat application that allowed the audience to send messages directly to the presenter slides. (Every talk on WebSockets needs a gratuitous chat application.) At the end of the talk I also accepted questions from the audience via an input field. The questions were then delivered to the slides via WebSockets and displayed right within a slide using a little JavaScript. What I like most about this is that even someone who did not feel confident enough to step up to a microphone would have the opportunity to ask an anonymous question. And I even got a &lt;a href="/blog/questions-asked-during-the-presentation-websockets-for-real-time-and-interactive-interfaces-at-code4lib-2014/"&gt;few legitimate questions&lt;/a&gt; amongst the requests for me to dance.&lt;/p&gt;
+
+&lt;p&gt;Another nice side benefit of getting the audience to notes &lt;em&gt;before&lt;/em&gt; the presentation starts is that you can include your contact information and Twitter handle on the page.&lt;/p&gt;
+
+&lt;p&gt;I have wrapped up all this functionality for creating interactive slide decks into a project called &lt;a href="https://github.com/jronallo/starterdeck-node"&gt;starterdeck-node&lt;/a&gt;. It includes the WebSocket server and a simple starting point for creating your own slides. It strings together a bunch of different tools to make creating and deploying slide decks like this simpler so you&amp;rsquo;ll need to look at the requirements. This is still definitely just a tool for hackers, but having this scaffolding in place ought to make the next slide deck easier to create.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s a video where I show &lt;a href="https://github.com/jronallo/starterdeck-node"&gt;starterdeck-node&lt;/a&gt; at work. Slides on the left; audience notes on the right. &lt;/p&gt;
+
+&lt;iframe width="640" height="360" src="https://www.youtube.com/embed/FgO46QbSE5Y?rel=0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;h2 id="toc_0"&gt;Other Features&lt;/h2&gt;
+
+&lt;p&gt;While the new exciting feature added in this version of the project is synchronization between presenter slides and audience notes, there are also lots of other great features if you want to create HTML slide decks. Even if you aren&amp;rsquo;t going to use the synchronization feature, there are still lots of reasons why you might want to create your HTML slides with starterdeck-node.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Self-contained HTML.&lt;/strong&gt; Pandoc uses data-URIs so that the HTML version of your slides have no external dependencies. Everything including images, video, JavaScript, CSS, and fonts are all embedded within a single HTML document. That means that even if there&amp;rsquo;s no internet connection from the podium you&amp;rsquo;ll still be able to deliver your presentation.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Onstage view.&lt;/strong&gt; Part of what gets built is a DZSlides onstage view where the presenter can see the current slide, next slide, speaker notes, and current time. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Single page view.&lt;/strong&gt; This view is a self-contained, single-page layout version of the slides and speaker notes. This is a much nicer way to read a presentation than just flipping through the slides on various slide sharing sites. If you put a lot of work into your talk and are writing speaker notes, this is a great way to reuse them.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PDF backup.&lt;/strong&gt; A script is included to create a PDF backup of your presentation. Sometimes you have to use the computer at the podium and it has an old version of IE on it. PDF backup to the rescue. While you won&amp;rsquo;t get all the features of the HTML presentation you&amp;rsquo;re still in business. The included Node.js app provides a server so that a headless browser can take screenshots of each slide. These screenshots are then compiled into the PDF. &lt;/p&gt;
+
+&lt;h2 id="toc_1"&gt;Examples&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;d love to hear from anyone who tries to use it. I&amp;rsquo;ll list any examples I hear about below.&lt;/p&gt;
+
+&lt;p&gt;Here are some examples of slide decks that have used &lt;a href="https://github.com/jronallo/starterdeck-node"&gt;starterdeck-node&lt;/a&gt; or &lt;a href="https://github.com/jronallo/starterdeck"&gt;starterdeck&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="/presentations/code4lib-2014-websockets"&gt;WebSockets for Real-Time and Interactive Interfaces&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://matienzo.org/storage/2014/2014Jun-NYAC/"&gt;DPLA NYAC 2014 presentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Questions Asked During the Presentation Websockets For Real-time And Interactive Interfaces At Code4lib 2014</title>
+    <link rel="alternate" href="http://jronallo.github.io/blog/questions-asked-during-the-presentation-websockets-for-real-time-and-interactive-interfaces-at-code4lib-2014/"/>
+    <id>http://jronallo.github.io/blog/questions-asked-during-the-presentation-websockets-for-real-time-and-interactive-interfaces-at-code4lib-2014/</id>
+    <published>2014-04-07T23:30:00Z</published>
+    <updated>2014-10-03T12:12:23-04:00</updated>
+    <author>
+      <name>Jason Ronallo</name>
+    </author>
+    <content type="html">&lt;p&gt;During my &lt;a href="http://ronallo.com/presentations/code4lib-2014-websockets/"&gt;presentation on WebSockets&lt;/a&gt;, there were a couple points where folks in the audience could enter text in an input field that would then show up on a slide. The data was sent to the slides via WebSockets. It is not often that you get a chance to incorporate the technology that you&amp;rsquo;re talking about directly into how the presentation is given, so it was a lot of fun. At the end of the presentation, I allowed folks to anonymously submit questions directly to the HTML slides via WebSockets.&lt;/p&gt;
+
+&lt;p&gt;I ran out of time before I could answer all of the questions that I saw. I&amp;rsquo;ll try to answer them now.&lt;/p&gt;
+
+
+
+&lt;p&gt;&lt;img src="/images/websocket-presentation/websocket-presentation-questions-1-7cfe09b5.png" /&gt;&lt;/p&gt;
+
+&lt;h2 id="toc_0"&gt;Questions From Slides&lt;/h2&gt;
+
+&lt;p&gt;You can see in the &lt;a href="https://www.youtube.com/watch?v=_8MJATYsqbY&amp;amp;feature=share&amp;amp;t=1h38m26s"&gt;YouTube video at the end of my presentation (at 1h38m26s)&lt;/a&gt; the following questions came in. ([Full presentation starts here[(https://www.youtube.com/watch?v=_8MJATYsqbY&amp;amp;feature=share&amp;amp;t=1h25m37s).) Some lines that came in were not questions at all. For those that are really questions, I&amp;rsquo;ll answer them now, even if I already answered them.&lt;/p&gt;
+
+&lt;h3 id="toc_1"&gt;Are you a trained dancer?&lt;/h3&gt;
+
+&lt;p&gt;No. Before my presentation I was joking with folks about how little of a presentation I&amp;rsquo;d have, at least for the interactive bits, if the wireless didn&amp;rsquo;t work well enough. Tim Shearer suggested I just do an interpretive dance in that eventuality. Luckily it didn&amp;rsquo;t come to that.&lt;/p&gt;
+
+&lt;h3 id="toc_2"&gt;When is the dance?&lt;/h3&gt;
+
+&lt;p&gt;There was no dance. Initially I thought the dance might happen later, but it didn&amp;rsquo;t. OK, I&amp;rsquo;ll admit it, I was never going to dance. &lt;/p&gt;
+
+&lt;h3 id="toc_3"&gt;Did you have any efficiency problems with the big images and chrome?&lt;/h3&gt;
+
+&lt;p&gt;On the big video walls in Hunt Library we often use Web technologies to create the content and Chrome for displaying it on the wall. For the most part we don&amp;rsquo;t have issues with big images or lots of images on the wall. But there&amp;rsquo;s a bit of trick happening here. For instance when we display images for &lt;a href="http://d.lib.ncsu.edu/myhuntlibrary/"&gt;My #HuntLibrary&lt;/a&gt; on the wall, they&amp;rsquo;re just images from Instagram so only 600x600px. We initially didn&amp;rsquo;t know how these would look blown up on the video wall, but they end up looking fantastic. So you don&amp;rsquo;t necessarily need super high resolution images to make a very nice looking display. &lt;/p&gt;
+
+&lt;p&gt;Upstairs on the Visualization Wall, I display some digitized special collections images. While the possible resolution on the display is higher, the current effective resolution is only about 202px wide for each MicroTile. The largest image is then only 404px side. In this case we are also using a Djatoka image server to deliver the images. Djatoka has an issue with the quality of its scaling between quality levels where the algorithm chosen can make the images look very poor. How I usually work around this is to pick the quality level that is just above the width required to fit whatever design. Then the browser scales the image down and does a better job making it look OK than the image server would. I don&amp;rsquo;t know which of these factors effect the look on the Visualization Wall the most, but some images have a stair stepping look on some lines. This especially effects line drawings with diagonal lines, while photographs can look totally acceptable. We&amp;rsquo;ll keep looking for how to improve the look of images on these walls especially in the browser.&lt;/p&gt;
+
+&lt;h3 id="toc_4"&gt;Have you got next act after Wikipedia?&lt;/h3&gt;
+
+&lt;p&gt;This question is referring to the adaptation of &lt;a href="http://listen.hatnote.com/"&gt;Listen to Wikipedia&lt;/a&gt; for the Immersion Theater. You can see &lt;a href="https://www.youtube.com/watch?v=gZKkIsWJOt8"&gt;video of what this looks like&lt;/a&gt; on the big Hunt Library Immersion Theater wall. &lt;/p&gt;
+
+&lt;p&gt;I don&amp;rsquo;t currently have solid plans for developing other content for any of the walls. Some of the work that I and others in the Libraries have done early on has been to help see what&amp;rsquo;s possible in these spaces and begin to form the cow paths for others to produce content more easily. We answered some big questions. Can we deliver content through the browser? What templates can we create to make this work easier? I think the next act is really for the NCSU Libraries to help more students and researchers to publish and promote their work through these spaces. &lt;/p&gt;
+
+&lt;h3 id="toc_5"&gt;Is it lunchtime yet?&lt;/h3&gt;
+
+&lt;p&gt;In some time zone somewhere, yes. Hopefully during the conference lunch came soon enough for you and was delicious and filling.&lt;/p&gt;
+
+&lt;h3 id="toc_6"&gt;Could you describe how testing worked more?&lt;/h3&gt;
+
+&lt;p&gt;I wish I could think of some good way to test applications that are destined for these kinds of large displays. There&amp;rsquo;s really no automated testing that is going to help here. &lt;a href="http://www.browserstack.com/"&gt;BrowserStack&lt;/a&gt; doesn&amp;rsquo;t have a big video wall that they can take screenshots on. I&amp;rsquo;ve also thought that it&amp;rsquo;d be nice to have a webcam trained on the walls so that I could make tweaks from a distance.&lt;/p&gt;
+
+&lt;p&gt;But Chrome does have its &lt;a href="https://developers.google.com/chrome-developer-tools/docs/mobile-emulation"&gt;screen emulation developer tools&lt;/a&gt; which were super helpful for this kind of work. These kinds of tools are useful not just for mobile development, which is how they&amp;rsquo;re usually promoted, but for designing for very large displays as well. Even on my small workstation monitor I could get a close enough approximation of what something would look like on the wall. Chrome will shrink the content to fit to the available viewport size. I could develop for the exact dimensions of the wall while seeing all of the content shrunk down to fit my desktop. This meant that I could develop and get close enough before trying it out on the wall itself. Being able to design in the browser has huge advantages for this kind of work.&lt;/p&gt;
+
+&lt;p&gt;I work at DH Hill Library while these displays are in Hunt Library. I don&amp;rsquo;t get over there all that often, so I would schedule some time to see the content on the walls when I happened to be over there for a meeting. This meant that there&amp;rsquo;d often be a lag of a week or two before I could get over there. This was acceptable as this wasn&amp;rsquo;t the primary project I was working on. &lt;/p&gt;
+
+&lt;p&gt;By the time I saw it on the wall, though, we were really just making tweaks for design purposes. We wanted the panels to the left and right of the Listen to Wikipedia visualization to fall along the bezel. We would adjust font sizes for how they felt once you&amp;rsquo;re in the space. The initial, rough cut work of modifying the design to work in the space was easy, but getting the details just right required several rounds of tweaks and testing. Sometimes I&amp;rsquo;d ask someone over at Hunt to take a picture with their phone to ensure I&amp;rsquo;d fixed an issue.&lt;/p&gt;
+
+&lt;p&gt;While it would have been possible for me to bring my laptop and sit in front of the wall to work, I personally didn&amp;rsquo;t find that to work well for me. I can see how it could work to make development much faster, though, and it is possible to work this way.   &lt;/p&gt;
+
+&lt;h3 id="toc_7"&gt;Race condition issues between devices?&lt;/h3&gt;
+
+&lt;p&gt;Some spaces could allow you to control a wall from a kiosk and completely avoid any possibility of a race condition. When you allow users to bring their own device as a remote control to your spaces you have some options. You could allow the first remote to connect and lock everyone else out for a period of time. Because of how subscriptions and presence notifications work this would certainly be possible to do.&lt;/p&gt;
+
+&lt;p&gt;For Listen to Wikipedia we allow more than one user to control the wall at the same time. Then we use WebSockets to try to keep multiple clients in sync. Even though we attempt to quickly update all the clients, it is certainly possible that there could be race conditions, though it seems unlikely. Because we&amp;rsquo;re not dealing with persisting data, I don&amp;rsquo;t really worry about it too much. If one remote submits just after another but before it is synced, then the wall will reflect the last to submit. That&amp;rsquo;s perfectly acceptable in this case. If a client were to get out of sync with what is on the wall, then any change by that client would just be sent to the wall as is. There&amp;rsquo;s no attempt to make sure a client had the most recent, freshest version of the data prior to submitting.&lt;/p&gt;
+
+&lt;p&gt;While this could be an issue for other use cases, it does not adversely effect the experience here. We do an alright job keeping the clients in sync, but don&amp;rsquo;t shoot for perfection.&lt;/p&gt;
+
+&lt;h3 id="toc_8"&gt;How did you find the time to work on this?&lt;/h3&gt;
+
+&lt;p&gt;At the time I worked on these I had at least a couple other projects going. When waiting for someone else to finish something before being able to make more progress or on a Friday afternoon, I&amp;rsquo;d take a look at one of these projects for a little. It meant the progress was slow, but these also weren&amp;rsquo;t projects that anyone was asking to be delivered on a deadline. I like to have a couple projects of this nature around. If I&amp;rsquo;ve got a little time, say before a meeting, but not enough for something else, I can pull one of these projects out. &lt;/p&gt;
+
+&lt;p&gt;I wonder, though, if this question isn&amp;rsquo;t more about the &lt;em&gt;why&lt;/em&gt; I did these projects. There were multiple motivations. A big motivation was to learn more about WebSockets and how the technology could be applied in the library context. I always like to have a reason to learn new technologies, especially Web technologies, and see how to apply them to other types of applications. And now that I know more about WebSockets I can see other ways to improve the performance and experience of other applications in ways that might not be as overt in their use of the technology as these project were. &lt;/p&gt;
+
+&lt;p&gt;For the &lt;a href="http://d.lib.ncsu.edu/collections/now"&gt;real-time digital collections view&lt;/a&gt; this is integrated into an application I&amp;rsquo;ve developed and it did not take much to begin adding in some new functionality. We do a great deal of business analytic tracking for this application. The site has excellent SEO for the kind of content we have. I wanted to explore other types of metrics of our success.&lt;/p&gt;
+
+&lt;p&gt;The video wall projects allowed us to explore several different questions. What does it take to develop Web content for them? What kinds of tools can we make available for others to develop content? What should the interaction model be? What messaging is most effective? How should we kick off an interaction? Is it possible to develop bring your own device interactions? All of these kinds of questions will help us to make better use of these kinds of spaces.    &lt;/p&gt;
+
+&lt;h3 id="toc_9"&gt;Speed of an unladen swallow?&lt;/h3&gt;
+
+&lt;p&gt;I think you&amp;rsquo;d be better off asking a scientist or a British comedy troupe.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="/images/websocket-presentation/websocket-presentation-questions-2-b432216d.png" /&gt;&lt;/p&gt;
+
+&lt;h2 id="toc_10"&gt;Questions From Twitter&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://twitter.com/mia_out/status/448486332470665216"&gt;Mia (@mia_out) tweeted at 11:47 AM on Tue, Mar 25, 2014&lt;/a&gt;&lt;br&gt;
+@ostephens @ronallo out of curiosity, how many interactions compared to visitor numbers? And in-app or relying on phone reader? &lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://twitter.com/sebchan/status/448491069018472448"&gt;sebchan (@sebchan) tweeted at 0:06 PM on Tue, Mar 25, 2014&lt;/a&gt;&lt;br&gt;
+@ostephens @ronallo (but) what are the other options for &amp;lsquo;interacting&amp;rsquo;?&lt;/p&gt;
+
+&lt;p&gt;This question was in response to how 80% of the interactions with the Listen to Wikipedia application are via QR code. We placed a URL and QR code on the wall for Listen to Wikipedia not knowing which would get the most use.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately there&amp;rsquo;s no simple way I know of to kick off an interaction in these spaces when the user brings their own device. Once when there was a stable exhibit for a week we used a kiosk iPad to control a wall so that the visitor did not need to bring a device. We are considering how a kiosk tablet could be used more generally for this purpose. In cases where the visitor brings their own device it is more complicated. The visitor either must enter a URL or scan a QR code. We try to make the URLs short, but because we wanted to use some simple token authentication they&amp;rsquo;re at least 4 characters longer than they might otherwise be. I&amp;rsquo;ve considered using geolocation services as the authentication method, but they are not as exact as we might want them to be for this purpose, especially if the device uses campus wireless rather than GPS. We also did not want to have a further hurdle of asking for permission of the user and potentially being rejected. For the QR code the visitor must have a QR code reader already on their device. The QR code includes the changing token. Using either the URL or QR code sends the visitor to a page in their browser.&lt;/p&gt;
+
+&lt;p&gt;Because the walls I&amp;rsquo;ve placed content on are in public spaces there is no good way to know how many visitors there are compared to the number of interactions. One interesting thing about the Immersion Theater is that I&amp;rsquo;ll often see folks standing outside of the opening to the space looking in, so even if there where some way to track folks going in and out of the space, that would not include everyone who has viewed the content.&lt;/p&gt;
+
+&lt;h2 id="toc_11"&gt;Other Questions&lt;/h2&gt;
+
+&lt;p&gt;If you have other questions about anything in my &lt;a href="http://ronallo.com/presentations/code4lib-2014-websockets/"&gt;presentation&lt;/a&gt;, please feel free to ask. (If you submit them through the slides I won&amp;rsquo;t ever see them, so better to &lt;a href="/about"&gt;email or tweet at me&lt;/a&gt;.)&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>HTML and PDF Slideshows Written in Markdown with DZSlides, Pandoc, Guard, Capybara Webkit, and a little Ruby</title>
+    <link rel="alternate" href="http://jronallo.github.io/blog/html-and-pdf-slideshows-with-dzslides/"/>
+    <id>http://jronallo.github.io/blog/html-and-pdf-slideshows-with-dzslides/</id>
+    <published>2013-11-08T05:00:00Z</published>
+    <updated>2014-10-03T12:12:23-04:00</updated>
+    <author>
+      <name>Jason Ronallo</name>
+    </author>
+    <content type="html">&lt;p&gt;I&amp;rsquo;ve used different HTML slideshow tools in the past, but was never satisfied with them. I didn&amp;rsquo;t like to have to run a server just for a slideshow. I don&amp;rsquo;t like when a slideshow requires external dependencies that make it difficult to share the slides. I don&amp;rsquo;t want to actually have to write a lot of HTML.&lt;/p&gt;
+
+&lt;p&gt;I want to write my slides in a single Markdown file. As a backup I always like to have my slides available as a PDF.&lt;/p&gt;
+
+&lt;p&gt;For my latest presentations I came up with workflow that I&amp;rsquo;m satisfied with. Once all the little pieces were stitched together it worked really well for me. I&amp;rsquo;ll show you how I did it.&lt;/p&gt;
+
+
+
+&lt;p&gt;I had looked at &lt;a href="http://paulrouget.com/dzslides/"&gt;DZSlides&lt;/a&gt; before but had always passed it by after seeing what a default slide deck looked like. It wasn&amp;rsquo;t as flashy as others and doesn&amp;rsquo;t immediately have all the same features readily available. I looked at it again because I liked the idea that it is a single file template. I also saw that &lt;a href="http://johnmacfarlane.net/pandoc/demo/example9/producing-slide-shows-with-pandoc.html"&gt;Pandoc will convert Markdown into a DZSlides slideshow&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To convert my Markdown to DZSlides it was as easy as:&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight shell"&gt;pandoc -w dzslides presentation.md &amp;gt; presentation.html&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;p&gt;What is even better is that Pandoc has settings to embed images and any external files as data URIs within the HTML. So this allows me to maintain a single Markdown file and then share my presentation as a single HTML file including images and all&amp;ndash;no external dependencies.&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight shell"&gt;pandoc -w dzslides --standalone --self-contained presentation.md &amp;gt; presentation.html&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;p&gt;The DZSlides default template is rather plain, so you&amp;rsquo;ll likely want to make some stylistic changes to the CSS. You may also want to add some more JavaScript as part of your presentation or to add features to the slides. For instance I wanted to add a simple way to toggle my speaker notes from showing. In previous HTML slides I&amp;rsquo;ve wanted to control HTML5 video playback by binding JavaScript to a key. The way I do this is to add in any external styles or scripts directly before the closing body tag after Pandoc does its processing. Here&amp;rsquo;s the simple script I wrote to do this:&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight ruby"&gt;&lt;span class="c1"&gt;#! /usr/bin/env ruby&lt;/span&gt;
+
+&lt;span class="c1"&gt;# markdown_to_slides.rb&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Converts a markdown file into a DZslides presentation. Pandoc must be installed.&lt;/span&gt;
+&lt;span class="c1"&gt;# Read in the given CSS file and insert it between style tags just before the close of the body tag.&lt;/span&gt;
+
+&lt;span class="n"&gt;css&lt;/span&gt;    &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;File&lt;/span&gt;&lt;span class="nf"&gt;.read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;styles.css&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;script&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;File&lt;/span&gt;&lt;span class="nf"&gt;.read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;scripts.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="sb"&gt;`pandoc -w dzslides --standalone --self-contained presentation.md &amp;gt; presentation.html`&lt;/span&gt;
+
+&lt;span class="n"&gt;presentation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;File&lt;/span&gt;&lt;span class="nf"&gt;.read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;presentation.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;style&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;lt;style&amp;gt;&lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="n"&gt;css&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;lt;/style&amp;gt;&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;scripts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;lt;script&amp;gt;&lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="n"&gt;script&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;lt;/script&amp;gt;&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;presentation&lt;/span&gt;&lt;span class="nf"&gt;.sub!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;lt;/body&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="n"&gt;style&lt;/span&gt;&lt;span class="si"&gt;}#{&lt;/span&gt;&lt;span class="n"&gt;scripts&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;lt;/body&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="no"&gt;File&lt;/span&gt;&lt;span class="nf"&gt;.open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;presentation.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;fh&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="n"&gt;fh&lt;/span&gt;&lt;span class="nf"&gt;.puts&lt;/span&gt; &lt;span class="n"&gt;presentation&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;p&gt;Just follow these naming conventions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Presentation Markdown should be named presentation.md&lt;/li&gt;
+&lt;li&gt;Output presentation HTML will be named presentation.html&lt;/li&gt;
+&lt;li&gt;Create a stylesheet in styles.css&lt;/li&gt;
+&lt;li&gt;Create any JavaScript in a file named scripts.js&lt;/li&gt;
+&lt;li&gt;You can put images wherever you want, but I usually place them in an images directory.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="toc_0"&gt;Automate the build&lt;/h2&gt;
+
+&lt;p&gt;Now what I wanted was for this script to run any time the Markdown file changed. I used &lt;a href="https://github.com/guard/guard"&gt;Guard&lt;/a&gt; to watch the files and set off the script to convert the Markdown to slides. While I was at it I could also reload the slides in my browser. One trick with &lt;a href="https://github.com/guard/guard-livereload"&gt;guard-livereload&lt;/a&gt; is to allow your browser to watch local files so that you do not have to have the page behind a server. Here&amp;rsquo;s my Guardfile:&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight ruby"&gt;&lt;span class="n"&gt;guard&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;livereload&amp;#39;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="n"&gt;watch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;presentation.html&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="n"&gt;guard&lt;/span&gt; &lt;span class="ss"&gt;:shell&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="c1"&gt;# If any of these change run the script to build presentation.html&lt;/span&gt;
+  &lt;span class="n"&gt;watch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;presentation.md&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="sb"&gt;`./markdown_to_slides.rb`&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="n"&gt;watch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;styles.css&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="sb"&gt;`./markdown_to_slides.rb`&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="n"&gt;watch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;scripts.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="sb"&gt;`./markdown_to_slides.rb`&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="n"&gt;watch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;markdown_to_slides.rb&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="sb"&gt;`./markdown_to_slides.rb`&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;p&gt;Add the following to a Gemfile and &lt;code&gt;bundle install&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight ruby"&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;http://rubygems.org&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;guard-livereload&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;guard-shell&amp;#39;&lt;/span&gt;&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;p&gt;Now I have a nice automated way to build my slides, continue to work in Markdown, and have a single file as a result. Just run this:&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight ruby"&gt;&lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="nb"&gt;exec&lt;/span&gt; &lt;span class="n"&gt;guard&lt;/span&gt;&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;p&gt;Now when any of the files change your HTML presentation will be rebuilt. Whenever the resulting presentation.html is changed, it will trigger livereload and a browser refresh.&lt;/p&gt;
+
+&lt;h2 id="toc_1"&gt;Slides to PDF&lt;/h2&gt;
+
+&lt;p&gt;The last piece I needed was a way to convert the slideshow into a PDF as a backup. I never know what kind of equipment will be set up or whether the browser will be recent enough to work well with the HTML slides. I like being prepared. It makes me feel more comfortable knowing I can fall back to the PDF if needs be. Also some slide deck services will accept a PDF but won&amp;rsquo;t take an HTML file.&lt;/p&gt;
+
+&lt;p&gt;In order to create the PDF I wrote a simple ruby script using &lt;a href="https://github.com/thoughtbot/capybara-webkit"&gt;capybara-webkit&lt;/a&gt; to drive a headless browser. If you aren&amp;rsquo;t able to install the dependencies for capybara-webkit you might try some of the other &lt;a href="https://github.com/jnicklas/capybara#drivers"&gt;capybara drivers&lt;/a&gt;. I did not have luck with the resulting images from selenium. I then used the DZSlides JavaScript API to advance the slides. I do a simple count of how many times to advance based on the number of sections. If you have incremental slides this script would need to be adjusted to work for you.&lt;/p&gt;
+
+&lt;p&gt;The Webkit driver is used to take a snapshot of each slide, save it to a screenshots directory, and then ImageMagick&amp;rsquo;s &lt;code&gt;convert&lt;/code&gt; is used to turn the PNGs into a PDF. You could just as well use other tools to stitch the PNGs together into a PDF. The quality of the resulting PDF isn&amp;rsquo;t great, but it is good enough. Also the capybara-webkit browser does not evaluate @font-face so the fonts will be plain. I&amp;rsquo;d be very interested if anyone gets better quality using a different browser driver for screenshots.&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight ruby"&gt;&lt;span class="c1"&gt;#! /usr/bin/env ruby&lt;/span&gt;
+
+&lt;span class="c1"&gt;# dzslides2pdf.rb&lt;/span&gt;
+&lt;span class="c1"&gt;# dzslides2pdf.rb http://localhost/presentation_root presentation.html&lt;/span&gt;
+
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;capybara/dsl&amp;#39;&lt;/span&gt;
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;capybara-webkit&amp;#39;&lt;/span&gt;
+&lt;span class="c1"&gt;# require &amp;#39;capybara/poltergeist&amp;#39;&lt;/span&gt;
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;fileutils&amp;#39;&lt;/span&gt;
+&lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Capybara&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;DSL&lt;/span&gt;
+
+&lt;span class="n"&gt;base_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;ARGV&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="nb"&gt;exit&lt;/span&gt;
+&lt;span class="n"&gt;presentation_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;ARGV&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;presentation.html&amp;#39;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# temporary file for screenshot&lt;/span&gt;
+&lt;span class="no"&gt;FileUtils&lt;/span&gt;&lt;span class="nf"&gt;.mkdir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;./screenshots&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;unless&lt;/span&gt; &lt;span class="no"&gt;File&lt;/span&gt;&lt;span class="nf"&gt;.exist?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;./screenshots&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="no"&gt;Capybara&lt;/span&gt;&lt;span class="nf"&gt;.configure&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="nf"&gt;.run_server&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;false&lt;/span&gt;
+  &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="nf"&gt;.default_driver&lt;/span&gt;
+  &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="nf"&gt;.current_driver&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;:webkit&lt;/span&gt; &lt;span class="c1"&gt;# :poltergeist&lt;/span&gt;
+  &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="nf"&gt;.app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;fake app name&amp;quot;&lt;/span&gt;
+  &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="nf"&gt;.app_host&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;base_url&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="n"&gt;visit&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/presentation.html&amp;#39;&lt;/span&gt; &lt;span class="c1"&gt;# visit the first page&lt;/span&gt;
+
+&lt;span class="c1"&gt;# change the size of the window&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="no"&gt;Capybara&lt;/span&gt;&lt;span class="nf"&gt;.current_driver&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="ss"&gt;:webkit&lt;/span&gt;
+  &lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="nf"&gt;.driver.resize_window&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;768&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="nb"&gt;sleep&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="c1"&gt;# Allow the page to render correctly&lt;/span&gt;
+&lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="nf"&gt;.save_screenshot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;./screenshots/screenshot_000.png&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;width: &lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;height: &lt;/span&gt;&lt;span class="mi"&gt;768&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# take screenshot of first page&lt;/span&gt;
+
+&lt;span class="c1"&gt;# calculate the number of slides in the deck&lt;/span&gt;
+&lt;span class="n"&gt;slide_count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="nf"&gt;.body.scan&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sr"&gt;%r{slide level1}&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;.size&lt;/span&gt;
+&lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;slide_count&lt;/span&gt;
+
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;slide_count&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;.times&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="n"&gt;slide_number&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+  &lt;span class="n"&gt;keypress_script&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Dz.forward();&amp;quot;&lt;/span&gt; &lt;span class="c1"&gt;# dzslides script for going to next slide&lt;/span&gt;
+  &lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="nf"&gt;.execute_script&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;keypress_script&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# run the script to transition to next slide&lt;/span&gt;
+  &lt;span class="nb"&gt;sleep&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="c1"&gt;# wait for the slide to fully transition&lt;/span&gt;
+  &lt;span class="c1"&gt;# screenshot_and_save_page # take a screenshot&lt;/span&gt;
+  &lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="nf"&gt;.save_screenshot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;./screenshots/screenshot_&lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="n"&gt;slide_number&lt;/span&gt;&lt;span class="nf"&gt;.to_s.rjust&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;0&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;.png&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;width: &lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;height: &lt;/span&gt;&lt;span class="mi"&gt;768&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nb"&gt;print&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="n"&gt;slide_number&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;. &amp;quot;&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="sb"&gt;`convert screenshots/*png presentation.pdf`&lt;/span&gt;
+
+&lt;span class="no"&gt;FileUtils&lt;/span&gt;&lt;span class="nf"&gt;.rm_r&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;screenshots&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;p&gt;At this point I did have to set this up to be behind a web server. On my local machine I just made a symlink from the root of my Apache htdocs to my working directory for my slideshow. The script can be called with the following.&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight shell"&gt;./dzslides2pdf.rb http://localhost/presentation/root/directory presentation.html&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;h1 id="toc_2"&gt;Speaker notes&lt;/h1&gt;
+
+&lt;p&gt;One addition that I&amp;rsquo;ve made is to add some JavaScript for speaker notes. I don&amp;rsquo;t want to have to embed my slides into another HTML document to get the nice speaker view that DZslides provides. I prefer to just have a section at the bottom of the slides that pops up with my notes. I&amp;rsquo;m alright with the audience seeing my notes if I should ever need them. So far I haven&amp;rsquo;t had to use the notes.&lt;/p&gt;
+
+&lt;p&gt;I start with adding the following markup to the presentation Markdown file.&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight html"&gt;&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;role=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;note&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;note&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  Hi. I&amp;#39;m Jason Ronallo the Associate Head of Digital Library Initiatives at NCSU Libraries.
+&lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;p&gt;Add some CSS to hide the notes by default but allow for them to display at the bottom of the slide.&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight css"&gt;&lt;span class="nt"&gt;div&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nt"&gt;role&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nt"&gt;note&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nl"&gt;display&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;none&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="nl"&gt;position&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;absolute&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="nl"&gt;bottom&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="nl"&gt;color&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="no"&gt;white&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="nl"&gt;background-color&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="no"&gt;gray&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="nl"&gt;opacity&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.85&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="nl"&gt;padding&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="m"&gt;20px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="nl"&gt;font-size&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="m"&gt;12px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="nl"&gt;width&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="m"&gt;100&lt;/span&gt;&lt;span class="err"&gt;%&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;p&gt;Then a bit of JavaScript to show/hide the notes when pressing the &amp;ldquo;n&amp;rdquo; key.&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight javascript"&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;onkeypress&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;presentation_keypress_check&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;presentation_keypress_check&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;aEvent&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="nx"&gt;aEvent&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;keyCode&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;110&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;aEvent&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;preventDefault&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;notes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getElementsByClassName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;note&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;notes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;length&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+      &lt;span class="nx"&gt;notes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="nx"&gt;style&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;display&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;notes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="nx"&gt;style&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;display&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;none&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="nx"&gt;notes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="nx"&gt;style&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;display&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;block&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;none&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;h2 id="toc_3"&gt;Outline&lt;/h2&gt;
+
+&lt;p&gt;Finally, I like to have an outline I can see of my presentation as I&amp;rsquo;m writing it. Since the Markdown just uses h1 elements to separate slides, I just use the following simple script to output the outline for my slides.&lt;/p&gt;
+
+&lt;figure class='code'&gt;
+              
+              &lt;div&gt;
+                &lt;pre class="highlight ruby"&gt;&lt;span class="c1"&gt;#!/usr/bin/env ruby&lt;/span&gt;
+
+&lt;span class="c1"&gt;# outline_markdown.rb&lt;/span&gt;
+
+&lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;File&lt;/span&gt;&lt;span class="nf"&gt;.read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;presentation.md&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;index&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="nf"&gt;.each_line&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="sr"&gt;/^#\s/&lt;/span&gt;&lt;span class="nf"&gt;.match&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;
+    &lt;span class="n"&gt;index&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="n"&gt;title&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="nf"&gt;.sub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;#&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="nf"&gt;.to_s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;title&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;&lt;/pre&gt;
+              &lt;/div&gt;
+            &lt;/figure&gt;
+
+&lt;h2 id="toc_4"&gt;Full Example&lt;/h2&gt;
+
+&lt;p&gt;You can see the &lt;a href="https://bitbucket.org/jronallo/big_web_data_presentation_dlf_2013"&gt;repo for my latest HTML slide deck created this way&lt;/a&gt; for the 2013 DLF Forum where I talked about &lt;a href="/presentations/2013-dlf"&gt;Embedded Semantic Markup, schema.org, the Common Crawl, and Web Data Commons: What Big Web Data Means for Libraries and Archives&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="toc_5"&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I like doing slides where I can write very quickly in Markdown and then have the ability to handcraft the deck or particular slides. I&amp;rsquo;d be interested to hear if you do something similar.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>DLF Forum 2013 presentation: Embedded Semantic Markup, schema.org, the Common Crawl, and Web Data Commons</title>
+    <link rel="alternate" href="http://jronallo.github.io/blog/dlf-forum-2013-presentation-embedded-semantic-markup-schema-org-the-common-crawl-and-web-data-commons/"/>
+    <id>http://jronallo.github.io/blog/dlf-forum-2013-presentation-embedded-semantic-markup-schema-org-the-common-crawl-and-web-data-commons/</id>
+    <published>2013-11-04T05:00:00Z</published>
+    <updated>2014-10-03T12:12:23-04:00</updated>
+    <author>
+      <name>Jason Ronallo</name>
+    </author>
+    <content type="html">&lt;p&gt;I spoke at the &lt;a href="http://www.diglib.org/forums/2013forum/"&gt;2013 DLF Forum&lt;/a&gt; about &lt;a href="/presentations/2013-dlf"&gt;Embedded Semantic Markup, schema.org, the Common Crawl, and Web Data Commons: What Big Web Data Means for Libraries and Archives&lt;/a&gt;. My &lt;a href="/presentations/2013-dlf"&gt;slides, code, and data&lt;/a&gt; are all open.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s the abstract:&lt;/p&gt;
+
+
+
+&lt;p&gt;Search engines are reaching the limits of natural language processing while wanting to provide more exact answers, not just results, especially for the mobile context. This shift is part of what has spurred progress in how data can be published and consumed on the Web. Broad and simple vocabularies and simplified embedded semantic markup is leading to wider adoption of publishing data in HTML. Libraries and archives can take advantage of new opportunities to make their services and collections more discoverable on the open Web. This presentation will show some examples of what libraries and archives are currently doing and point to future possibilities.&lt;/p&gt;
+
+&lt;p&gt;At the same time as this new data is being made available, only a few organizations have the resources to crawl the Web and extract the data. The Common Crawl is helping to make a large repository of Web crawl data available for public use, and Web Data Commons is extracting the data embedded in the Common Crawl and making the resulting linked data available for download. This presentation will share data from original research on how libraries currently fare in this new environment of big Web data. Are libraries and archives represented in the corpus? With this democratization of Web crawl data and lowered expense for consumption of it, what are the opportunities for new library services and collections?&lt;/p&gt;
+</content>
+  </entry>
+</feed>

@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="canonical" href="http://ronallo.com/blog/microdata-rails-and-microdatajs/">
+    <!-- FIXME: After DNS caches have been cleared it will be safe to put this redirect in place. -->
+    <!-- <meta http-equiv="refresh" content="0;URL=http://ronallo.com/blog/microdata-rails-and-microdatajs/"> -->
+
+
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>microdata, Rails, and microdatajs | Preliminary Inventory of Digital Collections by Jason Ronallo</title>
+
+    <link href="/stylesheets/normalize-ef7858ef.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/all-7cf8716f.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/all-fe1cfabb.js" type="text/javascript"></script>
+    <link href="/images/images/favicon.png" rel="icon" type="image/png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28548205-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body class="blog blog_microdata-rails-and-microdatajs blog_microdata-rails-and-microdatajs_index">
+    <div id="page-wrap">
+      <header id="masthead" class="site-header" role="banner">
+  <a class="home-link" href="/" rel="home">
+    <h1 class="site-title">Preliminary Inventory of Digital Collections</h1>
+    <h2 class="site-description hidden-xs">Incomplete thoughts on digital libraries.</h2>
+  </a>
+</header>
+      <nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="/">Preliminary Inventory of Digital Collections</a> -->
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/">Latest</a></li>
+          <li><a href="/blog/tags">Tags</a></li>
+          <li><a href="/blog/by_year">Calendar</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">CV <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/presentations">Presentations</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/experience">Experience</a></li>
+          <li><a target="_blank" href="/cv">Print Full CV</a></li>
+        </ul>
+      </li>
+
+
+      <li><a href="/about">About</a></li>
+      <li><a href="/feed.xml"><i class="icon-rss-sign"></i> </a></li>
+    </ul>
+
+    <form class="navbar-form navbar-right" action="http://google.com/search" method="get" role="search">
+      <div class="form-group">
+        <input type="hidden" name="q" value="site:jronallo.github.io">
+        <input class="search form-control" type="text" name="q" results="0" placeholder="Search...">
+        </div>
+    </form>
+
+  </div><!-- /.navbar-collapse -->
+</nav>
+      <div class="container">
+        <div id="redirect_message">
+          <p class="large">This page has permanently moved to <a href="http://ronallo.com/blog/microdata-rails-and-microdatajs/">http://ronallo.com/blog/microdata-rails-and-microdatajs/</a></p>
+          <p class="small">The stale content is below for a limited time for your convenience while DNS caches get expired.</p>
+        </div>
+          <article>
+    <h1>microdata, Rails, and microdatajs</h1>
+    <p>Published: 2011-06-11 23:02:27 -0400</p>
+    
+    <p>With the recent release of <a href="http://schema.org">schema.org</a> and its use of
+<a href="http://www.w3.org/TR/microdata/">microdata</a>, I wanted to try to add some
+microdata to my pages. In development it would be nice to confirm what metadata
+can be extracted, but the tools I found were lacking.</p>
+
+
+
+<p>There are few tools right now that I have found that will allow you to see the
+microdata. There&rsquo;s the
+<a href="http://www.google.com/webmasters/tools/richsnippets">Rich Snippets Testing Tool</a>
+from Google, but you have to enter a URL which does not work well in
+development before a site is even up on any public server. The other current
+problem with the Rich Snippets tool is that it has yet to be updated for some
+of the schema.org item types. While the microdata parsing will work and display
+properly, the possible rich snippets will not show up.</p>
+
+<p>I found an
+<a href="https://chrome.google.com/webstore/detail/docnladpefffgdocnidfngejcagdkedb">extension for chrome</a>
+that displays an icon when microdata is detected on a page and allows you to
+explore down through the tree, but the javascript chokes on my page for some
+reason, even though I have no reason to believe that it is invalid. On other
+pages it seems to work well enough if look a bit crude.</p>
+
+<p>The <a href="http://rubygems.org/gems/mida">mida gem</a> allows for parsing microdata,
+but only works under Ruby 1.9, and my current project still relies on Ruby
+1.8.7. It was easy enough with rvm to set up a separate gemset under Ruby 1.9
+and do something like the follow:</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight shell"><span class="gp">$ </span>irb
+<span class="gp">&gt; </span>require <span class="s1">&#39;mida&#39;</span>
+<span class="gp">&gt; </span>require <span class="s1">&#39;pp&#39;</span>
+<span class="gp">&gt; </span>require <span class="s1">&#39;open-uri&#39;</span>
+<span class="gp">&gt; </span>doc <span class="o">=</span> nil
+<span class="gp">&gt; </span>url <span class="o">=</span> <span class="s2">&quot;http://localhost:3000/&quot;</span>
+<span class="gp">&gt; </span>open<span class="o">(</span>url<span class="o">)</span> <span class="o">{</span>|f| doc <span class="o">=</span> Mida::Document.new<span class="o">(</span>f, url<span class="o">)}</span>; pp doc.items; nil</pre>
+              </div>
+            </figure>
+
+<p>That last <code>nil</code> insures that all of the items aren&rsquo;t displayed again non-pretty
+printed, so you only see the pretty printed version. The problem is the &ldquo;pretty&rdquo;
+version isn&rsquo;t so easy to read. It was also annoying to have to move back and
+forth between my code editor and a terminal just to run this.</p>
+
+<p>The <a href="http://diveintohtml5.org/">Dive into HTML5</a> book presents some
+<a href="http://diveintohtml5.org/extensibility.html#further-reading">good links at the end of the chapter on microdata</a>.
+One link is to <a href="http://foolip.org/microdatajs/live/">Live Microdata</a> which
+allows you to enter whole pages or snippets containing microdata and it will
+parse it into JSON and Turtle. You can
+<a href="https://gitorious.org/microdatajs/">download the source code</a> for this and
+easily load up the live microdata page and enter snippets.</p>
+
+<p>What&rsquo;s better is that microdatajs includes two javascript implementations of a
+microdata parser. I thought I could include this within my project and display
+the result at the bottom of the page. Since I use
+<a href="https://github.com/mockko/livereload">livereload</a>, any time I make a change
+the browser would reload and the microdata parsing would also be triggered. I
+decided to use the non-jQuery version because it was fewer files to have to
+include in my project and the
+<a href="https://gitorious.org/microdatajs/microdatajs/blobs/master/README">README</a>
+says that this version &ldquo;mimics as closely as possible the syntax and behavior
+of the API defined in the HTML specification.&rdquo;</p>
+
+<p>Here&rsquo;s what I did very quickly to do this in Rails. First, grab
+<a href="https://gitorious.org/microdatajs/microdatajs/blobs/master/microdata.js">microdata.js</a>
+and <a href="https://gitorious.org/microdatajs/microdatajs/blobs/master/microdata.json.js">microdata.json.js</a>
+and place them in /public/javascripts. Include the following snippet in the
+head of your application.html.erb template:</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight erb"><span class="cp">&lt;%=</span> <span class="n">render</span> <span class="ss">:partial</span> <span class="o">=&gt;</span> <span class="s1">&#39;/layouts/microdata&#39;</span> <span class="k">if</span> <span class="no">Rails</span><span class="nf">.env</span> <span class="o">==</span> <span class="s1">&#39;development&#39;</span> <span class="cp">%&gt;</span></pre>
+              </div>
+            </figure>
+
+<p>Within /app/views/layouts/_microdata.html.erb place the following:</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight erb"><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s1">&#39;microdata&#39;</span><span class="p">,</span> <span class="s1">&#39;microdata.json&#39;</span> <span class="cp">%&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="nx">getJSON</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getItems</span><span class="p">());</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;pre&gt;&lt;code&gt;&#39;</span> <span class="o">+</span> <span class="nx">items</span> <span class="o">+</span> <span class="s1">&#39;&lt;/code&gt;&lt;/pre&gt;&#39;</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span></pre>
+              </div>
+            </figure>
+
+<p>The script does rely on jQuery to wait for the document ready, but that could
+be rewritten to work without it.</p>
+
+<p>Now when you reload your page with embedded microdata you should see some
+pretty printed JSON at the bottom of the page with the microdata items from
+that page. I added <a href="http://google-code-prettify.googlecode.com/svn/trunk/README.html">prettify</a> 
+for JSON highlighting, but it doesn&rsquo;t add much benefit so I left it out of the above.</p>
+
+<p>Hopefully more and better tools will be coming to help develop microdata rich
+sites. If you know of a good tool or browser extension for developing sites
+with microdata, I would be very interested in hearing about them.</p>
+
+  </article>
+  <hr>
+  <div class="pagination">
+    
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/ruby-and-rails-using-rvm-on-a-fresh-and-updated-ubuntu-11-dot-10-install/">
+        Ruby and Rails using RVM on a fresh and updated Ubuntu 11.10 install <i class="icon-arrow-right"></i>
+      </a>
+    
+  </div>
+
+      </div>
+      <div id="footer-push"></div>
+    </div><!-- end page-wrap -->
+    <footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">by Jason Ronallo</div>
+      <div class="col-md-6 social">
+        <a href="mailto:jronallo@gmail.com"><i class="icon-envelope"></i></a>
+        <a href="https://plus.google.com/116830234234977722391?rel=author"><i class="icon-google-plus-sign"></i></a>
+        <a href="http://twitter.com/ronallo"><i class="icon-twitter-sign"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

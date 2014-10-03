@@ -1,0 +1,339 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="canonical" href="http://ronallo.com/blog/common-crawl-url-index/">
+    <!-- FIXME: After DNS caches have been cleared it will be safe to put this redirect in place. -->
+    <!-- <meta http-equiv="refresh" content="0;URL=http://ronallo.com/blog/common-crawl-url-index/"> -->
+
+
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Common Crawl URL Index | Preliminary Inventory of Digital Collections by Jason Ronallo</title>
+
+    <link href="/stylesheets/normalize-ef7858ef.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/all-7cf8716f.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/all-fe1cfabb.js" type="text/javascript"></script>
+    <link href="/images/images/favicon.png" rel="icon" type="image/png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28548205-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body class="blog blog_common-crawl-url-index blog_common-crawl-url-index_index">
+    <div id="page-wrap">
+      <header id="masthead" class="site-header" role="banner">
+  <a class="home-link" href="/" rel="home">
+    <h1 class="site-title">Preliminary Inventory of Digital Collections</h1>
+    <h2 class="site-description hidden-xs">Incomplete thoughts on digital libraries.</h2>
+  </a>
+</header>
+      <nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="/">Preliminary Inventory of Digital Collections</a> -->
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/">Latest</a></li>
+          <li><a href="/blog/tags">Tags</a></li>
+          <li><a href="/blog/by_year">Calendar</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">CV <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/presentations">Presentations</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/experience">Experience</a></li>
+          <li><a target="_blank" href="/cv">Print Full CV</a></li>
+        </ul>
+      </li>
+
+
+      <li><a href="/about">About</a></li>
+      <li><a href="/feed.xml"><i class="icon-rss-sign"></i> </a></li>
+    </ul>
+
+    <form class="navbar-form navbar-right" action="http://google.com/search" method="get" role="search">
+      <div class="form-group">
+        <input type="hidden" name="q" value="site:jronallo.github.io">
+        <input class="search form-control" type="text" name="q" results="0" placeholder="Search...">
+        </div>
+    </form>
+
+  </div><!-- /.navbar-collapse -->
+</nav>
+      <div class="container">
+        <div id="redirect_message">
+          <p class="large">This page has permanently moved to <a href="http://ronallo.com/blog/common-crawl-url-index/">http://ronallo.com/blog/common-crawl-url-index/</a></p>
+          <p class="small">The stale content is below for a limited time for your convenience while DNS caches get expired.</p>
+        </div>
+          <article>
+    <h1>Common Crawl URL Index</h1>
+    <p>Published: 2013-01-15 18:20:00 -0500</p>
+    
+      <p>Updated: 2013-01-15 16:54:25 -0500</p>
+    
+    <p>The Common Crawl now has a <a href="http://commoncrawl.org/common-crawl-url-index/">URL index available</a>. While the Common Crawl has been making a large corpus of crawl data available for over a year now, if you wanted to access the data you&rsquo;d have to parse through it all yourself. While setting up a parallel Hadoop job running in AWS EC2 is cheaper than crawling the Web, it still is rather expensive for most. Now with the URL index it is possible to query for domains you are interested in to discover whether they are in the Common Crawl corpus. Then you can grab just those pages out of the crawl segments.</p>
+
+
+
+<p><a href="https://angel.co/srobertson">Scott Robertson</a>, who was responsible for putting the index together, writes in the <a href="https://github.com/trivio/common_crawl_index">github README</a> about the file format used for the index and the algorithm for querying it. If you&rsquo;re interested you can read the details there.</p>
+
+<p>If you just want to see how to get the data now, the repository provides a couple <a href="https://github.com/trivio/common_crawl_index/tree/master/bin">python scripts for querying the index</a>. I used the <a href="https://github.com/trivio/common_crawl_index/blob/master/bin/remote_read"><code>remote_read</code></a> script. You&rsquo;ll need to clone the git repository to get the script along with the library files:</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight shell">git clone https://github.com/trivio/common_crawl_index.git</pre>
+              </div>
+            </figure>
+
+<p>Then enter the cloned repository and make the file executable:</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight shell"><span class="nb">cd </span>common_crawl_index
+chmod u+x bin/remote_read</pre>
+              </div>
+            </figure>
+
+<p>Since the data set is hosted for free as part of <a href="http://aws.amazon.com/publicdatasets/">AWS open data sets</a>, it appears that they allow anonymous access. This means that you may not have to sign up for an <a href="http://aws.amazon.com/">Amazon Web Services</a> account. ~~The current remote<em>read script does not have this anonymous access turned on, but there is an <a href="https://github.com/trivio/common_crawl_index/pull/4">open issue and patch submitted to allow anonymous access</a>. You may want to get that version of the remote</em>read script and use it until that issue is closed.~~ The anonymous access patch was accepted and now the <code>remote_read</code> script works without modification.</p>
+
+<p>If you have an account you want to use, for whatever reason, you&rsquo;ll update these lines in <code>remote_read</code> with your own AWS key and secret.</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight python">  <span class="n">mmap</span> <span class="o">=</span> <span class="n">BotoMap</span><span class="p">(</span>
+<span class="c">#   &#39;&lt;YOUR AWS KEY&gt;&#39;,</span>
+<span class="c">#   &#39;&lt;YOUR AWS SECRET&gt;&#39;,</span>
+    <span class="s">&#39;aws-publicdatasets&#39;</span><span class="p">,</span>
+    <span class="s">&#39;/common-crawl/projects/url-index/url-index.1356128792&#39;</span>
+  <span class="p">)</span></pre>
+              </div>
+            </figure>
+
+<p>Finally you&rsquo;ll have to install boto:</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight shell">pip install boto</pre>
+              </div>
+            </figure>
+
+<p>Now you can run the script to query the URL index:</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight shell">bin/remote_read edu.ncsu.lib</pre>
+              </div>
+            </figure>
+
+<p>Note that because of how the index is constructed you&rsquo;ll be querying for domains in reverse order. This allows you scope your queries to match everything from a TLD down to a specific subdomain. This will return every URL matching under <a href="http://lib.ncsu.edu">http://lib.ncsu.edu</a> as well as any subdomains like <a href="http://d.lib.ncsu.edu">http://d.lib.ncsu.edu</a>.</p>
+
+<p>As I write this, the <a href="https://groups.google.com/d/msg/common-crawl/EfR1YHvtWrY/ImnW7Z0rgq4J">index is only partial</a>, while folks provide feedback on the index, so your current results may not reflect everything that is currently in the Common Crawl corpus.</p>
+
+<h2 id="toc_0">NCSU Libraries&#39; URLs in the Common Crawl Index</h2>
+
+<p>You can see the <a href="/demos/common_crawl/edu.ncsu.lib-commoncrawl-index.txt">results for my query for edu.ncsu.lib</a>. Here&rsquo;s a snippet from the beginning of the set:</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight text">edu.ncsu.lib.blogs/:http {&#39;arcFileParition&#39;: 200, &#39;compressedSize&#39;: 2062, &#39;arcSourceSegmentId&#39;: 1346876860565, &#39;arcFileDate&#39;: 1346911439829, &#39;arcFileOffset&#39;: 1518768}
+edu.ncsu.lib.d/:http {&#39;arcFileParition&#39;: 2132, &#39;compressedSize&#39;: 855, &#39;arcSourceSegmentId&#39;: 1346876860782, &#39;arcFileDate&#39;: 1346908147933, &#39;arcFileOffset&#39;: 2759941}
+edu.ncsu.lib.d/collections/:http {&#39;arcFileParition&#39;: 2132, &#39;compressedSize&#39;: 5165, &#39;arcSourceSegmentId&#39;: 1346876860782, &#39;arcFileDate&#39;: 1346908633502, &#39;arcFileOffset&#39;: 81186482}
+edu.ncsu.lib.d/collections/catalog/0228376:http {&#39;arcFileParition&#39;: 2132, &#39;compressedSize&#39;: 5738, &#39;arcSourceSegmentId&#39;: 1346876860782, &#39;arcFileDate&#39;: 1346908633502, &#39;arcFileOffset&#39;: 60135728}
+edu.ncsu.lib.d/collections/catalog/bh2127pnc001:http {&#39;arcFileParition&#39;: 2132, &#39;compressedSize&#39;: 6003, &#39;arcSourceSegmentId&#39;: 1346876860782, &#39;arcFileDate&#39;: 1346908633502, &#39;arcFileOffset&#39;: 27791779}
+edu.ncsu.lib.d/collections/catalog/unccmc00145-002-ff0003-002-004_0002:http {&#39;arcFileParition&#39;: 2132, &#39;compressedSize&#39;: 6456, &#39;arcSourceSegmentId&#39;: 1346876860782, &#39;arcFileDate&#39;: 1346909064600, &#39;arcFileOffset&#39;: 7308443}
+edu.ncsu.lib.databases/:http {&#39;arcFileParition&#39;: 76, &#39;compressedSize&#39;: 5688, &#39;arcSourceSegmentId&#39;: 1346823846039, &#39;arcFileDate&#39;: 1346870337194, &#39;arcFileOffset&#39;: 37040682}</pre>
+              </div>
+            </figure>
+
+<p>The result is a line delimited file with information about one URL on each line. A space separates the URL from some JSON-like data. (You&rsquo;ll need to convert the single quotes to double quotes for it to parse as JSON, or just eval the data with Python if you are filled with trust or like to live dangerously.) Again, the URL hostname is in reverse order followed by the path in normal order and finally the protocol. The data is a pointer to the location for the file within a segment of the common crawl dataset. This information can be used to <a href="https://github.com/trivio/common_crawl_index#retrieving-a-page">retrieve the page from AWS S3</a>.</p>
+
+<p>What I&rsquo;m interested in is what NCSU Libraries URLs are represented in the index. In total the URL index has 4033 URLs that all look to be from a crawl in early September. Here&rsquo;s the breakdown for subdomains:</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight text"> 2278: www.lib.ncsu.edu
+  801: repository.lib.ncsu.edu
+  326: geodata.lib.ncsu.edu
+  289: news.lib.ncsu.edu
+  149: lib.ncsu.edu
+   54: wikis.lib.ncsu.edu
+   27: images.lib.ncsu.edu
+   16: ncslaap.lib.ncsu.edu
+   15: historicalstate.lib.ncsu.edu
+   11: insidewood.lib.ncsu.edu
+   10: ncarchitects.lib.ncsu.edu
+    5: d.lib.ncsu.edu
+    2: media.lib.ncsu.edu
+    2: insight.lib.ncsu.edu
+    2: hegel.lib.ncsu.edu
+    2: libb.ncsu.edu
+    2: library.ncsu.edu
+    1: reserves.lib.ncsu.edu
+    1: ww.lib.ncsu.edu
+    1: linkinghub.elsevier.com.www.lib.ncsu.edu
+    1: wais.lib.ncsu.edu
+    1: vega.lib.ncsu.edu
+    1: tricks.lib.ncsu.edu
+    1: smithers.lib.ncsu.edu
+    1: sirius.lib.ncsu.edu
+    1: sfx.lib.ncsu.edu
+    1: search.lib.ncsu.edu
+    1: rppnt.lib.ncsu.edu
+    1: rpp.lib.ncsu.edu
+    1: web.ebscohost.com.www.lib.ncsu.edu
+    1: isiknowledge.com.www.lib.ncsu.edu
+    1: bst.sagepub.com.www.lib.ncsu.edu
+    1: ncsulib4.lib.ncsu.edu
+    1: ncsulib2.lib.ncsu.edu
+    1: sag.sagepub.com.www.lib.ncsu.edu
+    1: nclive.lib.ncsu.edu
+    1: sciencedirect.com.www.lib.ncsu.edu
+    1: ncarchitect.lib.ncsu.edu
+    1: metcalf.lib.ncsu.edu
+    1: springerlink.com.www.lib.ncsu.edu
+    1: luna.lib.ncsu.edu
+    1: libntapp1.lib.ncsu.edu
+    1: jacob.lib.ncsu.edu
+    1: proquest.umi.com.www.lib.ncsu.edu
+    1: www3.interscience.wiley.com.www.lib.ncsu.edu
+    1: pubs.acs.org.www.lib.ncsu.edu
+    1: link.aps.org.www.lib.ncsu.edu
+    1: avmajournals.avma.org.www.lib.ncsu.edu
+    1: gopher.lib.ncsu.edu
+    1: vetpathology.org.www.lib.ncsu.edu
+    1: ftp.lib.ncsu.edu
+    1: etd.lib.ncsu.edu
+    1: ematb.lib.ncsu.edu
+    1: dli.lib.ncsu.edu
+    1: dewey.lib.ncsu.edu
+    1: databases.lib.ncsu.edu
+    1: wwwnew.lib.ncsu.edu
+    1: blogs.lib.ncsu.edu
+    1: bliss.lib.ncsu.edu
+Total URLs: 4033
+Total hostnames: 59</pre>
+              </div>
+            </figure>
+
+<h2 id="toc_1">Analyzing the Results</h2>
+
+<p>The results here are interesting as I&rsquo;m always trying to raise the discoverability of NCSU Libraries&#39; digital collections. At the top of the list is the main web site for NCSU Libraries. The hostnames www.lib.ncsu.edu and lib.ncsu.edu both point to the same resources. Looking closer we find that of the 2427 URLs there, many are for digital collections related pages. 636 are under the <a href="http://www.lib.ncsu.edu/specialcollections/">Special Collections Research Center</a>, and some of these are pages for some legacy collections. 407 URLs are for pages in our <a href="http://www.lib.ncsu.edu/findingaids/">collection guides</a> application, many of them for individual guides or, strangely the EAD XML for the guides. Some of those collection guides do <a href="http://www.lib.ncsu.edu/findingaids/search?onlineContent=true">link to online digital collections</a>.</p>
+
+<p>The institutional repository (Dspace instances) is also well represented at the top of this list. The <a href="http://repository.lib.ncsu.edu/dr/">Technical Reports Repository</a> accounts for 159 of those URLs, and the <a href="http://repository.lib.ncsu.edu/ir/">NCSU Institutional Repository</a> accounts for just 3. The <a href="http://repository.lib.ncsu.edu/collections/">digital collections</a> in the repository, mainly special collections, accounts for 626 URLs. 719 of the 801 repository URLs are directly to the PDFs. Evidently the PDFs rank higher than the landing pages.</p>
+
+<p>NCSU Libraries has been providing <a href="http://www.lib.ncsu.edu/gis/">Geospatial Data Services</a> and paying attention to SEO for those pages for a long time, so it isn&rsquo;t completely surprising that this directory of files has gotten indexed: <a href="http://geodata.lib.ncsu.edu">http://geodata.lib.ncsu.edu</a>. (Note that this server may not be accessible from off-campus.) Many of the URLs under www.lib.ncsu.edu are also GIS pages, so GIS data services and collections pages are even better represented&ndash;and human-friendly&ndash;than at first appears.</p>
+
+<p>Other digital collections projects like <a href="http://historicalstate.lib.ncsu.edu/">Historical State</a>, <a href="http://insidewood.lib.ncsu.edu/">Inside Wood</a>, <a href="http://ncarchitects.lib.ncsu.edu/">North Carolina Architects &amp; Builders</a>, and <a href="http://d.lib.ncsu.edu/collections">NCSU Libraries&#39; Rare and Unique Materials</a> are represented, but nowhere near exhaustively. Historical State now <a href="http://support.google.com/webmasters/bin/answer.py?hl=en&amp;answer=139066">canonicalizes</a> its URLs for individual resources to point to the Rare and Unique Materials site, but Common Crawl may not be paying attention that that hint. (Hopefully, at some point I&rsquo;ll be able to do a similar analysis for historicalstate.lib.nsu.edu as I&rsquo;ve done in the following.)</p>
+
+<p>For <a href="http://d.lib.ncsu.edu">http://d.lib.ncsu.edu</a> these are the URLs listed:</p>
+
+<ul>
+<li><a href="http://d.lib.ncsu.edu/">http://d.lib.ncsu.edu/</a> <br> This is the root page of a subdomain that includes a growing number of digital collections sites. This index page was just updated to be more than a single unstyled link.</li>
+<li><a href="http://d.lib.ncsu.edu/collections/">http://d.lib.ncsu.edu/collections/</a> <br> The home page for NCSU Libraries&#39; Digital Collections: Rare and Unique Materials which includes over 63,700 resources. It has been a focus of my own work to try to improve the discoverability of this content on the open Web. I implemented embedded semantic markup, <a href="http://journal.code4lib.org/articles/6400">Microdata and Schema.org</a>, on this site.</li>
+<li><a href="http://d.lib.ncsu.edu/collections/catalog/0228376">http://d.lib.ncsu.edu/collections/catalog/0228376</a> <br> This is an image of Mary Travers singing live on stage. Looking in Google Analytics for this page as a landing page for referrals, Google is the top referrer. Since Google is not likely to have been crawled to discover this URL, it is more likely that the next referrer is responsible for this getting in the index. This <a href="http://weloveppm.tumblr.com/post/15597561903">post on the Peter, Paul &amp; Mary Love Tumblr</a> was reblogged and liked a number of times. That particular post is the only one from this Tumblr which is in the Common Crawl index.</li>
+<li><a href="http://d.lib.ncsu.edu/collections/catalog/bh2127pnc001">http://d.lib.ncsu.edu/collections/catalog/bh2127pnc001</a> <br>  This is an image of the <a href="http://d.lib.ncsu.edu/collections/catalog?utf8=%E2%9C%93&amp;q=Webb-Barron-Wells+House&amp;search_field=all_fields&amp;commit=search">Webb-Barron-Wells House</a> in <a href="http://d.lib.ncsu.edu/collections/catalog?f%5Blocation_facet%5D%5B%5D=Wilson+County+%28N.C.%29&amp;search_field=all_fields&amp;utf8=%E2%9C%93">Wilson County, North Carolina</a>. It has seen better days, and is not the best representation of many of the <a href="http://d.lib.ncsu.edu/collections/catalog?commit=search&amp;f%5Btopic_facet%5D%5B%5D=Architecture&amp;search_field=all_fields&amp;utf8=%E2%9C%93">beautiful architectural photographs and drawings</a> in the collection. This page is linked to from the <a href="http://www.webbdnaproject.org/album.php">Webb Surname DNA Project Album</a>. None of this site&rsquo;s pages are in the index, so that may not be where the link comes from.</li>
+<li><a href="http://d.lib.ncsu.edu/collections/catalog/unccmc00145-002-ff0003-002-004_0002">http://d.lib.ncsu.edu/collections/catalog/unccmc00145-002-ff0003-002-004_0002</a> <br> This is a &ldquo;First floor plumbing plan&rdquo; from the <a href="http://d.lib.ncsu.edu/collections/catalog?f%5Bclassification_facet%5D%5B%5D=Louis+H.+Asbury+Papers%2C+1906-1975">Louis H. Asbury Papers, 1906-1975</a> with many fine drawings. I can&rsquo;t seem to track down a referrer from Google Analytics that might have led to this link finding its way into the Common Crawl.</li>
+</ul>
+
+<p>So it appears that the Common Crawl probably hasn&rsquo;t (at least in this half of the index!), decided to crawl this site to any extent. Instead it appears it is only deciding to crawl pages that have been linked up. Once the rest of the index comes out, I&rsquo;ll have to take a look, and consider how to improve that number. The key though is obviously getting more links into the site.</p>
+
+<p>Further down in the list there are a bunch of funny looking URLs. I think these are all proxy URLs for user authentication to restricted resources.</p>
+
+<ul>
+<li>linkinghub.elsevier.com.www.lib.ncsu.edu</li>
+<li>web.ebscohost.com.www.lib.ncsu.edu</li>
+<li>isiknowledge.com.www.lib.ncsu.edu</li>
+</ul>
+
+<p><a href="http://gopher.lib.ncsu.edu">http://gopher.lib.ncsu.edu</a> no longer seems to exist, so I don&rsquo;t know where they got that page.</p>
+
+<h2 id="toc_2">Double Checking in Web Data Commons</h2>
+
+<p>While the Common Crawl URL index is useful if you need the whole page, in many cases just extracted embedded semantic markup may be enough. The <a href="http://webdatacommons.org/">Web Data Commons</a> is already extracting Microdata and RDFa data, and makes indexes available, though it takes a bit more effort to parse through their indexes. (I&rsquo;d like a service or script to query for an N-Quad context and get back all the related triples. Anyone know if there is already such a service? Do I have to write one?) They do have a <a href="http://webdatacommons.org/2012-08/stats/how_to_get_the_data.html">helpful page on how to download the extracted data</a> in whole or in part.</p>
+
+<p>The <a href="http://d.lib.ncsu.edu/collections/">http://d.lib.ncsu.edu/collections/</a> site publishes Microdata and Schema.org. Looking in the <a href="http://webdatacommons.org/downloads/2012-08/nquads/html-microdata.nq.index.gz">Web Data Commons Microdata index</a> I found the <a href="http://webdatacommons.org/downloads/2012-08/nquads/html-microdata-00337.nq.sort.gz">the N-Quad file with triples extracted from ncsu.edu pages</a>. They list only the same URLs as the Common Crawl URL index reports. This leads me to believe that these may be the only URLs in the Common Crawl index right now even though that index is incomplete.</p>
+
+<h2 id="toc_3">What can libraries and archives do with this?</h2>
+
+<p>First, how much of your content is in the Common Crawl corpus? I&rsquo;d be interested in hearing what your results are like.</p>
+
+<p>We need to figure out how to get more cultural heritage content crawled and indexed by the Common Crawl. Without our stuff in the Common Crawl we are missing many opportunities to broaden the reach of our content. It doesn&rsquo;t appear that Common Crawl accepts sitemaps. It works off of page rank and the link graph of popular sites. While my sites for rare and unique digital collections get most of their traffic from search engines, mainly Google, an increasing amount of traffic is due to referrals. Referrals, links from other sites, seem like the key for getting our stuff into the corpus. Efforts to <a href="http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Libraries">add links to library special or digital collections to appropriate Wikipedia articles</a> and the like would seem to be a good starting point.</p>
+
+<p>Social sites are in the corpus and may also be a good way to get inbound links to our collections. There are 134,928+ Pinterest URLs in the Common Crawl index, and folks are actively pinning content from <a href="http://pinterest.com/source/d.lib.ncsu.edu/">d.lib.ncsu.edu</a>. Will the content pinned and repinned on Pinterest begin showing up in the crawl? Where else are crawlers likely to find links from people who make use of our content?</p>
+
+<p>If more cultural heritage content is a part of the index, then there are all sorts of things we can begin to do. For web archiving projects it would be possible to begin with data in the corpus, potentially saving some crawling expense. New targeted search engines (or <a href="/blog/code4lib-2012-lightning-talk-that-wasnt/">aggregations</a>) can be created for different slices of content. Implement <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/microdata.html">Microdata</a> (or <a href="http://www.w3.org/TR/rdfa-lite/">RDFa Lite</a>) with <a href="http://schema.org/">Schema.org</a> vocabularies and richer metadata can be extracted from your pages by the Web Data Commons and understood by many. This data can then be used in a variety of interfaces to save the time of the user in finding the content they really want.</p>
+
+<p>What are some other ways that libraries, archives, and museums might be able to use the Common Crawl?</p>
+
+<p>You can see the simple Ruby scripts I used for parsing the Common Crawl URL index out and the Web Data Commons N-Quads in <a href="https://gist.github.com/4527250">this gist</a>.</p>
+
+  </article>
+  <hr>
+  <div class="pagination">
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/detailed-video-engagement-analytics-for-html5-video/">
+        <i class="icon-arrow-left"></i> Detailed Video Engagement Analytics for HTML5 Video
+      </a>
+    
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/the-prevalence-of-schema-dot-org-book-properties-in-the-wild/">
+        The Prevalence of Schema.org Book Properties in the Wild <i class="icon-arrow-right"></i>
+      </a>
+    
+  </div>
+
+      </div>
+      <div id="footer-push"></div>
+    </div><!-- end page-wrap -->
+    <footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">by Jason Ronallo</div>
+      <div class="col-md-6 social">
+        <a href="mailto:jronallo@gmail.com"><i class="icon-envelope"></i></a>
+        <a href="https://plus.google.com/116830234234977722391?rel=author"><i class="icon-google-plus-sign"></i></a>
+        <a href="http://twitter.com/ronallo"><i class="icon-twitter-sign"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

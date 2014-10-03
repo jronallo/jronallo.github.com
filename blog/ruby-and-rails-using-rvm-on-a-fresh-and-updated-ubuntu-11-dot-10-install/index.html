@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="canonical" href="http://ronallo.com/blog/ruby-and-rails-using-rvm-on-a-fresh-and-updated-ubuntu-11-dot-10-install/">
+    <!-- FIXME: After DNS caches have been cleared it will be safe to put this redirect in place. -->
+    <!-- <meta http-equiv="refresh" content="0;URL=http://ronallo.com/blog/ruby-and-rails-using-rvm-on-a-fresh-and-updated-ubuntu-11-dot-10-install/"> -->
+
+
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Ruby and Rails using RVM on a fresh and updated Ubuntu 11.10 install | Preliminary Inventory of Digital Collections by Jason Ronallo</title>
+
+    <link href="/stylesheets/normalize-ef7858ef.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/all-7cf8716f.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/all-fe1cfabb.js" type="text/javascript"></script>
+    <link href="/images/images/favicon.png" rel="icon" type="image/png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28548205-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body class="blog blog_ruby-and-rails-using-rvm-on-a-fresh-and-updated-ubuntu-11-dot-10-install blog_ruby-and-rails-using-rvm-on-a-fresh-and-updated-ubuntu-11-dot-10-install_index">
+    <div id="page-wrap">
+      <header id="masthead" class="site-header" role="banner">
+  <a class="home-link" href="/" rel="home">
+    <h1 class="site-title">Preliminary Inventory of Digital Collections</h1>
+    <h2 class="site-description hidden-xs">Incomplete thoughts on digital libraries.</h2>
+  </a>
+</header>
+      <nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="/">Preliminary Inventory of Digital Collections</a> -->
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/">Latest</a></li>
+          <li><a href="/blog/tags">Tags</a></li>
+          <li><a href="/blog/by_year">Calendar</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">CV <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/presentations">Presentations</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/experience">Experience</a></li>
+          <li><a target="_blank" href="/cv">Print Full CV</a></li>
+        </ul>
+      </li>
+
+
+      <li><a href="/about">About</a></li>
+      <li><a href="/feed.xml"><i class="icon-rss-sign"></i> </a></li>
+    </ul>
+
+    <form class="navbar-form navbar-right" action="http://google.com/search" method="get" role="search">
+      <div class="form-group">
+        <input type="hidden" name="q" value="site:jronallo.github.io">
+        <input class="search form-control" type="text" name="q" results="0" placeholder="Search...">
+        </div>
+    </form>
+
+  </div><!-- /.navbar-collapse -->
+</nav>
+      <div class="container">
+        <div id="redirect_message">
+          <p class="large">This page has permanently moved to <a href="http://ronallo.com/blog/ruby-and-rails-using-rvm-on-a-fresh-and-updated-ubuntu-11-dot-10-install/">http://ronallo.com/blog/ruby-and-rails-using-rvm-on-a-fresh-and-updated-ubuntu-11-dot-10-install/</a></p>
+          <p class="small">The stale content is below for a limited time for your convenience while DNS caches get expired.</p>
+        </div>
+          <article>
+    <h1>Ruby and Rails using RVM on a fresh and updated Ubuntu 11.10 install</h1>
+    <p>Published: 2012-01-23 09:53:00 -0500</p>
+    
+    <p>Here are the steps I took to install Ruby and Rails on a fresh and updated 
+Ubuntu 11.10 install. The two places where there were hiccups involved having
+to install openssl through rvm and updating to a more recent version of 
+rubygems. Some steps are thrown in there just to show how rvm and gem provide 
+some information. I used a virtualbox image to allow me to have a clean install.</p>
+
+
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight shell">sudo apt-get update
+
+sudo apt-get upgrade
+
+sudo apt-get install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion ruby ncurses-term mercurial ruby-dev exuberant-ctags libnotify-bin curl autoconf make automake ssh openjdk-6-jdk git-core git-doc imagemagick postgresql-contrib libpq-dev postgresql pgadmin3 vim vim-rails
+
+bash -s stable &lt; &lt;<span class="o">(</span>curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer<span class="o">)</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;[[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]] &amp;&amp; . &quot;$HOME/.rvm/scripts/rvm&quot; # Load RVM function&#39;</span> &gt;&gt; ~/.bash_profile
+
+<span class="nb">source</span> .bash_profile
+
+rvm get head
+
+<span class="c"># openssl in ubuntu 11.10 has a problem, so we install an older version</span>
+rvm pkg install openssl
+
+<span class="c"># then we compile our ruby against the older version of openssl</span>
+rvm install ree-1.8.7-2011.03 --with-openssl-dir<span class="o">=</span><span class="nv">$rvm_path</span>/usr
+
+rvm use ree-1.8.7-2011.03
+
+<span class="c"># this update rubygems to the latest version which works</span>
+gem update --system
+
+rvm info
+
+rvm gemset create <span class="nb">test
+
+</span>rvm use ree-1.8.7-2011.03@test
+
+rvm info
+
+gem list
+
+gem install rails
+
+gem list
+
+mkdir code
+
+<span class="nb">cd </span>code
+
+rails new testapp</pre>
+              </div>
+            </figure>
+
+  </article>
+  <hr>
+  <div class="pagination">
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/microdata-rails-and-microdatajs/">
+        <i class="icon-arrow-left"></i> microdata, Rails, and microdatajs
+      </a>
+    
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/dpla-strawman-technical-proposal/">
+        DPLA Strawman Technical Proposal <i class="icon-arrow-right"></i>
+      </a>
+    
+  </div>
+
+      </div>
+      <div id="footer-push"></div>
+    </div><!-- end page-wrap -->
+    <footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">by Jason Ronallo</div>
+      <div class="col-md-6 social">
+        <a href="mailto:jronallo@gmail.com"><i class="icon-envelope"></i></a>
+        <a href="https://plus.google.com/116830234234977722391?rel=author"><i class="icon-google-plus-sign"></i></a>
+        <a href="http://twitter.com/ronallo"><i class="icon-twitter-sign"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

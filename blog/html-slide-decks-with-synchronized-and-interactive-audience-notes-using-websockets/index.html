@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="canonical" href="http://ronallo.com/blog/html-slide-decks-with-synchronized-and-interactive-audience-notes-using-websockets/">
+    <!-- FIXME: After DNS caches have been cleared it will be safe to put this redirect in place. -->
+    <!-- <meta http-equiv="refresh" content="0;URL=http://ronallo.com/blog/html-slide-decks-with-synchronized-and-interactive-audience-notes-using-websockets/"> -->
+
+
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>HTML Slide Decks With Synchronized and Interactive Audience Notes Using WebSockets | Preliminary Inventory of Digital Collections by Jason Ronallo</title>
+
+    <link href="/stylesheets/normalize-ef7858ef.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/all-7cf8716f.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/all-fe1cfabb.js" type="text/javascript"></script>
+    <link href="/images/images/favicon.png" rel="icon" type="image/png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28548205-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body class="blog blog_html-slide-decks-with-synchronized-and-interactive-audience-notes-using-websockets blog_html-slide-decks-with-synchronized-and-interactive-audience-notes-using-websockets_index">
+    <div id="page-wrap">
+      <header id="masthead" class="site-header" role="banner">
+  <a class="home-link" href="/" rel="home">
+    <h1 class="site-title">Preliminary Inventory of Digital Collections</h1>
+    <h2 class="site-description hidden-xs">Incomplete thoughts on digital libraries.</h2>
+  </a>
+</header>
+      <nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="/">Preliminary Inventory of Digital Collections</a> -->
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/">Latest</a></li>
+          <li><a href="/blog/tags">Tags</a></li>
+          <li><a href="/blog/by_year">Calendar</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">CV <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/presentations">Presentations</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/experience">Experience</a></li>
+          <li><a target="_blank" href="/cv">Print Full CV</a></li>
+        </ul>
+      </li>
+
+
+      <li><a href="/about">About</a></li>
+      <li><a href="/feed.xml"><i class="icon-rss-sign"></i> </a></li>
+    </ul>
+
+    <form class="navbar-form navbar-right" action="http://google.com/search" method="get" role="search">
+      <div class="form-group">
+        <input type="hidden" name="q" value="site:jronallo.github.io">
+        <input class="search form-control" type="text" name="q" results="0" placeholder="Search...">
+        </div>
+    </form>
+
+  </div><!-- /.navbar-collapse -->
+</nav>
+      <div class="container">
+        <div id="redirect_message">
+          <p class="large">This page has permanently moved to <a href="http://ronallo.com/blog/html-slide-decks-with-synchronized-and-interactive-audience-notes-using-websockets/">http://ronallo.com/blog/html-slide-decks-with-synchronized-and-interactive-audience-notes-using-websockets/</a></p>
+          <p class="small">The stale content is below for a limited time for your convenience while DNS caches get expired.</p>
+        </div>
+          <article>
+    <h1>HTML Slide Decks With Synchronized and Interactive Audience Notes Using WebSockets</h1>
+    <p>Published: 2014-06-16 09:48:00 -0400</p>
+    
+    <p>One question I got asked after giving my <a href="http://code4lib.org">Code4Lib</a> <a href="/presentations/code4lib-2014-websockets">presentation on WebSockets</a> was how I created my slides. I&rsquo;ve <a href="/blog/html-and-pdf-slideshows-with-dzslides/">written about how I create HTML slides before</a>, but this time I added some new features like an audience interface that synchronizes automatically with the slides and allows for audience participation.</p>
+
+<p><strong>TL;DR</strong> I&rsquo;ve open sourced <a href="https://github.com/jronallo/starterdeck-node">starterdeck-node</a> for creating synchronized and interactive HTML slide decks.</p>
+
+
+
+<p>Not every time that I give a presentation am I able to use the technologies that I am talking about within the presentation itself, so I like to do it when I can. I write my slide decks as <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a> and convert them with <a href="http://johnmacfarlane.net/pandoc/">Pandoc</a> to HTML slides which use <a href="http://paulrouget.com/dzslides/">DZslides</a> for slide sizing and animations. I use a browser to present the slides. Working this way with HTML has allowed me to do things like embed HTML5 video into a <a href="http://jronallo.github.io/presentations/html5-video-now/">presentation on HTML5 video</a> and show examples of the <a href="http://jronallo.github.io/presentations/html5-video-now/presentation/#27.0">JavaScript API</a> and how <a href="http://jronallo.github.io/presentations/html5-video-now/presentation/#32.0">videos can be styled with CSS</a>.</p>
+
+<p>For a <a href="/presentations/code4lib-2014-websockets/">presentation on WebSockets I gave at Code4Lib 2014</a>, I wanted to provide another example from within the presentation itself of what you can do with WebSockets. If you have the <a href="http://websocket-presentation.herokuapp.com/slides">slides</a> and the <a href="http://websocket-presentation.herokuapp.com/audience">audience notes handout page</a> open at the same time, you will see how they are synchronized. (Beware slowness as it is a large self-contained HTML download using data URIs.) When you change to certain slides in the presenter view, new content is revealed in the audience view. Because the slides are just an HTML page, it is possible to make the slides more interactive. WebSockets are used to allow the slides to send messages to each audience members&#39; browser and reveal notes. I am never able to say everything that I would want to in one short 20 minute talk, so this provided me a way to give the audience some supplementary material. </p>
+
+<p>Within the slides I even included a simplistic chat application that allowed the audience to send messages directly to the presenter slides. (Every talk on WebSockets needs a gratuitous chat application.) At the end of the talk I also accepted questions from the audience via an input field. The questions were then delivered to the slides via WebSockets and displayed right within a slide using a little JavaScript. What I like most about this is that even someone who did not feel confident enough to step up to a microphone would have the opportunity to ask an anonymous question. And I even got a <a href="/blog/questions-asked-during-the-presentation-websockets-for-real-time-and-interactive-interfaces-at-code4lib-2014/">few legitimate questions</a> amongst the requests for me to dance.</p>
+
+<p>Another nice side benefit of getting the audience to notes <em>before</em> the presentation starts is that you can include your contact information and Twitter handle on the page.</p>
+
+<p>I have wrapped up all this functionality for creating interactive slide decks into a project called <a href="https://github.com/jronallo/starterdeck-node">starterdeck-node</a>. It includes the WebSocket server and a simple starting point for creating your own slides. It strings together a bunch of different tools to make creating and deploying slide decks like this simpler so you&rsquo;ll need to look at the requirements. This is still definitely just a tool for hackers, but having this scaffolding in place ought to make the next slide deck easier to create.</p>
+
+<p>Here&rsquo;s a video where I show <a href="https://github.com/jronallo/starterdeck-node">starterdeck-node</a> at work. Slides on the left; audience notes on the right. </p>
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/FgO46QbSE5Y?rel=0" frameborder="0" allowfullscreen></iframe>
+
+<h2 id="toc_0">Other Features</h2>
+
+<p>While the new exciting feature added in this version of the project is synchronization between presenter slides and audience notes, there are also lots of other great features if you want to create HTML slide decks. Even if you aren&rsquo;t going to use the synchronization feature, there are still lots of reasons why you might want to create your HTML slides with starterdeck-node.</p>
+
+<p><strong>Self-contained HTML.</strong> Pandoc uses data-URIs so that the HTML version of your slides have no external dependencies. Everything including images, video, JavaScript, CSS, and fonts are all embedded within a single HTML document. That means that even if there&rsquo;s no internet connection from the podium you&rsquo;ll still be able to deliver your presentation.</p>
+
+<p><strong>Onstage view.</strong> Part of what gets built is a DZSlides onstage view where the presenter can see the current slide, next slide, speaker notes, and current time. </p>
+
+<p><strong>Single page view.</strong> This view is a self-contained, single-page layout version of the slides and speaker notes. This is a much nicer way to read a presentation than just flipping through the slides on various slide sharing sites. If you put a lot of work into your talk and are writing speaker notes, this is a great way to reuse them.</p>
+
+<p><strong>PDF backup.</strong> A script is included to create a PDF backup of your presentation. Sometimes you have to use the computer at the podium and it has an old version of IE on it. PDF backup to the rescue. While you won&rsquo;t get all the features of the HTML presentation you&rsquo;re still in business. The included Node.js app provides a server so that a headless browser can take screenshots of each slide. These screenshots are then compiled into the PDF. </p>
+
+<h2 id="toc_1">Examples</h2>
+
+<p>I&rsquo;d love to hear from anyone who tries to use it. I&rsquo;ll list any examples I hear about below.</p>
+
+<p>Here are some examples of slide decks that have used <a href="https://github.com/jronallo/starterdeck-node">starterdeck-node</a> or <a href="https://github.com/jronallo/starterdeck">starterdeck</a>.</p>
+
+<ul>
+<li><a href="/presentations/code4lib-2014-websockets">WebSockets for Real-Time and Interactive Interfaces</a></li>
+<li><a href="http://matienzo.org/storage/2014/2014Jun-NYAC/">DPLA NYAC 2014 presentation</a></li>
+</ul>
+
+  </article>
+  <hr>
+  <div class="pagination">
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/questions-asked-during-the-presentation-websockets-for-real-time-and-interactive-interfaces-at-code4lib-2014/">
+        <i class="icon-arrow-left"></i> Questions Asked During the Presentation Websockets For Real-time And Interactive Interfaces At Code4lib 2014
+      </a>
+    
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/the-lenovo-x240-keyboard-and-the-end-insert-key-with-fnlk-on-as-a-software-developer-on-linux/">
+        The Lenovo X240 Keyboard and the End/Insert Key With FnLk On as a Software Developer on Linux <i class="icon-arrow-right"></i>
+      </a>
+    
+  </div>
+
+      </div>
+      <div id="footer-push"></div>
+    </div><!-- end page-wrap -->
+    <footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">by Jason Ronallo</div>
+      <div class="col-md-6 social">
+        <a href="mailto:jronallo@gmail.com"><i class="icon-envelope"></i></a>
+        <a href="https://plus.google.com/116830234234977722391?rel=author"><i class="icon-google-plus-sign"></i></a>
+        <a href="http://twitter.com/ronallo"><i class="icon-twitter-sign"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

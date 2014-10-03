@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="canonical" href="http://ronallo.com/blog/listing-published-octopress-posts/">
+    <!-- FIXME: After DNS caches have been cleared it will be safe to put this redirect in place. -->
+    <!-- <meta http-equiv="refresh" content="0;URL=http://ronallo.com/blog/listing-published-octopress-posts/"> -->
+
+
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Listing Published Octopress Posts | Preliminary Inventory of Digital Collections by Jason Ronallo</title>
+
+    <link href="/stylesheets/normalize-ef7858ef.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/all-7cf8716f.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/all-fe1cfabb.js" type="text/javascript"></script>
+    <link href="/images/images/favicon.png" rel="icon" type="image/png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28548205-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body class="blog blog_listing-published-octopress-posts blog_listing-published-octopress-posts_index">
+    <div id="page-wrap">
+      <header id="masthead" class="site-header" role="banner">
+  <a class="home-link" href="/" rel="home">
+    <h1 class="site-title">Preliminary Inventory of Digital Collections</h1>
+    <h2 class="site-description hidden-xs">Incomplete thoughts on digital libraries.</h2>
+  </a>
+</header>
+      <nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="/">Preliminary Inventory of Digital Collections</a> -->
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/">Latest</a></li>
+          <li><a href="/blog/tags">Tags</a></li>
+          <li><a href="/blog/by_year">Calendar</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">CV <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/presentations">Presentations</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/experience">Experience</a></li>
+          <li><a target="_blank" href="/cv">Print Full CV</a></li>
+        </ul>
+      </li>
+
+
+      <li><a href="/about">About</a></li>
+      <li><a href="/feed.xml"><i class="icon-rss-sign"></i> </a></li>
+    </ul>
+
+    <form class="navbar-form navbar-right" action="http://google.com/search" method="get" role="search">
+      <div class="form-group">
+        <input type="hidden" name="q" value="site:jronallo.github.io">
+        <input class="search form-control" type="text" name="q" results="0" placeholder="Search...">
+        </div>
+    </form>
+
+  </div><!-- /.navbar-collapse -->
+</nav>
+      <div class="container">
+        <div id="redirect_message">
+          <p class="large">This page has permanently moved to <a href="http://ronallo.com/blog/listing-published-octopress-posts/">http://ronallo.com/blog/listing-published-octopress-posts/</a></p>
+          <p class="small">The stale content is below for a limited time for your convenience while DNS caches get expired.</p>
+        </div>
+          <article>
+    <h1>Listing Published Octopress Posts</h1>
+    <p>Published: 2012-01-24 08:01:00 -0500</p>
+    
+    <p>In converting my blog from Wordpress to <a href="http://octopress.org/">Octopress</a>, I 
+had a lot of old posts I was leaving unpublished. I wanted to keep them around
+but don&rsquo;t see the need to republish them right now. I also want to be able to 
+create a lot of drafts of ideas and leave them unpublished. Then whenever I&rsquo;m 
+ready to work on a post, they&rsquo;re all right there in my repository already. </p>
+
+<p>Problem is that I find it hard to read through the filenames of posts and try to
+remember which have been published and which have not. So in order to see
+the publication status of all my posts, I created this rake task. I just
+dropped this at the end of <code>Rakefile</code> and run <code>rake listpub</code>.</p>
+
+
+
+<p>When posts have <code>published: false</code> in the YAML front matter, they get no
+asterisk. All other posts get an asterisk as they either have no <code>published</code> 
+field and so are published
+by default, or set explicitly to true with <code>published: true</code>.</p>
+
+<p>The method of extracting the YAML front matter from the post with a regular
+expression is taken
+<a href="https://github.com/mojombo/jekyll/blob/master/lib/jekyll/convertible.rb">from Jekyll</a>.</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight ruby"><span class="n">desc</span> <span class="s2">&quot;List all blog posts and an asterisk if they are published&quot;</span>
+<span class="n">task</span> <span class="ss">:listpub</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+  <span class="no">Dir</span><span class="nf">.glob</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">source_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">posts_dir</span><span class="si">}</span><span class="s2">/*.markdown&quot;</span><span class="p">)</span><span class="nf">.sort.each</span> <span class="k">do</span> <span class="o">|</span><span class="n">post</span><span class="o">|</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="no">File</span><span class="nf">.read</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+    <span class="n">file</span> <span class="o">=~</span> <span class="sr">/^(---\s*\n.*?\n?)^(---\s*$\n?)/m</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="no">YAML</span><span class="nf">.load</span><span class="p">(</span><span class="vg">$1</span><span class="p">)</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">data</span><span class="o">[</span><span class="s1">&#39;published&#39;</span><span class="o">]</span> <span class="o">||</span> <span class="n">data</span><span class="o">[</span><span class="s1">&#39;published&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="kp">nil</span> <span class="p">?</span> <span class="s1">&#39;*&#39;</span> <span class="p">:</span> <span class="s1">&#39; &#39;</span>
+    <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">status</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="no">File</span><span class="nf">.basename</span><span class="p">(</span><span class="n">post</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+              </div>
+            </figure>
+
+<p>Here&rsquo;s some partial output showing two published posts and one unpublished:</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight ruby"><span class="o">*</span> <span class="mi">2012</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">23</span><span class="o">-</span><span class="n">dpla</span><span class="o">-</span><span class="n">strawman</span><span class="o">-</span><span class="n">technical</span><span class="o">-</span><span class="n">proposal</span><span class="nf">.markdown</span>
+  <span class="mi">2012</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">23</span><span class="o">-</span><span class="n">listing</span><span class="o">-</span><span class="n">published</span><span class="o">-</span><span class="n">octopress</span><span class="o">-</span><span class="n">posts</span><span class="nf">.markdown</span>
+<span class="o">*</span> <span class="mi">2012</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">23</span><span class="o">-</span><span class="n">ruby</span><span class="o">-</span><span class="n">and</span><span class="o">-</span><span class="n">rails</span><span class="o">-</span><span class="n">using</span><span class="o">-</span><span class="n">rvm</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">fresh</span><span class="o">-</span><span class="n">and</span><span class="o">-</span><span class="n">updated</span><span class="o">-</span><span class="n">ubuntu</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="n">dot</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="n">install</span><span class="nf">.markdown</span>
+</pre>
+              </div>
+            </figure>
+
+<p>What other tasks would help you manage drafts and publication workflow for your
+blog?</p>
+
+  </article>
+  <hr>
+  <div class="pagination">
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/solving-the-item-level-problem-on-the-web/">
+        <i class="icon-arrow-left"></i> Solving the Item-Level Problem on the Web
+      </a>
+    
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/web-data-commons-microdata/">
+        Common Crawl, Web Data Commons, and Microdata <i class="icon-arrow-right"></i>
+      </a>
+    
+  </div>
+
+      </div>
+      <div id="footer-push"></div>
+    </div><!-- end page-wrap -->
+    <footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">by Jason Ronallo</div>
+      <div class="col-md-6 social">
+        <a href="mailto:jronallo@gmail.com"><i class="icon-envelope"></i></a>
+        <a href="https://plus.google.com/116830234234977722391?rel=author"><i class="icon-google-plus-sign"></i></a>
+        <a href="http://twitter.com/ronallo"><i class="icon-twitter-sign"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

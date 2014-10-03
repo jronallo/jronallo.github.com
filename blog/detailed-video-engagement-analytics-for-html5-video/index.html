@@ -1,0 +1,447 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="canonical" href="http://ronallo.com/blog/detailed-video-engagement-analytics-for-html5-video/">
+    <!-- FIXME: After DNS caches have been cleared it will be safe to put this redirect in place. -->
+    <!-- <meta http-equiv="refresh" content="0;URL=http://ronallo.com/blog/detailed-video-engagement-analytics-for-html5-video/"> -->
+
+
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Detailed Video Engagement Analytics for HTML5 Video | Preliminary Inventory of Digital Collections by Jason Ronallo</title>
+
+    <link href="/stylesheets/normalize-ef7858ef.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/all-7cf8716f.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/all-fe1cfabb.js" type="text/javascript"></script>
+    <link href="/images/images/favicon.png" rel="icon" type="image/png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28548205-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body class="blog blog_detailed-video-engagement-analytics-for-html5-video blog_detailed-video-engagement-analytics-for-html5-video_index">
+    <div id="page-wrap">
+      <header id="masthead" class="site-header" role="banner">
+  <a class="home-link" href="/" rel="home">
+    <h1 class="site-title">Preliminary Inventory of Digital Collections</h1>
+    <h2 class="site-description hidden-xs">Incomplete thoughts on digital libraries.</h2>
+  </a>
+</header>
+      <nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="/">Preliminary Inventory of Digital Collections</a> -->
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/">Latest</a></li>
+          <li><a href="/blog/tags">Tags</a></li>
+          <li><a href="/blog/by_year">Calendar</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">CV <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/presentations">Presentations</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/experience">Experience</a></li>
+          <li><a target="_blank" href="/cv">Print Full CV</a></li>
+        </ul>
+      </li>
+
+
+      <li><a href="/about">About</a></li>
+      <li><a href="/feed.xml"><i class="icon-rss-sign"></i> </a></li>
+    </ul>
+
+    <form class="navbar-form navbar-right" action="http://google.com/search" method="get" role="search">
+      <div class="form-group">
+        <input type="hidden" name="q" value="site:jronallo.github.io">
+        <input class="search form-control" type="text" name="q" results="0" placeholder="Search...">
+        </div>
+    </form>
+
+  </div><!-- /.navbar-collapse -->
+</nav>
+      <div class="container">
+        <div id="redirect_message">
+          <p class="large">This page has permanently moved to <a href="http://ronallo.com/blog/detailed-video-engagement-analytics-for-html5-video/">http://ronallo.com/blog/detailed-video-engagement-analytics-for-html5-video/</a></p>
+          <p class="small">The stale content is below for a limited time for your convenience while DNS caches get expired.</p>
+        </div>
+          <article>
+    <h1>Detailed Video Engagement Analytics for HTML5 Video</h1>
+    <p>Published: 2012-12-27 08:35:31 -0500</p>
+    
+      <p>Updated: 2012-12-27 08:41:31 -0500</p>
+    
+    <p>If you have published video on the Web with HTML5 Video, then you will want to know how engaged your viewers are with your video. This post will lead you through collecting the data you need to assess your video publishing efforts. Services like Google Analytics only get you so far. To get deeper insights into how your video is being used, you may want to track detailed video engagement analytics.</p>
+
+
+
+<p>If you&rsquo;ve not published video with HTML5 Video yet, then you may want to read <a href="/blog/html5-video-everything-i-needed-to-know/">everything I know about HTML5 Video</a> and then return here.</p>
+
+<p>I&rsquo;ll try to update this post as I learn better ways to do video analytics or make corrections to the examples given here.</p>
+
+<h2 id="toc_0">Video Play Page</h2>
+
+<p>For a very basic understanding of how folks are using your video, you will first want to track views of your video play pages. If folks aren&rsquo;t even getting to your video play pages, they do not even have the chance of engaging with your video.</p>
+
+<p><a href="/blog/html5-video-everything-i-needed-to-know/">Remember</a> that it is best for search engines like Google if your video plays only on a single page. This makes implementation easier since every video will have one and only one page from which it can be played. This makes it easy to track video play pages.</p>
+
+<p>I won&rsquo;t cover how to set up something like Google Analytics page view tracking.</p>
+
+<h2 id="toc_1">Simple Events</h2>
+
+<p>What I can show you is how to begin to track various video-related events like clicks on the play and pause controls. If you are just using the browser&rsquo;s native controls, they may not expose elements which you can bind event listeners to. So instead we will listen for the <code>play</code> and <code>pause</code> events of the <code>video</code> element. This allows us to add our own controls through the JavaScript Media Element API or use a polyfill that does so. Any controls you add will trigger off the <code>play</code> and <code>pause</code> events just the same.</p>
+
+<p>We&rsquo;ll begin with <a href="/demos/html5_video/55_microdata/">this demo</a> and extend it to add this simple event tracking.</p>
+
+<p>First, we&rsquo;ll create a simple object to hold our <code>track</code> function. All we need to send into the <code>track</code> function is the action we want to track. In the <code>track</code> function we&rsquo;ll just log the tracking parameters to the browser&rsquo;s console. If we were really implementing this we would replace the &ldquo;console.log()&rdquo; line with however you queue up a tracking event with whatever analytics program you&rsquo;re using.</p>
+
+<p>We will, though, model the parameters sent to the tracking function on the parameters used for Google Analytics event tracking. The parameters in order then will be category, action, and label.  The category will always be &ldquo;Videos&rdquo;. The action will be &ldquo;Play&rdquo; or &ldquo;Pause&rdquo;. The value will always be the identifier for the video. We&rsquo;ll determine the video by taking the current source of the video and removing the extension.</p>
+
+<p>One thing you&rsquo;ll notice is that we are wrapping everything within a event handler for &ldquo;loadedmetadata&rdquo;. We only want to apply any of this if there is a video element on the page and the video actually loads its metadata. This means that you can use <code>video.currentSrc</code> to determine the current video file URL.</p>
+
+<figure class='code'>
+              <figcaption><span>video event tracking function </span><a href='http://jronallo.github.io/demos/html5_video/javascripts/video_analytics_events.js'>Source</a></figcaption>
+              <div>
+                <pre class="highlight javascript"><span class="c1">// Wait for the video element to be parsed before attempting this.
+</span><span class="nx">VideoAnalytics</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="c1">// Wait for the video element to be parsed before attempting this.
+</span><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+
+  <span class="c1">// Wait until the video metadata has been loaded before we try to determine the current video source.
+</span>  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;loadedmetadata&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+
+    <span class="c1">// Simple function to chop off the file extension for the current source of the video.
+</span>    <span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">video_url</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+      <span class="kd">var</span> <span class="nx">current_source</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">currentSrc</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nx">current_source</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">);</span>
+    <span class="p">}());</span>
+
+    <span class="c1">// function that sends the actual tracking beacon
+</span>    <span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">gaq_track</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// All events will be in the Video category
+</span>      <span class="kd">var</span> <span class="nx">tracking_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_trackEvent&#39;</span><span class="p">,</span><span class="s1">&#39;Video&#39;</span><span class="p">]</span>
+      <span class="c1">// append the event action after the event method and the event category
+</span>      <span class="nx">tracking_params</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span>
+      <span class="c1">// append the video url as the event label
+</span>      <span class="nx">tracking_params</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">video_url</span><span class="p">);</span>
+
+      <span class="c1">// Replace this console.log with something like this if you are using Google Analytics:
+</span>      <span class="c1">// _gaq.push(tracking_params);
+</span>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tracking_params</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// SNIP
+</span>
+  <span class="p">});</span>
+
+<span class="p">});</span></pre>
+              </div>
+            </figure>
+
+<p>You can try this tracking function out in the console as follows:</p>
+
+<figure class='code'>
+              <figcaption><span>video event tracking function </span><a href='http://jronallo.github.io/demos/html5_video/javascripts/video_analytics_events.js'>Source</a></figcaption>
+              <div>
+                <pre class="highlight shell"><span class="gp">&gt; </span>VideoAnalytics.track<span class="o">(</span><span class="s1">&#39;Action&#39;</span><span class="o">)</span>;
+  <span class="o">[</span><span class="s2">&quot;_trackEvent&quot;</span>, <span class="s2">&quot;Video&quot;</span>, <span class="s2">&quot;Action&quot;</span>, <span class="s2">&quot;http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book&quot;</span><span class="o">]</span></pre>
+              </div>
+            </figure>
+
+<p>Now to track the <code>play</code> and <code>pause</code> events, we can add simple event handlers like the following. While we&rsquo;re at it we can track whether the <code>ended</code> event is fired. This will tell us that a viewer got to the end of the video but it will not tell us that they have actually watched the whole video. We can also track the <code>seeked</code> event. When the current time is set the <code>seeked</code> event fires. It also gets triggered when a user clicks on the time rail control.</p>
+
+<figure class='code'>
+              <figcaption><span>tracking video events </span><a href='http://jronallo.github.io/demos/html5_video/javascripts/video_analytics_events.js'>Source</a></figcaption>
+              <div>
+                <pre class="highlight javascript"><span class="kd">var</span> <span class="nx">VideoAnalytics</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+
+  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;loadedmetadata&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+
+    <span class="c1">//SNIP
+</span>
+    <span class="c1">// Track the play event.
+</span>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;play&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">gaq_track</span><span class="p">(</span><span class="s1">&#39;Play&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="c1">// Track the pause event.
+</span>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;pause&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">gaq_track</span><span class="p">(</span><span class="s1">&#39;Pause&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="c1">// Track the seeked event. This gets fired when the currentTime is set. For instance it gets
+</span>    <span class="c1">// triggered with a click on the time rail control.
+</span>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;seeked&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">gaq_track</span><span class="p">(</span><span class="s1">&#39;Seeked&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="c1">// Track the ended event.
+</span>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;ended&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">gaq_track</span><span class="p">(</span><span class="s1">&#39;Ended&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+  <span class="p">});</span>
+
+<span class="p">});</span>
+</pre>
+              </div>
+            </figure>
+
+<h3 id="toc_2">Interpreting Simple Events</h3>
+
+<p>When looking at your analytics for these kinds of simple events, there are some things to keep in mind. The <code>pause</code> event fires just before the <code>ended</code> event (at least in Chrome and Firefox). It is unclear in the spec whether this doubling of events is correct or not. What this means, though, is that a <code>pause</code> event does not necessarily mean that someone took an action to pause the video. To tell the number of <code>pause</code> events that are real user interactions, you may have to subtract the number of <code>ended</code> events.</p>
+
+<p>Note the meaning of the <code>ended</code> event. This event tells us that a viewer got to the end of the video but it will not tell us that they have actually watched the whole video. The user could have clicked the time rail or chapters (from a <code>&lt;track&gt;</code> polyfill) to seek ahead or used some other control on the page to get near the end, possibly skipping most of the content.</p>
+
+<h2 id="toc_3">Video Engagement</h2>
+
+<p>But just tracking these kinds of events does not give us the full picture. Do visitors watch the whole video or do they drop off or go somewhere else on your site before finishing the video? How much of the video do visitors actually watch? How far do they get through the video? Is there a particular point in the video where most users have dropped off? Are there portions of a video that are watched more often than others? Are parts skipped? What we really want to know about is video engagement. Answering these questions can help determine whether there are ways that you might make your video more engaging.</p>
+
+<p>It will take more information than just play and pause events to get at this data. We need more detailed information about how the video is being watched.</p>
+
+<h2 id="toc_4">Simplistic Video Engagement</h2>
+
+<p>Some have suggested a way to track video engagement with Google Analtyics. The basic idea is that the time of the video can be divided into equal parts. If a 100 second video is divided into 10 parts then once the video plays the 10th second it triggers a tracking event that &ldquo;10%&rdquo;&ldquo; of the video has been played. The same if the 90th second is played, then &quot;90%&rdquo; is recorded in the tracking event. (Here is an <a href="http://htmlcssjavascript.com/javascript/html5-demo-tracking-video-progress-with-google-analytics/">example of this approach</a>.)</p>
+
+<p>As standards like <a href="http://www.w3.org/TR/media-frags/">Media Fragments</a> get implemented, it will be easier to deep link into videos similarly to how you can link to a section of a page that has an <code>id</code> attribute. So a user may begin a video in the middle depending on the URI they follow.</p>
+
+<p>The current problem with these simple analytics schemes is that visitors can jump around arbitrarily through a video by clicking anywhere on the time rail. If the video has an associated chapter track then the user can also jump to a specific section of the video. Just because the second at 80% of the video has been played does not mean that 80% of the video has actually been viewed.</p>
+
+<h2 id="toc_5">Deeper Video Engagement</h2>
+
+<p>I want more information than that the second at 80% of the video has been played. The most exact way to get at that information is by keeping track of which seconds have actually been played. Let&rsquo;s look at what it takes to implement some deeper analytics tracking.</p>
+
+<p>Rather than keeping a tally of discreet events on the page or faulty engagement analytics, we want to track the ranges of time within each video that have been watched during a particular visitor page view session. So the data we want to collect is the identifier for the video, an identifier for a particular visitor page view session, the current date-time of the tracker, and the ranges of time that have been watched within that session. Let&rsquo;s unpack each of those a bit.</p>
+
+<h3 id="toc_6">Video Identifier</h3>
+
+<p>To aggregate all of the data about a particular video, we want to have a unique identifier for the video. We could use and munge the current video source to supply that identifier like we have above. There we just took the URL for the video and stripped off the last 3 characters (the dot and extension). In my own applications, I could do that because I can be certain that it will easily map to a unique video.</p>
+
+<p>It may be that your video is hosted somewhere else and the URL of the video file will not provide the identifier you would want. For our engagement analytics we&rsquo;ll change our approach and I&rsquo;ll add a data- attribute <code>data-video-id</code>.</p>
+
+<figure class='code'>
+              <figcaption><span>data-video-id </span><a href='http://jronallo.github.io/demos/html5_video/70_analytics'>Demo</a></figcaption>
+              <div>
+                <pre class="highlight html"><span class="nt">&lt;video</span> <span class="na">data-video-id=</span><span class="s">&quot;getting_a_book&quot;</span> <span class="na">controls</span> <span class="na">poster=</span><span class="s">&quot;http://siskel.lib.ncsu.edu/RIS/getting_a_book/getting_a_book.png&quot;</span><span class="nt">&gt;</span></pre>
+              </div>
+            </figure>
+
+<p>Then in our javascript (within the <code>engagement</code> object within the module VideoAnalytics) we can set the variable for the current video identifier.</p>
+
+<figure class='code'>
+              <figcaption><span>videoId </span><a href='http://jronallo.github.io/demos/html5_video/javascripts/video_engagement_analytics.js'>link</a></figcaption>
+              <div>
+                <pre class="highlight javascript"><span class="kd">var</span> <span class="nx">current_video_id</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">).</span><span class="nx">first</span><span class="p">().</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;videoId&#39;</span><span class="p">);</span></pre>
+              </div>
+            </figure>
+
+<h3 id="toc_7">Page View Session</h3>
+
+<p>To make sure that we are tracking a single page view we need to create a page view session. I do not want to track a bunch of other data about users. I just want to know how much of a video is watched within a particular page view. If you wanted to associate what videos a user watched you could do more server side using a cookie-based session, but I will leave that and other server-side work to the reader.</p>
+
+<p>We can easily set a page view session. Every time the page is loaded, we can create a UUID with JavaScript. (The current implementation is rather naive, but is good enough to show the method.) That UUID will be sent back to the server with any data, so that the data can be updated or merged there.</p>
+
+<p>Creating a timestamp for the tracking event is as simple as <code>new Date()</code>.</p>
+
+<h3 id="toc_8">TimeRanges</h3>
+
+<p>The last piece of data that we need is what parts of the video are actually watched. Luckily HTML5 Video provides a straightforward way to get at exactly which parts of a video (or audio) have been played.</p>
+
+<p>The media elements API provides a <code>played</code> property for a <code>video</code> element that returns a <code>TimeRanges</code> object. Since users can click on the time rail to jump around a video, there may be more than one range which has been played. Reload the <a href="/demos/html5_video/70_analytics/">demo page</a>, and then run the following script in your console to simulate a user starting to play a video from the beginning and then jumping to near the end.</p>
+
+<figure class='code'>
+              <figcaption><span>a look at TimeRanges </span><a href='http://jronallo.github.io/demos/html5_video/javascripts/a_look_at_time_ranges.js'>Source</a></figcaption>
+              <div>
+                <pre class="highlight javascript"><span class="c1">// This script simulates a user watching 5 seconds of video then jumpting to 100 seconds in and
+// watching another 5 seconds. Then some output is logged to the console.
+</span>
+<span class="kd">var</span> <span class="nx">video</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+
+<span class="c1">// start playing the video
+</span><span class="nx">video</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+
+<span class="c1">// play the video for 5 seconds and then...
+</span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+
+    <span class="c1">// jump to 100 seconds into the video
+</span>    <span class="nx">video</span><span class="p">.</span><span class="nx">currentTime</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// after the video plays for 5 seconds more pause it
+</span>        <span class="nx">video</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span>
+        <span class="kd">var</span> <span class="nx">time_ranges</span> <span class="o">=</span> <span class="nx">video</span><span class="p">.</span><span class="nx">played</span><span class="p">;</span>
+
+        <span class="c1">// just log the TimeRange object itself
+</span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">([</span><span class="s1">&#39;time ranges: &#39;</span><span class="p">,</span> <span class="nx">time_ranges</span><span class="p">]);</span>
+
+        <span class="c1">// how many time ranges are there?
+</span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">([</span><span class="s1">&#39;# of time ranges&#39;</span><span class="p">,</span> <span class="nx">time_ranges</span><span class="p">.</span><span class="nx">length</span><span class="p">]);</span>
+
+        <span class="c1">// get the values for the first time range
+</span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">([</span><span class="s1">&#39;1st time range&#39;</span><span class="p">,</span> <span class="nx">time_ranges</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="nx">time_ranges</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="mi">0</span><span class="p">)]);</span>
+
+        <span class="c1">// get the values for the second time range
+</span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">([</span><span class="s1">&#39;2nd time range&#39;</span><span class="p">,</span> <span class="nx">time_ranges</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="nx">time_ranges</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="mi">1</span><span class="p">)]);</span>
+    <span class="p">},</span><span class="mi">5000</span><span class="p">);</span>
+<span class="p">},</span> <span class="mi">5000</span><span class="p">);</span>
+</pre>
+              </div>
+            </figure>
+
+<p>Using the <code>currentTime</code> setter allows us to jump in time to a point towards the end of our example video. A <code>TimeRanges</code> object has a <code>length</code> property which returns the total number of time ranges it contains. Each time range can then be retrieved with indexing starting at zero. A <code>TimeRanges</code> object has <code>start</code> and <code>end</code> methods which must be passed the index of the time range you want. You can see that time ranges are zero based.</p>
+
+<p>Here a function to turn a <code>TimeRanges</code> object into an array of objects. Each object will have the appropriate seconds value for each start and end key.</p>
+
+<figure class='code'>
+              <figcaption><span>time_ranges_to_array </span><a href='http://jronallo.github.io/demos/html5_video/javascripts/video_engagement_analytics.js'>Source</a></figcaption>
+              <div>
+                <pre class="highlight javascript"><span class="kd">var</span> <span class="nx">time_ranges_to_array</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">time_ranges</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">ranges</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">time_ranges</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">range</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">range</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">time_ranges</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">i</span><span class="p">));</span>
+    <span class="nx">range</span><span class="p">.</span><span class="nx">end</span>   <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">time_ranges</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span> <span class="p">;</span>
+    <span class="nx">ranges</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">range</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">ranges</span><span class="p">;</span>
+<span class="p">}</span></pre>
+              </div>
+            </figure>
+
+<p>The result from this <code>time_ranges_to_array</code> function will look something like this for our &ldquo;a look at TimeRanges&rdquo; script above:</p>
+
+<figure class='code'>
+              <figcaption><span>result of time_ranges function</span></figcaption>
+              <div>
+                <pre class="highlight javascript"><span class="p">[</span>
+ <span class="p">{</span><span class="na">start</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>   <span class="na">end</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span>
+ <span class="p">{</span><span class="na">start</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="na">end</span><span class="p">:</span> <span class="mi">104</span><span class="p">}</span>
+<span class="p">]</span></pre>
+              </div>
+            </figure>
+
+<h3 id="toc_9">Implementation</h3>
+
+<p>Now we have all the pieces we need in order to track time ranges. We can attach event listeners for various events to send the tracking data. To make sure that we capture most of the use we will send the data to the server every so often by listening for the <code>timeupdate</code> event. The <code>timeupdate</code> event can be triggered much more often than every second. If you&rsquo;re looking at our example, you&rsquo;ll see in the console that every time the <code>timeupdate</code> event it fired that the current time gets output to the console. There are also differences between browsers. Chrome seems to trigger the <code>timeupdate</code> event 8 times a second, while Firefox appears to only fire the event 4 times every second.</p>
+
+<p>We set and increment a counter so that every N times (25 in our example) the <code>timeupdate</code> event fires, the tracking data is sent (in our case logged to the console). This prevents us from posting data to the server up to 8 times a second needlessly. Delaying by 25 <code>timeupdate</code>s may be too few, so adjust to something where you&rsquo;re ensuring that you&rsquo;re not dropping data if someone closes a tab, but you&rsquo;re also not sending data too frequently.</p>
+
+<p>We also will listen for <code>pause</code> and <code>ended</code> events to trigger tracking data be sent. Finally, for any outbound link on the page we will listen for clicks on those links, initiate sending the tracking data, and ensure the data gets sent by including a short pause. When links are clicked JavaScript can cease execution meaning our tracking data may not be send, so the pause helps make sure that the JavaScript has enough time to execute sendint the data before taking the user to the new page.</p>
+
+<figure class='code'>
+              <figcaption><span>video engagement analytics events </span><a href='http://jronallo.github.io/demos/html5_video/javascripts/video_engagement_analytics.js'>Source</a></figcaption>
+              <div>
+                <pre class="highlight javascript"><span class="c1">// Every 25 times the timeupdate event fires we&#39;ll log the time ranges played.
+</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;timeupdate&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">engagement</span><span class="p">.</span><span class="nx">tracker_delay_counter</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">engagement</span><span class="p">.</span><span class="nx">tracker_delay_counter</span> <span class="o">&gt;=</span> <span class="mi">25</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">engagement</span><span class="p">.</span><span class="nx">track</span><span class="p">();</span>
+    <span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">engagement</span><span class="p">.</span><span class="nx">tracker_delay_counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// reset the delay counter
+</span>  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// For the seeked, pause, and ended events also send off the tracking data
+// so that we do not lose some data.
+// TODO: Are there other events when we should send the tracker?
+</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;seeked pause ended&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">engagement</span><span class="p">.</span><span class="nx">track</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="c1">// For any link that is clicked on the page also send the tracking data. This will ensure
+// that the latest time ranges are sent to the server before visiting a new page.
+</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">engagement</span><span class="p">.</span><span class="nx">track</span><span class="p">();</span>
+  <span class="nx">VideoAnalytics</span><span class="p">.</span><span class="nx">engagement</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span> <span class="c1">// add a pause so we are sure the POST event can finish
+</span><span class="p">});</span></pre>
+              </div>
+            </figure>
+
+<p>The <a href="/demos/html5_video/70_analytics/">demo</a> does not POST data to a server, but just outputs the data to the console. Open up your developers tools console, start and stop the video, click around the time rail, and see what data gets created. It would be trivial for us to change this to use jQuery to POST the data.</p>
+
+<h2 id="toc_10">Interpretation</h2>
+
+<p>The result is that we can use this data to graph out engagement. Within an administrative console for one of my sites, I have embedded the video into the page along with a chart created with D3.js. As the video plays the line of the current time moves along the chart. Since I can watch the video alongside the chart, I can see exactly when visitors start to drop off. To show how it works, here&rsquo;s an video with dummy data:</p>
+
+<p><video controls poster="http://siskel.lib.ncsu.edu/SLI/demo/video_engagement_analytics/video_engagement_analytics.png">
+  <source src="http://siskel.lib.ncsu.edu/SLI/demo/video_engagement_analytics/video_engagement_analytics.mp4" type='video/mp4;codecs="avc1.4D401E, mp4a.40.2"'/>
+  <source src="http://siskel.lib.ncsu.edu/SLI/demo/video_engagement_analytics/video_engagement_analytics.webm" type='video/webm;codecs="vp8, vorbis"'/>
+  <source src="http://siskel.lib.ncsu.edu/SLI/demo/video_engagement_analytics/video_engagement_analytics.ogv" type='video/ogg;codecs="theora, vorbis"'/>
+</video></p>
+
+<h2 id="toc_11">Issues</h2>
+
+<p>While this seems to work across browsers that understand the <code>video</code> element, you are likely to have a Flash fallback for older browsers or in the case that you only encode to one codec. My favorite HTML5 video polyfill with Flash fallback is <a href="http://mediaelementjs.com/">MediaElement.js</a>. The player has an API which allows you to work consistently across HTML5 video and Flash fallback using something similar to the standard API, but it does not implement the <code>played</code> property. (Do you know a polyfill which does implement <code>played</code> for its Flash fallback?) This means that you would have to come up with a different solution for the Flash fallback player if you receive traffic from older browsers.</p>
+
+<p>What I have done in one application to work around this limitation is to duplicate the functionality of <code>played</code> and <code>TimeRanges</code>. Each time the <code>timeupdate</code> event fires, I collect the current time into a array. Every so often I send this array of seconds to the server and also clear out the array so it does not get too big. This seems to work well enough, but would likely have some performance problems.</p>
+
+<h2 id="toc_12">Conclusion</h2>
+
+<p>It is relatively simple with the HTML5 video API to hook into video events for video engagement analytics. The main problem is coming up with a solution that works on older browsers using a Flash fallback.</p>
+
+<p>What other questions would you like to answer about your videos? What data would you need to answer those questions? As I launch the video site I&rsquo;ve worked on and take a look at the analytics we&rsquo;re already grabbing, I may have the opportunity to expand on my work and this post. I&rsquo;d be interested to hear what your use cases are for better video analytics.</p>
+
+  </article>
+  <hr>
+  <div class="pagination">
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/html5-video-everything-i-needed-to-know/">
+        <i class="icon-arrow-left"></i> HTML5 Video: Everything I Needed to Know
+      </a>
+    
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/common-crawl-url-index/">
+        Common Crawl URL Index <i class="icon-arrow-right"></i>
+      </a>
+    
+  </div>
+
+      </div>
+      <div id="footer-push"></div>
+    </div><!-- end page-wrap -->
+    <footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">by Jason Ronallo</div>
+      <div class="col-md-6 social">
+        <a href="mailto:jronallo@gmail.com"><i class="icon-envelope"></i></a>
+        <a href="https://plus.google.com/116830234234977722391?rel=author"><i class="icon-google-plus-sign"></i></a>
+        <a href="http://twitter.com/ronallo"><i class="icon-twitter-sign"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

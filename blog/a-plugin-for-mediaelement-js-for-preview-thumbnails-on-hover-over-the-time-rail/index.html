@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="canonical" href="http://ronallo.com/blog/a-plugin-for-mediaelement-js-for-preview-thumbnails-on-hover-over-the-time-rail/">
+    <!-- FIXME: After DNS caches have been cleared it will be safe to put this redirect in place. -->
+    <!-- <meta http-equiv="refresh" content="0;URL=http://ronallo.com/blog/a-plugin-for-mediaelement-js-for-preview-thumbnails-on-hover-over-the-time-rail/"> -->
+
+
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>A Plugin For Mediaelement.js For Preview Thumbnails on Hover Over the Time Rail Using WebVTT | Preliminary Inventory of Digital Collections by Jason Ronallo</title>
+
+    <link href="/stylesheets/normalize-ef7858ef.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/all-7cf8716f.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/all-fe1cfabb.js" type="text/javascript"></script>
+    <link href="/images/images/favicon.png" rel="icon" type="image/png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28548205-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body class="blog blog_a-plugin-for-mediaelement-js-for-preview-thumbnails-on-hover-over-the-time-rail blog_a-plugin-for-mediaelement-js-for-preview-thumbnails-on-hover-over-the-time-rail_index">
+    <div id="page-wrap">
+      <header id="masthead" class="site-header" role="banner">
+  <a class="home-link" href="/" rel="home">
+    <h1 class="site-title">Preliminary Inventory of Digital Collections</h1>
+    <h2 class="site-description hidden-xs">Incomplete thoughts on digital libraries.</h2>
+  </a>
+</header>
+      <nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="/">Preliminary Inventory of Digital Collections</a> -->
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/">Latest</a></li>
+          <li><a href="/blog/tags">Tags</a></li>
+          <li><a href="/blog/by_year">Calendar</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">CV <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/presentations">Presentations</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/experience">Experience</a></li>
+          <li><a target="_blank" href="/cv">Print Full CV</a></li>
+        </ul>
+      </li>
+
+
+      <li><a href="/about">About</a></li>
+      <li><a href="/feed.xml"><i class="icon-rss-sign"></i> </a></li>
+    </ul>
+
+    <form class="navbar-form navbar-right" action="http://google.com/search" method="get" role="search">
+      <div class="form-group">
+        <input type="hidden" name="q" value="site:jronallo.github.io">
+        <input class="search form-control" type="text" name="q" results="0" placeholder="Search...">
+        </div>
+    </form>
+
+  </div><!-- /.navbar-collapse -->
+</nav>
+      <div class="container">
+        <div id="redirect_message">
+          <p class="large">This page has permanently moved to <a href="http://ronallo.com/blog/a-plugin-for-mediaelement-js-for-preview-thumbnails-on-hover-over-the-time-rail/">http://ronallo.com/blog/a-plugin-for-mediaelement-js-for-preview-thumbnails-on-hover-over-the-time-rail/</a></p>
+          <p class="small">The stale content is below for a limited time for your convenience while DNS caches get expired.</p>
+        </div>
+          <article>
+    <h1>A Plugin For Mediaelement.js For Preview Thumbnails on Hover Over the Time Rail Using WebVTT</h1>
+    <p>Published: 2014-06-26 03:16:00 -0400</p>
+    
+    <p>The time rail or progress bar on video players gives the viewer some indication of how much of the video they&rsquo;ve watched, what portion of the video remains to be viewed, and how much of the video is buffered. The time rail can also be clicked on to jump to a particular time within the video. But figuring out where in the video you want to go can feel kind of random. You can usually hover over the time rail and move from side to side and see the time that you&rsquo;d jump to if you clicked, but who knows what you might see when you get there. </p>
+
+<p>Some video players have begun to use the time rail to show video thumbnails on hover in a tooltip. For most videos these thumbnails give a much better idea of what you&rsquo;ll see when you click to jump to that time. I&rsquo;ll show you how you can create your own thumbnail previews using HTML5 video.</p>
+
+<p><strong>TL;DR</strong> Use the <a href="https://github.com/jronallo/mep-feature-time-rail-thumbnails">time rail thumbnails plugin for Mediaelement.js</a>.</p>
+
+
+
+<h2 id="toc_0">Archival Use Case</h2>
+
+<p>We usually follow agile practices in our <a href="http://en.wikipedia.org/wiki/Archival_processing">archival processing</a>. This style of processing became popularized by the article <a href="http://archivists.metapress.com/content/c741823776k65863/fulltext.pdf">More Product, Less Process: Revamping Traditional Archival Processing</a> by Mark A. Greene and Dennis Meissner. For instance, we don&rsquo;t read every page of every folder in every box of every collection in order to describe it well enough for us to make the collection accessible to researchers. Over time we may decide to make the materials for a particular collection or parts of a collection more discoverable by doing the work to look closer and add more metadata to our description of the contents. But we try not to allow the perfect from being the enemy of the good enough. Our goal is to make the materials accessible to researchers and not hidden in some box no one knows about.</p>
+
+<p>Some of our collections of videos are <a href="http://d.lib.ncsu.edu/student-leaders">highly curated like for video oral histories</a>. We&rsquo;ve created transcripts for the whole video. We extract out the most interesting or on topic clips. For each of these video clips we create a WebVTT caption file and an <a href="/blog/using-the-webvtt-ruby-gem-to-display-subtitles-on-the-page/">interface to navigate within the video from the transcript</a>.</p>
+
+<p>At NCSU Libraries we have begun digitizing more archival videos. And for these videos we&rsquo;re much more likely to treat them like other archival materials. We&rsquo;re never going to watch every minute of every video about <a href="https://d.lib.ncsu.edu/collections/catalog?f[format][]=Video&amp;f[subject_facet][]=Cucumbers">cucumbers</a> or <a href="https://d.lib.ncsu.edu/collections/catalog?f[format][]=Video&amp;f[subject_facet][]=Agricultural+machinery">agricultural machinery</a> in order to fully describe the contents. Digitization gives us some opportunities to automate the summarization that would be manually done with physical materials. Many of these videos don&rsquo;t even have dialogue, so even when automated video transcription is more accurate and cheaper we&rsquo;ll still be left with only the images. In any case, the visual component is a good place to start.</p>
+
+<h2 id="toc_1">Video Thumbnail Previews</h2>
+
+<p>When you hover over the time rail on some video viewers, you see a thumbnail image from the video at that time. YouTube does this for many of its videos. I first saw that this would be possible with HTML5 video when I saw the JW Player page on <a href="http://support.jwplayer.com/customer/portal/articles/1407439-adding-preview-thumbnails">Adding Preview Thumbnails</a>. From there I took the idea to use an image sprite and a WebVTT file to structure which media fragments from the sprite to use in the thumbnail preview. I&rsquo;ve implemented this as a <a href="https://github.com/jronallo/mep-feature-time-rail-thumbnails">plugin for Mediaelement.js</a>. You can see detailed instructions there on how to use the plugin, but I&rsquo;ll give the summary here.</p>
+
+<h3 id="toc_2">1. Create an Image Sprite from the Video</h3>
+
+<p>This uses ffmpeg to take a snapshot every 5 seconds in the video and then uses montage (from ImageMagick) to stitch them together into a sprite. This means that only one file needs to be downloaded before you can show the preview thumbnail.</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight shell">ffmpeg -i <span class="s2">&quot;video-name.mp4&quot;</span> -f image2 -vf <span class="nv">fps</span><span class="o">=</span><span class="nv">fps</span><span class="o">=</span>1/5 video-name-%05d.jpg
+montage video-name<span class="k">*</span>jpg -tile 5x -geometry 150x video-name-sprite.jpg</pre>
+              </div>
+            </figure>
+
+<h3 id="toc_3">2. Create a WebVTT metadata file</h3>
+
+<p>This is just a standard <a href="http://dev.w3.org/html5/webvtt/">WebVTT</a> file except the cue text is metadata instead of captions. The URL is to an image and uses a <a href="http://www.w3.org/TR/media-frags/">spatial Media Fragment</a> for what part of the sprite to display in the tooltip.</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight shell">WEBVTT
+
+00:00:00.000 --&gt; 00:00:05.000
+http://example.com/video-name-sprite.jpg#xywh<span class="o">=</span>0,0,150,100
+
+00:00:05.000 --&gt; 00:00:10.000
+http://example.com/video-name-sprite.jpg#xywh<span class="o">=</span>150,0,150,100
+
+00:00:10.000 --&gt; 00:00:15.000
+http://example.com/video-name-sprite.jpg#xywh<span class="o">=</span>300,0,150,100
+
+00:00:15.000 --&gt; 00:00:20.000
+http://example.com/video-name-sprite.jpg#xywh<span class="o">=</span>450,0,150,100
+
+00:00:20.000 --&gt; 00:00:25.000
+http://example.com/video-name-sprite.jpg#xywh<span class="o">=</span>600,0,150,100
+
+00:00:25.000 --&gt; 00:00:30.000
+http://example.com/video-name-sprite.jpg#xywh<span class="o">=</span>0,100,150,100</pre>
+              </div>
+            </figure>
+
+<h3 id="toc_4">3. Add the Video Thumbnail Preview Track</h3>
+
+<p>Put the following within the <code>&lt;video&gt;</code> element.</p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight html"><span class="nt">&lt;track</span> <span class="na">kind=</span><span class="s">&quot;metadata&quot;</span> <span class="na">class=</span><span class="s">&quot;time-rail-thumbnails&quot;</span> <span class="na">src=</span><span class="s">&quot;http://example.com/video-name-sprite.vtt&quot;</span><span class="nt">&gt;&lt;/track&gt;</span></pre>
+              </div>
+            </figure>
+
+<h3 id="toc_5">4. Initialize the Plugin</h3>
+
+<p>The following assumes that you&rsquo;re already using <a href="YKK">Mediaelement.js</a>, jQuery, and have included the <a href="https://github.com/mozilla/vtt.js">vtt.js</a> library. </p>
+
+<figure class='code'>
+              
+              <div>
+                <pre class="highlight javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">).</span><span class="nx">mediaelementplayer</span><span class="p">({</span>
+   <span class="na">features</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;playpause&#39;</span><span class="p">,</span><span class="s1">&#39;progress&#39;</span><span class="p">,</span><span class="s1">&#39;current&#39;</span><span class="p">,</span><span class="s1">&#39;duration&#39;</span><span class="p">,</span><span class="s1">&#39;tracks&#39;</span><span class="p">,</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span> <span class="s1">&#39;timerailthumbnails&#39;</span><span class="p">],</span>
+    <span class="na">timeRailThumbnailsSeconds</span><span class="p">:</span> <span class="mi">5</span>
+<span class="p">});</span></pre>
+              </div>
+            </figure>
+
+<h2 id="toc_6">The Result</h2>
+
+<p><video controls>
+<source src="http://jronallo.github.io/mep-feature-time-rail-thumbnails/mep-feature-time-rail-thumbnails-example.mp4" type="video/mp4"/>
+<span>Your browser won&rsquo;t play an MP4. You can <a href="http://jronallo.github.io/mep-feature-time-rail-thumbnails/mep-feature-time-rail-thumbnails-example.mp4">download it instead</a>.</span>
+</video></p>
+
+<p>See <a href="http://d.lib.ncsu.edu/collections/catalog/ua024-002-bx0149-066-001">Bug Sprays and Pets</a> with sound.</p>
+
+<h2 id="toc_7">Installation</h2>
+
+<p>The plugin can either be installed using the <a href="https://github.com/jronallo/mep-feature-time-rail-thumbnails#rails">Rails gem</a> or the <a href="https://github.com/jronallo/mep-feature-time-rail-thumbnails#bower">Bower package</a>.</p>
+
+<h2 id="toc_8">MutationObserver</h2>
+
+<p>One of the DOM API features I hadn&rsquo;t used before is <a href="http://www.w3.org/TR/dom/#mutation-observers">MutationObserver</a>. One thing the thumbnail preview plugin needs to do is know what time is being hovered over on the time rail. I could have calculated this myself, but I wanted to rely on MediaElement.js to provide the information. Maybe there&rsquo;s a callback in MediaElement.js for when this is updated, but I couldn&rsquo;t find it. Instead I use a MutationObserver to watch for when MediaElement.js changes the DOM for the default display of a timestamp on hover. Looking at the time code there then allows the plugin to pick the correct cue text to use for the media fragment. MutationObserver is more performant than the now deprecated MutationEvents. I&rsquo;ve experienced very little latency using a MutationObserver which allows it to trigger lots of events quickly. </p>
+
+<p>The plugin currently only works in the <a href="http://caniuse.com/mutationobserver">browsers that support MutationObserver</a>, which is most current browsers. In browsers that do not support MutationObserver the plugin will do nothing at all and just show the default timestamp on hover. I&rsquo;d be interested in other ideas on how to solve this kind of problem, though it is nice to know that plugins that rely on another library have tools like MutationObserver around.</p>
+
+<h2 id="toc_9">Other Caveats</h2>
+
+<p>This plugin is brand new and works for me, but there are some caveats. All the images in the sprite must have the same dimensions. The durations for each thumbnail must be consistent. The timestamps currently aren&rsquo;t really used to determine which thumbnail to display, but is instead faked relying on the consistent durations. The plugin just does some simple addition and plucks out the correct thumbnail from the array of cues. Hopefully in future versions I can address some of these issues.</p>
+
+<h2 id="toc_10">Discoveries</h2>
+
+<p>Having this feature be available for our digitized video, we&rsquo;ve already found things in our collection that we wouldn&rsquo;t have seen before. You can see how a <a href="http://d.lib.ncsu.edu/collections/catalog/ua100_014-006-cn0056-004-001#t=545">&ldquo;Profession with a Future&rdquo;</a> evidently involves shortening your life by smoking (at about 9:05). I found a <a href="http://d.lib.ncsu.edu/collections/catalog/ua024-002-bx0113-241-001#t=133">spinning spherical display of Soy-O and synthetic meat</a> (at about 2:12). Some videos <a href="http://d.lib.ncsu.edu/collections/catalog/ua024_007-college-days">switch between black &amp; white and color</a> which you wouldn&rsquo;t know just from the poster image. And there are some videos, like talking heads, that appear from the thumbnails to have no surprises at all. But maybe you like watching <a href="http://d.lib.ncsu.edu/collections/catalog/AV9_FM_1-boiling-process">boiling water</a> for almost 13 minutes.</p>
+
+<p>OK, this isn&rsquo;t really a discovery in itself, but it is fun to watch a <a href="http://d.lib.ncsu.edu/collections/catalog/ua024-002-bx0147-060-001">head banging JFK</a> as you go back and forth over the time rail. He really likes milk. And Eisenhower had a <a href="https://d.lib.ncsu.edu/collections/catalog/AV2_FM_296-people2people">different speaking style</a>.</p>
+
+<p>You can see this in action for all of our <a href="https://d.lib.ncsu.edu/collections/catalog?f[format][]=Video">videos on the NCSU Libraries&#39; Rare &amp; Unique Digital Collections site</a> and make your own discoveries. Let me know if you find anything interesting.</p>
+
+<h2 id="toc_11">Preview Thumbnail Sprite Reuse</h2>
+
+<p>Since we already had the sprite images for the time rail hover preview, I created another interface to allow a user to jump through a video. Under the video player is a control button that shows a modal with the thumbnail sprite. The sprite alone provides a nice overview of the video that allows you to see very quickly what might be of interest. I used an image map so that the rather large sprite images would only have to be in memory once. (Yes, image maps are still valid in HTML5 and have their legitimate uses.) <a href="https://github.com/stowball/jQuery-rwdImageMaps">jQuery RWD Image Maps</a> allows the map area coordinates to scale up and down across devices. Hovering over a single thumb will show the timestamp for that frame. Clicking a thumbnail will set the current time for the video to be the start time of that section of the video. One advantage of this feature is that it doesn&rsquo;t require the kind of fine motor skill necessary to hover over the video player time rail and move back and forth to show each of the thumbnails.</p>
+
+<p>This feature has just been added this week and deployed to production this week, so I&rsquo;m looking for feedback on whether folks find this useful, how to improve it, and any bugs that are encountered.</p>
+
+<h2 id="toc_12">Summarization Services</h2>
+
+<p>I expect that automated summarization services will become increasingly important for researchers as archives do more large-scale digitization of physical collections and collect more born digital resources in bulk. We&rsquo;re already seeing projects like <a href="https://github.com/edsu/fondz">fondz</a> which autogenerates archival description by extracting the contents of born digital resources. At NCSU Libraries we&rsquo;re working on other ways to summarize the metadata we create as we ingest born digital collections. As we learn more what summarization services and interfaces are useful for researchers, I hope to see more work done in this area. And this is just the beginning of what we can do with summarizing archival video.</p>
+
+  </article>
+  <hr>
+  <div class="pagination">
+    
+      <a class="btn btn-default" style="white-space: normal" href="/blog/the-lenovo-x240-keyboard-and-the-end-insert-key-with-fnlk-on-as-a-software-developer-on-linux/">
+        <i class="icon-arrow-left"></i> The Lenovo X240 Keyboard and the End/Insert Key With FnLk On as a Software Developer on Linux
+      </a>
+    
+    
+  </div>
+
+      </div>
+      <div id="footer-push"></div>
+    </div><!-- end page-wrap -->
+    <footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">by Jason Ronallo</div>
+      <div class="col-md-6 social">
+        <a href="mailto:jronallo@gmail.com"><i class="icon-envelope"></i></a>
+        <a href="https://plus.google.com/116830234234977722391?rel=author"><i class="icon-google-plus-sign"></i></a>
+        <a href="http://twitter.com/ronallo"><i class="icon-twitter-sign"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>
