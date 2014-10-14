@@ -1,0 +1,19 @@
+/* line 1, /home/jnronall/code/prelim_inventory_github_pages_redirect/source/stylesheets/header.css.scss */
+#masthead {
+  padding: 20px;
+  background-color: black;
+  background: url(/images/background2-3d2a56da.png);
+  color: white; }
+  /* line 7, /home/jnronall/code/prelim_inventory_github_pages_redirect/source/stylesheets/header.css.scss */
+  #masthead a {
+    color: white; }
+    /* line 9, /home/jnronall/code/prelim_inventory_github_pages_redirect/source/stylesheets/header.css.scss */
+    #masthead a:hover {
+      text-decoration: none; }
+  /* line 13, /home/jnronall/code/prelim_inventory_github_pages_redirect/source/stylesheets/header.css.scss */
+  #masthead h1, #masthead h2 {
+    margin: 0;
+    padding: 0; }
+  /* line 17, /home/jnronall/code/prelim_inventory_github_pages_redirect/source/stylesheets/header.css.scss */
+  #masthead h2 {
+    color: #B1B1B1; }
