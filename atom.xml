@@ -10,6 +10,17 @@
     <name>Jason Ronallo</name>
   </author>
   <entry>
+    <title>Site moved to http://ronallo.com</title>
+    <link rel="alternate" href="http://jronallo.github.io/blog-moved/"/>
+    <id>http://jronallo.github.io/blog-moved/</id>
+    <published>2014-10-16T10:00:00Z</published>
+    <updated>2014-10-16T10:00:00Z</updated>
+    <author>
+      <name>Jason Ronallo</name>
+    </author>
+    <content type="html">&lt;h1&gt;This blog has moved to &lt;a href="http://ronallo.com"&gt;http://ronallo.com&lt;/a&gt;&lt;/h1&gt;</content>
+  </entry>
+  <entry>
     <title>A Plugin For Mediaelement.js For Preview Thumbnails on Hover Over the Time Rail Using WebVTT</title>
     <link rel="alternate" href="http://jronallo.github.io/blog/a-plugin-for-mediaelement-js-for-preview-thumbnails-on-hover-over-the-time-rail/"/>
     <id>http://jronallo.github.io/blog/a-plugin-for-mediaelement-js-for-preview-thumbnails-on-hover-over-the-time-rail/</id>

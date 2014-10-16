@@ -227,6 +227,10 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>http://jronallo.github.io/blog-moved</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>http://jronallo.github.io/blog/tags/octopress</loc>
     <priority>0.7</priority>
   </url>
