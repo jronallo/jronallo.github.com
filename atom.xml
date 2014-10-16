@@ -18,7 +18,7 @@
     <author>
       <name>Jason Ronallo</name>
     </author>
-    <content type="html">&lt;h1&gt;This blog has moved to &lt;a href="http://ronallo.com"&gt;http://ronallo.com&lt;/a&gt;&lt;/h1&gt;</content>
+    <content type="html">&lt;h1&gt;This blog has moved to &lt;a href="http://ronallo.com"&gt;http://ronallo.com&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Please update your feed reader.&lt;/p&gt;</content>
   </entry>
   <entry>
     <title>A Plugin For Mediaelement.js For Preview Thumbnails on Hover Over the Time Rail Using WebVTT</title>
